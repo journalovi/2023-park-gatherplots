@@ -1,0 +1,10 @@
+project:
+  title: "jovi-template-quarto"
+
+format:
+  html:
+    theme: lumen
+    toc: true
+
+number-sections: true
+number-depth: 2

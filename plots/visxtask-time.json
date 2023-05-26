@@ -1,0 +1,81 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v2.json",
+  "data": {
+    "values":[
+      {"factor":"jitter - T1","lower":31.35627410714285,"average":36.5385855,"upper":42.54684464285717},
+      {"factor":"jitter - T2","lower":22.91074464285714,"average":26.12874048809525,"upper":29.700855654761895},
+      {"factor":"jitter - T3","lower":28.712643750000016,"average":32.78311085714283,"upper":37.513558630952375},
+      {"factor":"jitter - T4","lower":28.169314880952374,"average":33.122776059523844,"upper":38.324122023809515},
+      {"factor":"jitter - T5","lower":27.017440178571434,"average":30.426190571428567,"upper":34.37578005952382},
+      {"factor":"abs - T1","lower":34.04816383928573,"average":43.18795496428573,"upper":54.83237299107138},
+      {"factor":"abs - T2","lower":30.801999776785706,"average":34.88269471428574,"upper":39.11841875},
+      {"factor":"abs - T3","lower":32.06828839285714,"average":41.08548838392857,"upper":53.34821674107144},
+      {"factor":"abs - T4","lower":27.35127053571428,"average":30.40017641071432,"upper":33.730720982142856},
+      {"factor":"abs - T5","lower":30.331996874999994,"average":34.13457065178568,"upper":37.9455388392857},
+      {"factor":"norm - T1","lower":34.60493526785716,"average":42.28143367857143,"upper":52.51266741071427},
+      {"factor":"norm - T2","lower":30.484036607142862,"average":34.20443782142861,"upper":38.74711763392856},
+      {"factor":"norm - T3","lower":31.282215625000003,"average":35.485024517857134,"upper":39.79559665178574},
+      {"factor":"norm - T4","lower":29.665243303571415,"average":33.48564042857139,"upper":37.710895535714265},
+      {"factor":"norm - T5","lower":31.893364285714284,"average":36.412278973214235,"upper":41.55107991071431},
+      {"factor":"both - T1","lower":44.43873596491229,"average":51.500501307017565,"upper":59.04198486842108},
+      {"factor":"both - T2","lower":46.37514780701753,"average":56.26944468421055,"upper":67.92540065789471},
+      {"factor":"both - T3","lower":39.2063125,"average":45.19569470175443,"upper":51.49325087719298},
+      {"factor":"both - T4","lower":36.82283070175437,"average":40.97275954385964,"upper":45.16707346491226},
+      {"factor":"both - T5","lower":45.7158173245614,"average":52.234278078947334,"upper":59.93715964912281}
+      ]},
+  "layer": [
+    {
+      "mark": {
+        "type": "point",
+        "filled": true
+      },
+      "encoding": {
+        "x": {
+          "field": "average",
+          "type": "quantitative",
+          "scale": {
+            "zero": true
+          },
+          "axis": {
+            "title": "Completion time (sec)"
+          }
+        },
+        "y": {
+          "field": "factor",
+          "sort": null,  
+          "type": "ordinal",
+          "axis": {
+            "title": "Visualization | Task"
+          }
+        },
+        "color": {
+          "value": "black"
+        }
+      }
+    },
+    {
+      "mark": "rule",
+      "encoding": {
+        "x": {
+          "field": "lower",
+          "type": "quantitative",
+          "scale": {
+            "zero": true
+          }
+        },
+        "x2": {
+          "field": "upper",
+          "type": "quantitative",
+          "scale": {
+            "zero": true
+          }
+        },
+        "y": {
+          "field": "factor",
+          "sort": null,  
+          "type": "ordinal"
+        }
+      }
+    }
+  ]
+}

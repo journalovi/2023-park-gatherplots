@@ -1,0 +1,82 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v2.json",
+  "data": {
+    "values":[
+      {"factor":"jitter - T1","lower":5.5,"average":5.805035714285692,"upper":6.095238095238095},
+      {"factor":"jitter - T2","lower":5.333035714285714,"average":5.665285714285727,"upper":5.988095238095238},
+      {"factor":"jitter - T3","lower":4.416369047619048,"average":4.75598809523809,"upper":5.107142857142857},
+      {"factor":"jitter - T4","lower":4.619047619047619,"average":4.9492619047619,"upper":5.274107142857143},
+      {"factor":"jitter - T5","lower":3.999702380952381,"average":4.282964285714284,"upper":4.583630952380952},
+      {"factor":"abs - T1","lower":6.232142857142857,"average":6.442214285714286,"upper":6.625},
+      {"factor":"abs - T2","lower":5.080133928571429,"average":5.36495535714286,"upper":5.660714285714286},
+      {"factor":"abs - T3","lower":5.205357142857143,"average":5.510267857142856,"upper":5.785714285714286},
+      {"factor":"abs - T4","lower":5.241071428571429,"average":5.571812499999997,"upper":5.892857142857143},
+      {"factor":"abs - T5","lower":4.348214285714286,"average":4.661874999999999,"upper":4.955580357142857},
+      {"factor":"norm - T1","lower":6.214285714285714,"average":6.426366071428587,"upper":6.625},
+      {"factor":"norm - T2","lower":5.214285714285714,"average":5.511392857142859,"upper":5.794642857142857},
+      {"factor":"norm - T3","lower":4.830133928571429,"average":5.1552589285714365,"upper":5.482142857142857},
+      {"factor":"norm - T4","lower":3.4375,"average":3.8339374999999976,"upper":4.241071428571429},
+      {"factor":"norm - T5","lower":4.267857142857143,"average":4.576955357142851,"upper":4.892857142857143},
+      {"factor":"both - T1","lower":6.035087719298246,"average":6.280842105263156,"upper":6.526315789473684},
+      {"factor":"both - T2","lower":5.192763157894737,"average":5.502350877193001,"upper":5.798245614035087},
+      {"factor":"both - T3","lower":5.2894736842105265,"average":5.572964912280705,"upper":5.842324561403509},
+      {"factor":"both - T4","lower":5.46469298245614,"average":5.753798245614037,"upper":6.017543859649122},
+      {"factor":"both - T5","lower":4.578947368421052,"average":4.9015964912280685,"upper":5.201973684210527}
+      ]},
+  "layer": [
+    {
+      "mark": {
+        "type": "point",
+        "filled": true
+      },
+      "encoding": {
+        "x": {
+          "field": "average",
+          "type": "quantitative",
+          "scale": {
+            "zero": true,
+            "domain": [1, 7]
+          },
+          "axis": {
+            "title": "Confidence"
+          }
+        },
+        "y": {
+          "field": "factor",
+          "sort": null,  
+          "type": "ordinal",
+          "axis": {
+            "title": "Visualization | Task"
+          }
+        },
+        "color": {
+          "value": "black"
+        }
+      }
+    },
+    {
+      "mark": "rule",
+      "encoding": {
+        "x": {
+          "field": "lower",
+          "type": "quantitative",
+          "scale": {
+            "zero": true
+          }
+        },
+        "x2": {
+          "field": "upper",
+          "type": "quantitative",
+          "scale": {
+            "zero": true
+          }
+        },
+        "y": {
+          "field": "factor",
+          "sort": null,  
+          "type": "ordinal"
+        }
+      }
+    }
+  ]
+}

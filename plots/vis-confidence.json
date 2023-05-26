@@ -1,0 +1,66 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v2.json",
+  "data": {
+    "values":[
+      {"factor":"jitter","lower":4.940476190476191,"average":5.0945214285714515,"upper":5.2524404761904755},
+      {"factor":"abs","lower":5.382142857142857,"average":5.509282142857144,"upper":5.641071428571428},
+      {"factor":"norm","lower":4.935669642857143,"average":5.099407142857141,"upper":5.255357142857143},
+      {"factor":"both","lower":5.484210526315789,"average":5.607940350877194,"upper":5.733377192982456}
+      ]},
+  "layer": [
+    {
+      "mark": {
+        "type": "point",
+        "filled": true
+      },
+      "encoding": {
+        "x": {
+          "field": "average",
+          "type": "quantitative",
+          "scale": {
+            "zero": true,
+            "domain": [1, 7]
+          },
+          "axis": {
+            "title": "Confidence"
+          }
+        },
+        "y": {
+          "field": "factor",
+          "sort": null,  
+          "type": "ordinal",
+          "axis": {
+            "title": "Visualization"
+          }
+        },
+        "color": {
+          "value": "black"
+        }
+      }
+    },
+    {
+      "mark": "rule",
+      "encoding": {
+        "x": {
+          "field": "lower",
+          "type": "quantitative",
+          "scale": {
+            "zero": true
+          }
+        },
+        "x2": {
+          "field": "upper",
+          "type": "quantitative",
+          "scale": {
+            "zero": true
+          }
+        },
+        "y": {
+          "field": "factor",
+          "sort": null,  
+          "type": "ordinal"
+        }
+      }
+    }
+  ]
+}
