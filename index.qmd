@@ -10,6 +10,7 @@ author:
         state: TX
         country: USA
   - name: Sung-Hee Kim
+    orcid: 0000-0002-9716-8349
     email: sungheekim02@gmail.com
     affiliations:
       - name: Dong-eui University
@@ -26,7 +27,7 @@ author:
 bibliography: bibliography.bib
 format:
   html:
-    toc: false
+    toc: true
     echo: false
     keep-hidden: true
     code-tools: true
