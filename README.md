@@ -20,6 +20,7 @@ Results from a crowdsourced user study show that gatherplots enable people to as
 #### Materials
 
 Source code for Gatherplots can be found at [https://github.com/intuinno/gatherplot](https://github.com/intuinno/gatherplot).
+Research materials associated with the crowdsourced user study can be found on OSF at [https://osf.io/bk9cx/](https://osf.io/bk9cx/).
 
 #### Data Collection
 
