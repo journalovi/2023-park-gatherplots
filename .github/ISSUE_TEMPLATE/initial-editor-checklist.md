@@ -1,8 +1,8 @@
 ---
 name: Initial Editor Checklist
 about: Checklist for editors to fill out prior to review
-title: ''
-labels: ''
+title: Initial Editor Checklist
+labels: pre-review
 assignees: ''
 
 ---
