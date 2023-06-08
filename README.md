@@ -1,8 +1,9 @@
+```diff
+! This paper is under review on the experimental track of the [Journal of Visualization and Interaction](https://www.journalovi.org/).
+```
+
 # gatherplots
 Gatherplots interactive article
-```diff
-! text This paper is under review on the experimental track of the [Journal of Visualization and Interaction](https://www.journalovi.org/).
-```
 
 ## Abstract
 
