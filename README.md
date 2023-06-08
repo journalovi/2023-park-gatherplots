@@ -1,5 +1,5 @@
 ```diff
-! This paper is under review on the experimental track of the [Journal of Visualization and Interaction](https://www.journalovi.org/).
+! This paper is under review on the experimental track of the Journal of Visualization and Interaction.
 ```
 
 # gatherplots
