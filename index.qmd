@@ -33,7 +33,7 @@ format:
     code-tools: true
 ---
 
-::: {.callout-important appearance="simple" collapse=false}
+::: {.callout-important appearance="simple"}
 ## Under Review {.unnumbered}
 This paper is under review on the experimental track of the [Journal of Visualization and Interaction](https://www.journalovi.org/).
 :::
