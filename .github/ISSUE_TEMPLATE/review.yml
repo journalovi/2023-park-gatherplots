@@ -22,10 +22,14 @@ body:
     label: Review
     description: >
       Please comment on:
+
       
       - how this paper advances our knowledge of InfoVis and/or HCI.
+      
       - the credibility of the manuscript’s claims (if relevant).
+      
       - the clarity of its evidence (if relevant).
+
       
       We do not prioritize novelty in the same way that e.g. VIS or CHI do. A replication study, 
       for example, also advances our collective knowledge in that it either confirms or disputes 
@@ -40,10 +44,14 @@ body:
       and build on research we publish. Please comment on how easy it would be for other researchers 
       to build on top of this work. Some (non-exhaustive) examples:
 
+
       - Are questionnaires/interview guidelines well documented?
+      
       - If any custom software/hardware prototypes were used, are these included? (e.g. source code, 
         CAD files, ...)
+      
       - Has the data analysis procedure been described/included? (e.g. coding guidelines, R scripts, ...)
+
       
       If an artifact is missing/not included, e.g. for ethical reasons, the manuscript must clearly 
       describe the characteristics of these artifacts and adequately justify the tradeoff between 
@@ -72,6 +80,7 @@ body:
       What would be the most suitable next step for this submission? Note that we assume roughly 
       1 month of turnaround time for minor revisions, and 3 months for major revisions (after the 
       decision has been released to authors). 
+
       
       Please keep in mind that we purposefully try to 
       avoid the usual "one-shot" review process: we hope that you, as a reviewer, will guide this 
@@ -80,9 +89,15 @@ body:
       Unlike other venues, your reviews and comments will be published along with the paper and 
       you will receive credit for them if you choose to sign the review.
 
+
       We are experimenting with an "endorsement" model on this track of JoVI, which means that
       your final decision to endorse or not endorse the paper will be published along with
-      the paper.
+      the paper. 
+      
+      
+      Please use "**Reject**" sparingly, and only if you think there are severe 
+      methodological/ethical/technical flaws that cannot be addressed in a reasonable timeframe, 
+      or if the paper has not improved substantially over several revisions.
     options:
     - >
         Endorse: I am willing to endorse this paper, with at most minor copyediting.
@@ -90,19 +105,16 @@ body:
         Minor revisions: this paper requires some smaller changes, after which I am confident
         I would be able to endorse it.
     - >
-        Major revisions: this paper requires substantial improvements which I will need to
-        re-review in order to decide whether or not to endorse it.
+        Major revisions: this paper requires substantial improvements that I will need to
+        re-review to decide whether or not to endorse it.
     - >
-        Reject: this paper cannot be fixed to the point where I would endorse it. Please use
-        sparingly, and only if you think there are severe methodological/ethical/technical flaws
-        that cannot be addressed in a reasonable timeframe, or if the paper has not improved
-        substantially over several revisions.
+        Reject: this paper cannot be fixed to the point where I would endorse it.
   validations:
     required: true
 - type: textarea
   attributes:
     label: Requested changes
-    description: |
+    description: >
       If minor or major revisions were suggested above, clearly indicate the requested changes 
       for the paper.
   validations:
@@ -110,7 +122,7 @@ body:
 - type: textarea
   attributes:
     label: ORCID
-    description: |
+    description: >
       If you choose to sign your review, please add your ORCID URL so the review can be unambiguously 
       credited to you.
   validations:
