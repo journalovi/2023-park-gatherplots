@@ -4,9 +4,10 @@ title: "[REVIEW] <title>"
 labels: [Review]
 body:
 - type: markdown
-  value: |
-    Please read the [JoVI Reviewer Guidelines](https://www.journalovi.org/reviewer-guide.html) 
-    before writing your review.
+  attributes:
+    value: |
+      Please read the [JoVI Reviewer Guidelines](https://www.journalovi.org/reviewer-guide.html) 
+      before writing your review.
 - type: checkboxes
   attributes:
     label: Conflicts of interest
