@@ -8,6 +8,10 @@ body:
     value: >
       Please read the [JoVI Reviewer Guidelines](https://www.journalovi.org/reviewer-guide.html) 
       before writing your review.
+
+
+      As this is the experimental track, we welcome unsolicited reviews from members of the research community, 
+      or even opening a [smaller issue](new) if you do not wish to conduct a full review.
 - type: checkboxes
   attributes:
     label: Conflicts of interest
