@@ -10,8 +10,10 @@ body:
       before writing your review.
 
 
-      As this is the experimental track, we welcome unsolicited reviews from members of the research community, 
-      or even opening a [smaller issue](new) if you do not wish to conduct a full review.
+      As this is the [experimental track](https://www.journalovi.org/submit.html#experimental), 
+      in addition to reviews from invited reviewers, we welcome unsolicited reviews from members 
+      of the broader community. You may also open a [smaller issue](new) if you do not wish to
+      conduct a full review.
 - type: checkboxes
   attributes:
     label: Conflicts of interest
