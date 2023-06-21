@@ -105,6 +105,7 @@ body:
       methodological/ethical/technical flaws that cannot be addressed in a reasonable timeframe, 
       or if the paper has not improved substantially over several revisions.
     options:
+    - 
     - >
         Endorse: I am willing to endorse this paper, with at most minor copyediting.
     - >
@@ -124,7 +125,7 @@ body:
       If minor or major revisions were suggested above, clearly indicate the requested changes 
       for the paper.
   validations:
-    required: false
+    required: true
 - type: textarea
   attributes:
     label: ORCID
