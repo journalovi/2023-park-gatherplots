@@ -80,18 +80,18 @@ body:
       the paper.
     options:
     - label: |
-      Endorse: I am willing to endorse this paper, with at most minor copyediting.
+        Endorse: I am willing to endorse this paper, with at most minor copyediting.
     - label: |
-      Minor revisions: this paper requires some smaller changes, after which I am confident
-      I would be able to endorse it.
+        Minor revisions: this paper requires some smaller changes, after which I am confident
+        I would be able to endorse it.
     - label: |
-      Major revisions: this paper requires substantial improvements which I will need to
-      re-review in order to decide whether or not to endorse it.
+        Major revisions: this paper requires substantial improvements which I will need to
+        re-review in order to decide whether or not to endorse it.
     - label: |
-      Reject: this paper cannot be fixed to the point where I would endorse it. Please use
-      sparingly, and only if you think there are severe methodological/ethical/technical flaws
-      that cannot be addressed in a reasonable timeframe, or if the paper has not improved
-      substantially over several revisions.
+        Reject: this paper cannot be fixed to the point where I would endorse it. Please use
+        sparingly, and only if you think there are severe methodological/ethical/technical flaws
+        that cannot be addressed in a reasonable timeframe, or if the paper has not improved
+        substantially over several revisions.
   validations:
     required: false
 - type: textarea
