@@ -52,7 +52,8 @@ body:
 - type: checkboxes
   attributes:
     label: Submission categories
-    description: What categories does this work fall into? Check any that apply:
+    description: |
+      What categories does this work fall into? Check any that apply:
     options:
     - label: Registered Report
     - label: Replication Study
