@@ -14,8 +14,8 @@ body:
       [Chartability](https://chartability.github.io/POUR-CAF/). Chartability also has links to relevant resources and
       tools for the checks below.
 
-      Rememebr that this accessibility review is not here to find reasdons to reject teh paper but to help the authors
-      make it accessuible for everyone. In the comment section, add suggestions for making improvemens and if you have
+      Remember that this accessibility review is not here to find reasons to reject the paper but to help the authors
+      make it accessible for everyone. In the comment section, add suggestions for making improvements and if you have
       link to good examples.
 
       If you did not test a particular item or it is not applicable, do not check it off an explain in the comments.
@@ -27,11 +27,11 @@ body:
 
       Learn more about these checks in [the Chartability section about perceivable](https://chartability.github.io/POUR-CAF/#perceivable).
     options:
-    - label: Contrast of all text and elements is sufficient. Geometries and large text must have >3:1 contrast against background, Regular text must have >4.5:1.
+    - label: Contrast of all text and elements is sufficient. Geometries and large text must have >3:1 contrast against background. Regular text must have >4.5:1.
     - label: Content has non-visual alternatives. All figures have alt text and videos have transcripts. Equations are screen reader accessible.
     - label: Font sizes for all texts are sufficiently large. Text must not be smaller than 9pt/12px in size. Ideally only minor text is rendered at 9pt (e.g., axis labels) while all other text is larger.
     - label: The article works even if I could not perceive colors. Color should never be used alone to communicate meaning.
-    - label: The article can be navigated comfortably with a screen reader. There are no unnecessary accessibility elements (e.g. axis ticks and labels) that clutter the screen reader experience. 
+    - label: The article can be navigated comfortably with a screen reader. There are no unnecessary accessibility elements (e.g., axis ticks and labels) that clutter the screen reader experience. 
 - type: checkboxes
   attributes:
     label: Screen reader
@@ -60,7 +60,7 @@ body:
   attributes:
     label: Comments on Perceivable
     description: >
-      Please add comments on any perceivaility failures (even new ones not listed above). If it makes sense, add screenshots, and suggest improvements.
+      Please add comments on any perceivability failures (even new ones not listed above). If it makes sense, add screenshots, and suggest improvements.
   validations:
     required: true
 
@@ -86,7 +86,7 @@ body:
 
 - type: checkboxes
   attributes:
-    label: Understanable
+    label: Understandable
     description: >
       These checks help ensure that information or data are presented without ambiguity, with clarity, and in a way that minimizes cognitive load.
 
@@ -153,7 +153,7 @@ body:
     - label: The article is readable on a phone.
     - label: The article can be zoomed and font-sizes change appropriately. The layout of the page does not break when zooming in or changing the font size (e.g., using CMD + or CMD - on macOS).
     - label: Long animations (if they exist) can be paused or stopped. Animations should be videos, not GIFs as they cannot be paused.
-    - label: Designs and charts use a consistent and familiar design (fonts, colors, etc). Interaction deftauls should be consistent for all interactive elements.
+    - label: Designs and charts use a consistent and familiar design (fonts, colors, etc). Interaction defaults should be consistent for all interactive elements.
 - type: textarea
   attributes:
     label: Comments on Flexible
