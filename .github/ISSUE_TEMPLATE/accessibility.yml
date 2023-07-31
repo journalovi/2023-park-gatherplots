@@ -10,25 +10,27 @@ body:
       before writing your review.
 
       This review checks for accessibility issues in the paper and helps authors to make their findings readable by
-      anyone. This review checklist is by no means complete and largely based on [Chartability](https://chartability.github.io/POUR-CAF/).
+      anyone. This review checklist is by no means complete and largely based on
+      [Chartability](https://chartability.github.io/POUR-CAF/). Chartability also has links to relevant resources and
+      tools for the checks below.
+
+      If you did not test a particular item or it is not applicable, do not check it off an explain in the comments.
 - type: checkboxes
   attributes:
     label: Perceivable
     description: >
       These checks help ensure that users can easily identify content using their senses: sight, sound, and touch.
 
-      Learn more in [Chartability](https://chartability.github.io/POUR-CAF/#perceivable)
+      Learn more about these perceivability checklist in [Chartability](https://chartability.github.io/POUR-CAF/#perceivable).
     options:
     - label: Contrast of all text and elements is sufficient. Geometries and large text must have >3:1 contrast against background, Regular text must have >4.5:1.
     - label: Content has non-visual alternatives. All figures have alt text and videos have transcripts. Equations are screen reader accessible.
     - label: Font sizes for all texts are sufficiently large. Text must not be smaller than 9pt/12px in size. Ideally only minor text is rendered at 9pt (e.g., axis labels) while all other text is larger.
     - label: The article works even if I could not perceive colors. Color should never be used alone to communicate meaning.
     - label: The article can be navigated comfortably with a screen reader. Headings, paragraphs, and figures are tagged correctly. There are no unnecessary elements (e.g. axis ticks and labels clutter the screen reader experience).
-  validations:
-    required: true
 - type: checkboxes
   attributes:
-    label: Screen reader used
+    label: Screen reader
     description: >
       Which screen reader did you use for the tests above?
     options:
@@ -41,7 +43,7 @@ body:
     required: true
 - type: checkboxes
   attributes:
-    label: Browser used
+    label: Browser
     description: >
       Which browser did you use for the tests above?
     options:
@@ -54,9 +56,30 @@ body:
   attributes:
     label: Comments on Perceivable
     description: >
-      Please add comments on any perceivaility failures. If it makes sense, add screenshots, and suggest improvements.
+      Please add comments on any perceivaility failures (even new ones not listed above). If it makes sense, add screenshots, and suggest improvements.
   validations:
     required: true
+
+- type: checkboxes
+  attributes:
+    label: Operable
+    description: >
+      These checks help ensure that users all controls are error-tolerant, discoverable, and multi-modal (not just mouse operable, but using keyboard, etc).
+
+      Learn more about these operable checklist in [Chartability](https://chartability.github.io/POUR-CAF/#operable).
+    options:
+    - label: If there are interactive elements in the article, they can be operated with a keyboard.
+    - label: If there are interactive elements in the article, there are textual instructions for how to use them.
+    - label: When navigating over the article with a keyboard, the focus indicator is always visible.
+    - label: Interactions that work with a mouse also work on a touch screen.
+- type: textarea
+  attributes:
+    label: Comments on Operable
+    description: >
+      Please add comments on any operability failures (even new ones not listed above). If it makes sense, add screenshots, and suggest improvements.
+  validations:
+    required: true
+
 - type: textarea
   attributes:
     label: ORCID
