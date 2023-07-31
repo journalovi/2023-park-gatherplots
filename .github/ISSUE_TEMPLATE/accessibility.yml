@@ -1,6 +1,6 @@
 name: Accessibility Review
 description: Provide an accessibility review for this paper
-title: "[REVIEW] <title>"
+title: "[REVIEW] [Accessibility] <title>"
 labels: [Review]
 body:
 - type: markdown
@@ -68,7 +68,7 @@ body:
   attributes:
     label: Operable
     description: >
-      These checks help ensure that users all controls are error-tolerant, discoverable, and multi-modal (not just mouse operable, but using keyboard, etc).
+      These checks help ensure that all controls are error-tolerant, discoverable, and multi-modal (not just mouse operable, but using keyboard, etc).
 
       Learn more about these checks in [the Chartability section about operable](https://chartability.github.io/POUR-CAF/#operable).
     options:
