@@ -15,10 +15,10 @@ body:
       tools for the checks below.
 
       Remember that this accessibility review is not here to find reasons to reject the paper but to help the authors
-      make it accessible for everyone. In the comment section, add suggestions for making improvements and if you have
+      make it accessible for everyone. In the comment section, add suggestions for making improvements and if you can,
       link to good examples.
 
-      If you did not test a particular item or it is not applicable, do not check it off an explain in the comments.
+      If you did not test a particular item or it is not applicable, do not check it off and explain in the comments.
 - type: checkboxes
   attributes:
     label: Perceivable
@@ -133,7 +133,7 @@ body:
     - label: The data density of all charts is appropriate. Use clustering or other data reduction techniques if elements compete for space but explain the method.
     - label: Navigation and interaction feels intuitive with all interaction methods (mouse, keyboard, touch).
     - label: All visually apparent features and relationships are described.
-    - label: Formatting makes values human-readable. Use , or space to separate thousands. Align numbers to the right. Use smallest, appropriate number of significant digits.
+    - label: Formatting makes values human-readable. Use , or space to separate thousands. Align numbers to the right. Use the smallest, appropriate number of significant digits.
 - type: textarea
   attributes:
     label: Comments on Assistive
