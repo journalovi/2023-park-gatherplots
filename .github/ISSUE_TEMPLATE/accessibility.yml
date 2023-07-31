@@ -133,7 +133,7 @@ body:
     - label: The data density of all charts is appropriate. Use clustering or other data reduction techniques if elements compete for space but explain the method.
     - label: Navigation and interaction feels intuitive with all interaction methods (mouse, keyboard, touch).
     - label: All visually apparent features and relationships are described.
-    - label: Formatting makes values human-readable. Use `,` or space to separate thousands. Align numbers to the right. Use smallest, appropriate number of significant digits.
+    - label: Formatting makes values human-readable. Use , or space to separate thousands. Align numbers to the right. Use smallest, appropriate number of significant digits.
 - type: textarea
   attributes:
     label: Comments on Assistive
@@ -151,7 +151,7 @@ body:
       Learn more about these checks in [the Chartability section about flexible](https://chartability.github.io/POUR-CAF/#flexible).
     options:
     - label: The article is readable on a phone.
-    - label: The article can be zoomed and font-sizes change appropriately. The layout of the page does not break when zooming in or changing the font size (e.g., using <kbd>CMD</kbd>+<kbd>+</kbd>)
+    - label: The article can be zoomed and font-sizes change appropriately. The layout of the page does not break when zooming in or changing the font size (e.g., using CMD + or CMD - on macOS)
     - label: Long animations (if they exist) can be paused or stopped. Animations should be videos, not GIFs as they cannot be paused.
     - label: Designs and charts use a consistent and familiar design (fonts, colors, etc). Interaction deftauls should be consistent for all interactive elements.
 - type: textarea
