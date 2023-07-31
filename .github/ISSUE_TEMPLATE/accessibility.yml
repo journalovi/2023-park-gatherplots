@@ -14,6 +14,10 @@ body:
       [Chartability](https://chartability.github.io/POUR-CAF/). Chartability also has links to relevant resources and
       tools for the checks below.
 
+      Rememebr that this accessibility review is not here to find reasdons to reject teh paper but to help the authors
+      make it accessuible for everyone. In the comment section, add suggestions for making improvemens and if you have
+      link to good examples.
+
       If you did not test a particular item or it is not applicable, do not check it off an explain in the comments.
 - type: checkboxes
   attributes:
@@ -21,13 +25,13 @@ body:
     description: >
       These checks help ensure that users can easily identify content using their senses: sight, sound, and touch.
 
-      Learn more about these perceivability checklist in [Chartability](https://chartability.github.io/POUR-CAF/#perceivable).
+      Learn more about these checks in [the Chartability section about perceivable](https://chartability.github.io/POUR-CAF/#perceivable).
     options:
     - label: Contrast of all text and elements is sufficient. Geometries and large text must have >3:1 contrast against background, Regular text must have >4.5:1.
     - label: Content has non-visual alternatives. All figures have alt text and videos have transcripts. Equations are screen reader accessible.
     - label: Font sizes for all texts are sufficiently large. Text must not be smaller than 9pt/12px in size. Ideally only minor text is rendered at 9pt (e.g., axis labels) while all other text is larger.
     - label: The article works even if I could not perceive colors. Color should never be used alone to communicate meaning.
-    - label: The article can be navigated comfortably with a screen reader. Headings, paragraphs, and figures are tagged correctly. There are no unnecessary elements (e.g. axis ticks and labels clutter the screen reader experience).
+    - label: The article can be navigated comfortably with a screen reader. There are no unnecessary accessibility elements (e.g. axis ticks and labels) that clutter the screen reader experience. 
 - type: checkboxes
   attributes:
     label: Screen reader
@@ -66,7 +70,7 @@ body:
     description: >
       These checks help ensure that users all controls are error-tolerant, discoverable, and multi-modal (not just mouse operable, but using keyboard, etc).
 
-      Learn more about these operable checklist in [Chartability](https://chartability.github.io/POUR-CAF/#operable).
+      Learn more about these checks in [the Chartability section about operable](https://chartability.github.io/POUR-CAF/#operable).
     options:
     - label: If there are interactive elements in the article, they can be operated with a keyboard.
     - label: If there are interactive elements in the article, there are textual instructions for how to use them.
@@ -77,6 +81,81 @@ body:
     label: Comments on Operable
     description: >
       Please add comments on any operability failures (even new ones not listed above). If it makes sense, add screenshots, and suggest improvements.
+  validations:
+    required: true
+
+- type: checkboxes
+  attributes:
+    label: Understanable
+    description: >
+      These checks help ensure that information or data are presented without ambiguity, with clarity, and in a way that minimizes cognitive load.
+
+      Learn more about these checks in [the Chartability section about understandable](https://chartability.github.io/POUR-CAF/#understandable).
+    options:
+    - label: All charts have a title and a description.
+    - label: Changes in animated or interactive elements are easy to follow.
+    - label: All axes have clear labels (either explicit or implicitly given the context).
+    - label: There are legends for all charts that need them.
+- type: textarea
+  attributes:
+    label: Comments on Understandable
+    description: >
+      Please add comments on any understandability failures (even new ones not listed above). If it makes sense, add screenshots, and suggest improvements.
+  validations:
+    required: true
+
+- type: checkboxes
+  attributes:
+    label: Robust
+    description: >
+      These checks help ensure that the design is compliant with existing standards and works with the user's compliant, assistive technologies of choice.
+
+      Learn more about these checks in [the Chartability section about robust](https://chartability.github.io/POUR-CAF/#robust).
+    options:
+    - label: All buttons use the `button` tag.
+    - label: Headings, paragraphs, and figures are tagged correctly.
+- type: textarea
+  attributes:
+    label: Comments on Robust
+    description: >
+      Please add comments on any robustness failures (even new ones not listed above). If it makes sense, add screenshots, and suggest improvements.
+  validations:
+    required: true
+
+- type: checkboxes
+  attributes:
+    label: Assistive
+    description: >
+      These checks ensure that an otherwise perceivable and understandable article is not too complex to be accessible.
+
+      Learn more about these checks in [the Chartability section about assistive](https://chartability.github.io/POUR-CAF/#assistive).
+    options:
+    - label: The data density of all charts is appropriate. Use clustering or other data reduction techniques if elements compete for space but explain the method.
+    - label: Navigation and interaction feels intuitive with all interaction methods (mouse, keyboard, touch).
+    - label: All visually apparent features and relationships are described.
+    - label: Formatting makes values human-readable. Use `,` or space to separate thousands. Align numbers to the right. Use smallest, appropriate number of significant digits.
+- type: textarea
+  attributes:
+    label: Comments on Assistive
+    description: >
+      Please add comments on any assistive failures (even new ones not listed above). If it makes sense, add screenshots, and suggest improvements.
+  validations:
+    required: true
+
+- type: checkboxes
+  attributes:
+    label: Flexible
+    description: >
+      These checks ensure 
+
+      Learn more about these checks in [the Chartability section about flexible](https://chartability.github.io/POUR-CAF/#flexible).
+    options:
+    <key>- label: The article can be zoomed and font-sizes change appropriately. The layout of the page does not break when zooming in or changing the font size (e.g., using <kbd>CMD</kbd>+<kbd>+</kbd>)
+- type: textarea
+  attributes:
+    label: Comments on Flexible
+    description: >
+      Please add comments on any flexibility failures (even new ones not listed above). If it makes sense, add screenshots, and suggest improvements.
   validations:
     required: true
 
