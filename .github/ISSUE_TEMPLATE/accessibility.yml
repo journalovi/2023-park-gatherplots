@@ -146,14 +146,14 @@ body:
   attributes:
     label: Flexible
     description: >
-      These checks ensure 
+      These checks ensure that the design respects the users' preferences and that it provides presentation and operation control.
 
       Learn more about these checks in [the Chartability section about flexible](https://chartability.github.io/POUR-CAF/#flexible).
     options:
     - label: The article is readable on a phone.
     - label: The article can be zoomed and font-sizes change appropriately. The layout of the page does not break when zooming in or changing the font size (e.g., using CMD + or CMD - on macOS).
     - label: Long animations (if they exist) can be paused or stopped. Animations should be videos, not GIFs as they cannot be paused.
-    - label: Designs and charts use a consistent and familiar design (fonts, colors, etc). Interaction defaults should be consistent for all interactive elements.
+    - label: Style and charts use a consistent and familiar design (fonts, colors, etc). Interaction defaults should be consistent for all interactive elements.
 - type: textarea
   attributes:
     label: Comments on Flexible
