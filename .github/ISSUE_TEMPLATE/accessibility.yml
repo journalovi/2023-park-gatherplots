@@ -23,8 +23,11 @@ body:
   attributes:
     label: Reviewed version
     description: >
-      Find the Git commit hash for the version you are reviewing. You can get the hash via the Git command line or
-      [the GitHub UI](https://docs.github.com/en/pull-requests/committing-changes-to-your-project/creating-and-editing-commits/about-commits).
+      Provide the Git commit hash for the version you are reviewing. You can find it as an alphanumeric string, 
+      like `de76cd7`, next to the latest commit on the main GitHub page for the paper (read more about commits 
+      in [the GitHub help](https://docs.github.com/en/pull-requests/committing-changes-to-your-project/creating-and-editing-commits/about-commits)).
+      If you have checked out the project locally, you can also get the hash of the latest commit from the
+      commandline with `git rev-parse --short HEAD`.
   validations:
     required: true
 - type: checkboxes
