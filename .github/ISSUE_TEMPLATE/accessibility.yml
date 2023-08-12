@@ -19,6 +19,14 @@ body:
       link to good examples.
 
       If you did not test a particular item or it is not applicable, do not check it off and explain in the comments.
+- type: textarea
+  attributes:
+    label: Reviewed version
+    description: >
+      Find the Git commit hash for the version you are reviewing. You can get the hash via the Git command line or
+      [the GitHub UI](https://docs.github.com/en/pull-requests/committing-changes-to-your-project/creating-and-editing-commits/about-commits).
+  validations:
+    required: true
 - type: checkboxes
   attributes:
     label: Perceivable
