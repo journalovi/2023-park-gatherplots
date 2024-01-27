@@ -18,12 +18,11 @@ author:
         country: Republic of Korea
   - name: Niklas Elmqvist
     orcid: 0000-0001-5805-5301
-    email: elm@umd.edu
+    email: elm@cs.au.dk
     affiliations:
-      - name: University of Maryland, College Park
-        city: College Park
-        state: MD
-        country: USA
+      - name: Aarhus University
+        city: Aarhus
+        country: Denmark
 bibliography: bibliography.bib
 format:
   html:
@@ -31,6 +30,7 @@ format:
     echo: false
     keep-hidden: true
     code-tools: true
+    fig-responsive: true
 ---
 
 ::: {.callout-important appearance="simple"}
@@ -85,15 +85,20 @@ Beyond the embedded demonstration in this article, you can also find a live demo
 :::
 
 <!-- Teaser -->
-::: {#fig-teaser}
-![](figures/teaser.svg){fig.alt="Gatherplots showing a dataset related to cars, yielding overplotting in normal scatterplots."}
+::: {#fig-teaser layout-ncol=3}
+
+![Cylinders vs. MPG.](figures/teaser-1.svg){#fig-teaser1 fig-alt="Gatherplot showing MPG on the Y axis and Cylinders on the X axis for a car dataset of some 400 datapoints. Color is used to show three different origins: US (blue), Europe (orange), and Asia (green). The data is gathered in regular grids for each of the cylinder values clearly showing the distribution: four-cylinder cars have fairly uniform gas mileage, whereas six and eight-cylinder cars have lower gas mileage."}
+
+![Cylinders vs. Origin.](figures/teaser-2.svg){#fig-teaser2 fig-alt="Gatherplot showing Origin on the Y axis and Cylinders on the X axis for a car dataset of some 400 datapoints. A blue-white color scale is used to show gas mileage. The data is gathered in regular grids for each of the three origins and four cylinder values (4, 5, 6, 8). The grid cells show the data distrbution: all eight cylinder cars are from the U.S., and high cylinder count seems to lead to lower gas mileage."}
+
+![MPG vs. MPG.](figures/teaser-3.svg){#fig-teaser3 fig-alt="Gatherplot showing MPG on both the Y and X axis for a car dataset of some 400 datapoints. olor is used to show three different origins: US (blue), Europe (orange), and Asia (green). Because both X and Y axes use the same categorical mapping, the data is gathered together without overplotting to show that there are many cars with low gas mileage, and most of the low-mileage cars are from the United States."}
 
 **Cars dataset.**
 Gatherplots showing a dataset related to cars, yielding overplotting in normal scatterplots.
-The gatherplot in (a) shows Cylinders (categorical) vs. MPG (continuous), highlighting the overall distribution of MPG values of cars with different cylinders.
+The gatherplot in [-@fig-teaser1] shows Cylinders (categorical) vs. MPG (continuous), highlighting the overall distribution of MPG values of cars with different cylinders.
 The brackets on the X-axis are used to indicate that the interval within the brackets represent the same value in the data.
-The gatherplot in (b) shows `Cylinders` (categorical) vs. `Origin` (categorical), partitioning the graphical axes into intervals and packing points into groups for each interval. 
-In (c), both X-axis and Y-axis show the same continuous variable (MPG).
+The gatherplot in [-@fig-teaser2] shows `Cylinders` (categorical) vs. `Origin` (categorical), partitioning the graphical axes into intervals and packing points into groups for each interval. 
+In [-@fig-teaser3], both X-axis and Y-axis show the same continuous variable (MPG).
 All these cases would have caused overplotting for a scatterplot, resulting in dot-shaped or line-shaped point patterns where individual points cannot be identified.
 :::
 
@@ -111,7 +116,6 @@ As can be seen in @fig-scatter-problems, there are three situations for mapping 
 * Plotting \textbf{categorical vs.\ continuous variables} gives rise to line patterns (@fig-scatter-problems(a));
 * Plotting \textbf{categorical vs.\ categorical variables} gives rise to single dot patterns (@fig-scatter-problems(b)); and
 * Plotting the \textbf{same continuous variable on both axes} gives rise to diagonal line patterns (@fig-scatter-problems(c)).
-
 
 ::: {#fig-scatter-problems}
 ```{ojs}
@@ -285,13 +289,17 @@ Another method for visualizing categorical data that is of practical interest is
 Cosmides and Toody \[@Cosmides1996\] used frequency grids as discrete countable objects, and Micallef et al. \[@Micallef2012\] extend this with six different area-proportional representations of categorical data organized into different classes.
 Huron et al. \[@Huron2013\] suggested using sedimentation as metaphor where individual objects coming from a data stream gradually transform into aggregated areas, or strata.
 
-::: {#fig-aspect-ratio}
-![](figures/aspect-ratio.svg){fig.alt="Main layout modes for gatherplots."}
+::: {#fig-aspect-ratio layout-ncol=3}
+![Absolute mode.](figures/aspect-ratio-1.svg){#fig-aspect1 fig-alt="Gatherplot for a Titanic survivors dataset with Sex on the Y axis and Class on the X axis. Color encodes whether a person survived or not: dark red for Yes, and pink for No. In the grids formed by the categorical axes, gathered marks arranged in a regular grid show the data distribution. The grids have the same aspect ratio as the overall chart. All the marks are small and of equal size."}
+
+![Normalized mode.](figures/aspect-ratio-2.svg){#fig-aspect2 fig-alt="Gatherplot for a Titanic survivors dataset with Sex on the Y axis and Class on the X axis. Color encodes whether a person survived or not: dark red for Yes, and pink for No. In the grids formed by the categorical axes, gathered marks arranged in a regular grid show the data distribution. The grid cells are all uniform sized and the marks are sized to fill the available space."}
+
+![Streamgraph mode.](figures/aspect-ratio-3.svg){#fig-aspect3 fig-alt="Gatherplot for a Titanic survivors dataset with Age on the Y axis and Sex on the X axis. Color encodes the port of boarding for each passenger. The gender values on the X axis results in the chart being split horizontally into two streamgraphs."}
 
 **Main layout modes for gatherplots.**
-(a) absolute mode with constant aspect ratio, which maintains the aspect ratio; (b) normalized mode of (a).
+[-@fig-aspect1] absolute mode with constant aspect ratio, which maintains the aspect ratio; [-@fig-aspect2] normalized mode of [-@fig-aspect1].
 The rate of male survivors in each passenger class is not easy to compare.
-(c) streamgraph mode, where each cluster maintains the number of element in the shorter edge, making it easier to see the distribution of the subgroups along the Y axis.
+[-@fig-aspect3] streamgraph mode, where each cluster maintains the number of element in the shorter edge, making it easier to see the distribution of the subgroups along the Y axis.
 :::
 
 <!-- ========================================================================== -->
@@ -370,6 +378,8 @@ The main difference is that the new parallel coordinate/set variation allows eac
 ::: {#fig-gatherplot}
 ```{ojs}
 //| panel: input
+//| fig-alt: "Interactive demonstration of a gatherplot implemented in JavaScript and Observable JS. The visualization shows a cars dataset of some 400 entries. The control panel allows a user to select which dimension to map to the two graphical axes and color."
+//| fig-cap: "Interactive gatherplot"
 viewof xAxis = Inputs.select(cars.columns, {label: "X Axis", value: cars.columns[0]});
 viewof yAxis = Inputs.select(cars.columns, {label: "Y Axis", value: cars.columns[1]});
 viewof color = Inputs.select(colors, {format: x => x.name, value: colors.find(t => t.name === "Cylinders"), label: "Color"});
@@ -455,49 +465,6 @@ The choice between absolute and streamgraph mode happens automatically based on 
 Therefore, only a simple interaction is required to toggle between absolute and normalized mode.
 However, we do expose a setting to manually toggle between these modes as well.
 
-<!-- 
-% \subsection{Aspect Ratio and Alignment}
-
-% Maintaining the aspect ratio of all stacked groups means that the size
-% of the group is represented by its area, not length.
-% According to Cleveland and McGill~\cite{Cleveland1985}, length is more
-% effective than the area for graphical perception.
-% Figure~\ref{fig:lengthBasedLayout} shows the problems associated with
-% the gather layout for size comparison.
-% In this view, the items are stacked along the vertical axis to make
-% the size comparison along the horizontal axis easier.
-% The stacked group heights are fixed to be equal so that the width
-% represent the size of each group.
-% However, the groups have drastically different shapes, making
-% comparison difficult.
-% Furthermore, to make length-based comparison easier, the stacking
-% should be aligned to one side of the available space: left, right,
-% top, or bottom.
-
-% In this case, the bottom is selected to make it easier to compare
-% along the X axis.
-% However, this creates two additional problems.
-% The first problem is that the center of mass of each stacked group is
-% different, so that the concept of belonging to the same value can be
-% misleading.
-% The second problem is that choosing alignment direction is arbitrary
-% and depends on the task.
-% For example, in this view it is more difficult to compare along the Y axis.
-% In this sense, this layout is biased to the X axis, while sacrificing
-% the performance along the Y axis.
-% For this reason, the most general choice is to use center alignment
-% with aspect ratio based on the assigned range to avoid bias.
- 
-% \begin{figure}[htb]
-%   \centering
-%   \includegraphics[width=\columnwidth]{figures/ClassVsSex}
-%   \caption{Stacked group layout that supports comparing group sizes
-%     because the height of stacked groups is fixed so that width yields
-%     size.}
-%   \label{fig:lengthBasedLayout}
-% \end{figure}
--->
-
 ### Managing Continuous Variables
 
 To use gatherplots for continuous variables, we apply binning to partition the variable into discrete intervals.
@@ -516,12 +483,14 @@ Similarly, gatherplots choose bin size based on spatial accuracy and legibility.
 When the visual space is small, we use a comparably large bin size to increase dot size, thus resulting in poor spatial accuracy and high legibility; for larger space allocations, the bins can be made smaller to increase accuracy without loss of legibility.
 This is shown in @fig-optimal-bin. 
 
-::: {#fig-optimal-bin}
-![](figures/cont-size.svg){fig.alt="Choosing optimal bin size based on available display space."}
+::: {#fig-optimal-bin layout-ncol=2}
+![Large display space.](figures/cont-size-1.svg){#fig-optimal-bin1 fig-alt="Gatherplot for a car dataset with MPG on the Y axis and unassigned X axis. Color is used to show three different origins: US (blue), Europe (orange), and Asia (green). The result is a streamgraph arrangement with each position on the Y axis showing a single gathered row of cars with the corresponding gas mileage."}
+
+![Small display space.](figures/cont-size-2.svg){#fig-optimal-bin2 fig-alt="Gatherplot for a car dataset with MPG on the Y axis and unassigned X axis. Color is used to show three different origins: US (blue), Europe (orange), and Asia (green). The result is a streamgraph arrangement with each position on the Y axis showing a single gathered row of cars with the corresponding gas mileage. This chart is shorter than the previous one, yielding larger mileage bins."}
 
 **Choosing optimal bin size based on available display space.**
-In (a), there is enough space so that the dot size can be maximized, improving spatial accuracy.
-In comparison, in (b) the assigned space is small, so the dot size is determined so that the most crowded bin interval will fit within the assigned space.
+In [-@fig-fig-optimal-bin1], there is enough space so that the dot size can be maximized, improving spatial accuracy.
+In comparison, in [-@fig-fig-optimal-bin2] the assigned space is small, so the dot size is determined so that the most crowded bin interval will fit within the assigned space.
 This results in two different overviews even though the two plots have identical aspect ratio.
 :::
 
@@ -534,14 +503,18 @@ Here, the gatherplot is rotated to maintain integrity with scatterplots (@fig-te
 One limitation of gatherplots is that the technique requires binning to manage a continuous variable, yet binning creates arbitrary boundaries that can be misleading.
 However, using both gatherplots and scatterplots in different views makes this problem less severe because the analyst can simply choose the visual representation most suited for a particular task.
 
-::: {#fig-cont-cont}
-![](figures/cont-cont.svg){fig.alt="Using gatherplots to manage overplotting."}
+::: {#fig-cont-cont layout-ncol=3}
+![Scatterplot.](figures/cont-cont-1.svg){#fig-cont-cont1 fig-alt="Scatterplot with 5,000 random data points and severe overplotting. The data is uniformly distributed along the Y axis and appears normally distributed on the X axis. The graph shows three separate colors: blue, cyan, and moss green."}
+
+![Absolute gatherplot.](figures/cont-cont-2.svg){#fig-cont-cont2 fig-alt="Gatherplot with absolute mode for the random 5,000-point dataset. Both the X and Y axes have been automatically binned by the algorithm. The cells resulting from this binning show ordered marks; the horizontal center area shows the most data points."}
+
+![Normalized gatherplot.](figures/cont-cont-3.svg){#fig-cont-cont3 fig-alt="Gatherplot with normalized mode for the random 5,000-point dataset. Both the X and Y axes have been automatically binned by the algorithm. Because of the normalization, marks in grid cells with few data points have been resized to fill the available space, making it easier to see outliers in the left and right side of the plot."}
 
 **Using gatherplots to manage overplotting.**
-(a) shows a scatterplot with 5,000 random numbers with severe overplotting in the center area.
-In (b), gathering is applied to create a more organized view.
+[-@fig-cont-cont1] shows a scatterplot with 5,000 random numbers with severe overplotting in the center area.
+In [-@fig-cont-cont2], gathering is applied to create a more organized view.
 However, the gathering resizes the items so small that it becomes difficult to detect outliers.
-(c) shows normalized mode, where the outliers are enlarged.
+[-@fig-cont-cont3] shows normalized mode, where the outliers are enlarged.
 This makes identifying the distribution of sparse regions easier.
 :::
 
@@ -552,16 +525,23 @@ However, for a multidimensional exploration, one subtle difficulty is when the u
 In gatherplots, the logical extension of an undefined axis is the aggregation of all nodes in a single group along that axis.
 @fig-matrix shows an example of this using a dataset on survivors of the Titanic.
 
-::: {#fig-matrix}
-![](figures/undefined.svg){fig.alt="Gatherplot showing survivors of the *Titanic*."}
+::: {#fig-matrix layout-ncol=2}
+
+![All passengers.](figures/undefined-1.svg){#fig-matrix1 fig-alt="Gatherplot showing all passengers of the Titanic with no mapping to the X and Y axes. Each passenger is represented by a single red mark organized into a rectangular grid."}
+
+![All passengers colored by survival (pink = survived, gray = died).](figures/undefined-2.svg){#fig-matrix2 fig-alt="Gatherplot showing all passengers of the Titanic with no mapping to the X and Y axes. Each passenger is represented by a single mark organized into a rectangular grid. Marks are colored to show whether they survived (pink) or died (gray); approximately a quarter of the first dots in the grid to the left of the plot are colored pink."}
+
+![Passengers gathered by Class (pink = survived, gray = died).](figures/undefined-3.svg){#fig-matrix3 fig-alt="Gatherplot showing all passengers of the Titanic with the Class mapped to the X axis and no mapping to the Y axis. Class splits the horizontal space into four areas: First, Second, and Third class, and Crew. Marks are colored to show whether they survived (pink) or died (gray). First class has the highest survival rate; almost 75% of its dots are colored pink. A third of Second class is colored pink; less than a quarter of Third class and Crew are pink."}
+
+![Passengers gathered by Sex (pink = survived, gray = died).](figures/undefined-4.svg){#fig-matrix4 fig-alt="Gatherplot showing all passengers of the Titanic with the no mapping to the X axis and Sex mapped to the Y axis. Sex splits the vertical space into two areas: Female and Male. There are four times as many Male than Female marks on the plot. Marks are colored to show whether they survived (pink) or died (gray). Approximately 75% of the marks representing Female passengers are colored pink. Approximately 20% of the marks representing Male passengers are pink."}
 
 **Gatherplot showing survivors of the *Titanic*.**
-(a) All people on board.
+[-@fig-matrix1] All people on board.
 Note that the X and Y axis are not defined.
-(b) Color coding for survivors.
-(c) Distribution of survivors over class variables.
+[-@fig-matrix2] Color coding for survivors.
+[-@fig-matrix3] Distribution of survivors over class variables.
 Here the Y axis is undefined.
-(d) Distribution of survivors over the gender.
+[-@fig-matrix4] Distribution of survivors over the gender.
 Here the X axis is undefined.
 :::
 
@@ -593,18 +573,28 @@ After considering a few visual design alternatives, we recommend a bracket type 
 The bracket is optimal in that it uses minimal ink and creates less
 density with adjacent ticks.
 
-::: {#fig-tick-mark}
-![](figures/tick-marks.svg){fig.alt="Various tick mark types."}
+::: {#fig-tick-mark layout-ncol=3}
+
+![](figures/tick-marks-1.svg){#fig-tick-mark1 fig.alt="Simple vertical tick marks."}
+
+![](figures/tick-marks-2.svg){#fig-tick-mark2 fig.alt="Double-sided arrows."}
+
+![](figures/tick-marks-3.svg){#fig-tick-mark3 fig.alt="Double-sided arrows with tick marks."}
+
+![](figures/tick-marks-4.svg){#fig-tick-mark4 fig.alt="Square brackets."}
+
+![](figures/tick-marks-5.svg){#fig-tick-mark5 fig.alt="Angle brackets."}
+
+![](figures/tick-marks-6.svg){#fig-tick-mark6 fig.alt="Curly brackets."}
 
 **Various tick mark types.**
 The blue dotted region represents the area between adjacent tick
 marks.
-(a) is a typical line type tick mark for scatterplots.
-(b) lacks guidelines, which will make anchoring easier.
-(c) creates a packed region between adjacent marks. 
-(d) uses less clutter, but (e) is the least cluttered.
-(f) is the final recommendation, with the data label in the orange
-region.
+[-@fig-tick-mark1] is a typical line type tick mark for scatterplots.
+[-@fig-tick-mark2] lacks guidelines, which will make anchoring easier.
+[-@fig-tick-mark3] creates a packed region between adjacent marks. 
+[-@fig-tick-mark4] uses less clutter, but [-@fig-tick-mark5] is the least cluttered.
+[-@fig-tick-mark6] is the final recommendation, with the data label in the orange region.
 :::
 
 ### Interaction
@@ -622,7 +612,7 @@ Maximization simply folds all other values except the value of the interest to a
 @fig-axis-folding shows axis folding applied to second class adult passengers in the Titanic dataset.
 
 ::: {#fig-axis-folding}
-![](figures/axis-folding.svg){fig.alt="Survivors of the *Titanic* using gatherplots."}
+![](figures/axis-folding.svg){fig-alt="Gatherplot showing the passengers  of the *Titanic*. Class (First, Second, Third, Crew) has been mapped to the X axis and Age (Child, Adult) to the Y axis. Color is used for the boarding Port; Cherbourg, Belfast, Southhampton, and Queenstown. Child, Second Class, and Crew has been minized to not show details. First and Third Class Adults are showing as large blocks of marks organized in an orderly grid. For the first class, the Ports are mostly evenly distributed. For Third Class, most of them boarded in Southhampton."}
 
 **Survivors of the *Titanic* using gatherplots.**
 The X axis is class of passengers, where second class passengers and crew are minimized. 
@@ -707,24 +697,30 @@ Therefore, our hypotheses are as follows:
 The results were analyzed with respect to the accuracy (correct or incorrect), time spent, and confidence of estimation.
 Based on our hypotheses, we analyzed the different modes of layout for each type of question: retrieve value, absolute value task, and relative value task.
 
-::: {#fig-results}
-![Accuracy](plots/vis-accuracy.svg){fig.alt="Accuracy."}
-![Time](plots/vis-time.svg){fig.alt="Completion time."}
-![Confidence](plots/vis-confidence.svg){fig.alt="Confidence."}
+::: {#fig-results layout-ncol=3}
+
+![](plots/vis-accuracy.svg){fig-alt="Accuracy dotplot showing jitter with an accuracy around 0.45; the rest (absolute, normalized, both) are around 0.6."}
+
+![](plots/vis-time.svg){fig-alt="Completion time dotplot showing jitter with a time around 32 seconds, absolute and normalized around 36 seconds, and both around 48 seconds."}
+
+![](plots/vis-confidence.svg){fig-alt="Perceived confidence dotplot showing jitter and normalized with a confidence around 5 and absolute and both around 5.5 (1--7 Likert scale)."}
 
 **Performance results.**
 Effect of visualization on accuracy, completion time, and perceived confidence.
 Error bars show 95\% confidence intervals calculated using bootstrapping ($N=1,000$ repetitions).}
 :::
 
-::: {#fig-results-detail}
-![Accuracy](plots/visxtask-accuracy.svg){fig.alt="Accuracy."}
-![Time](plots/visxtask-time.svg){fig.alt="Completion time."}
-![Confidence](plots/visxtask-confidence.svg){fig.alt="Confidence."}
+::: {#fig-results-detail layout-ncol=3}
+
+![](plots/visxtask-accuracy.svg){fig-alt="Accuracy dotplot showing jitter, absolute, normalized, and both for tasks T1--T5."}
+
+![](plots/visxtask-time.svg){fig-alt="Completion time dotplot showing jitter, absolute, normalized, and both for tasks T1--T5."}
+
+![](plots/visxtask-confidence.svg){fig-alt="Perceived confidence dotplot showing jitter, absolute, normalized, and both for tasks T1--T5."}
 
 **Detailed performance results.**
 Effect of visualization and task (T1--T5) on accuracy, completion time, and perceived confidence.
-Error bars show 95\% confidence intervals calculated using bootstrapping ($N=1,000$ repetitions).}
+Error bars show 95\% confidence intervals calculated using bootstrapping ($N=1,000$ repetitions).
 :::
 
 #### Accuracy
@@ -733,13 +729,24 @@ Performance results are summarized in @fig-results, with detailed results by vis
 The number and percentage of participants who answered correct and incorrect answers are shown in @fig-correctness.
 In total, we recruited 42 participants for jitter, 56 participants for absolute, 56 participants for normalized, and 57 participants for interactive mode.
 
-::: {#fig-correctness}
-![](plots/task-performance.png){fig.alt="Correctness results from our crowdsourced user study."}
+::: {#fig-correctness layout-ncol=5}
+
+![](plots/task-performance-1.svg){#fig-correctness1 fig-alt="Correctness results from our crowdsourced user study."}
+
+![](plots/task-performance-2.svg){#fig-correctness2 fig-alt="Correctness results from our crowdsourced user study."}
+
+![](plots/task-performance-3.svg){#fig-correctness3 fig-alt="Correctness results from our crowdsourced user study."}
+
+![](plots/task-performance-4.svg){#fig-correctness4 fig-alt="Correctness results from our crowdsourced user study."}
+
+![](plots/task-performance-5.svg){#fig-correctness5 fig-alt="Correctness results from our crowdsourced user study."}
 
 **Correctness results from our crowdsourced user study.**
-(a) Correctness for retrieving value.
-(b) Correctness for absolute comparison and ranking.
-(c) Correctness for relative/normalized comparison and ranking.}
+[-@fig-correctness1] Correctness for retrieving value.
+[-@fig-correctness2] Correctness for absolute comparison.
+[-@fig-correctness3] Corrnectness for absolute ranking.
+[-@fig-correctness4] Correctness for relative/normalized comparison.
+[-@fig-correctness5] Correctness for relative/normalized ranking.
 :::
 
 As the measure for each question was either correct or incorrect, we employed logistic regression to analyze the data.
@@ -803,7 +810,8 @@ Lens geometry gives us additional options for layout of the stacked groups in th
 * **Pie lens**: Similarly, the group layout here is radial and centered, yielding a pie or donut layout.
 
 ::: {#fig-gatherlens}
-![](figures/gatherlens.png){fig.alt="Three examples of a GatherLens in a scatterplot of airline performance data containing 3,000 points."}
+
+![](figures/gatherlens.png){fig.alt="Three examples of a GatherLens in a scatterplot of airline performance data containing 3,000 points. The gatherplot uses the actual elapsed time of a flight on the Y axis and the arrival time on the X axis. Marks are colored using a categorical color scale representing days of the week. There are three GatherLenses in the plot. Each lens is a 2D shape containing marks sorted by color and arranged in a grid. The pie lens organizes the marks in circle sectors similar to a pie chart. The histogram lens organizes marks into vertical bars arranged side by side. The standard lens uses the whole available area to lay out marks in an ordered grid."}
 
 **Three examples of a GatherLens.**
 The lenses are deployed in a scatterplot of airline performance data containing 3,000 points.
