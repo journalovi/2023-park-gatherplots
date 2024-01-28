@@ -489,8 +489,8 @@ This is shown in @fig-optimal-bin.
 ![Small display space.](figures/cont-size-2.svg){#fig-optimal-bin2 fig-alt="Gatherplot for a car dataset with MPG on the Y axis and unassigned X axis. Color is used to show three different origins: US (blue), Europe (orange), and Asia (green). The result is a streamgraph arrangement with each position on the Y axis showing a single gathered row of cars with the corresponding gas mileage. This chart is shorter than the previous one, yielding larger mileage bins."}
 
 **Choosing optimal bin size based on available display space.**
-In [-@fig-fig-optimal-bin1], there is enough space so that the dot size can be maximized, improving spatial accuracy.
-In comparison, in [-@fig-fig-optimal-bin2] the assigned space is small, so the dot size is determined so that the most crowded bin interval will fit within the assigned space.
+In [-@fig-optimal-bin1], there is enough space so that the dot size can be maximized, improving spatial accuracy.
+In comparison, in [-@fig-optimal-bin2] the assigned space is small, so the dot size is determined so that the most crowded bin interval will fit within the assigned space.
 This results in two different overviews even though the two plots have identical aspect ratio.
 :::
 
@@ -575,17 +575,17 @@ density with adjacent ticks.
 
 ::: {#fig-tick-mark layout-ncol=3}
 
-![](figures/tick-marks-1.svg){#fig-tick-mark1 fig.alt="Simple vertical tick marks."}
+![](figures/tick-marks-1.svg){#fig-tick-mark1 fig-alt="Simple vertical tick marks."}
 
-![](figures/tick-marks-2.svg){#fig-tick-mark2 fig.alt="Double-sided arrows."}
+![](figures/tick-marks-2.svg){#fig-tick-mark2 fig-alt="Double-sided arrows."}
 
-![](figures/tick-marks-3.svg){#fig-tick-mark3 fig.alt="Double-sided arrows with tick marks."}
+![](figures/tick-marks-3.svg){#fig-tick-mark3 fig-alt="Double-sided arrows with tick marks."}
 
-![](figures/tick-marks-4.svg){#fig-tick-mark4 fig.alt="Square brackets."}
+![](figures/tick-marks-4.svg){#fig-tick-mark4 fig-alt="Square brackets."}
 
-![](figures/tick-marks-5.svg){#fig-tick-mark5 fig.alt="Angle brackets."}
+![](figures/tick-marks-5.svg){#fig-tick-mark5 fig-alt="Angle brackets."}
 
-![](figures/tick-marks-6.svg){#fig-tick-mark6 fig.alt="Curly brackets."}
+![](figures/tick-marks-6.svg){#fig-tick-mark6 fig-alt="Curly brackets."}
 
 **Various tick mark types.**
 The blue dotted region represents the area between adjacent tick
@@ -673,13 +673,28 @@ To reduce the chance of one chart being optimal by luck for a specific task, two
 This yielded a total of 10 questions for each participant.
 Each question was followed by the question asking confidence of estimation with a 7-point Likert scale, and the time spent for each question was measured.
 
+::: {#fig-study layout-ncol=2}
+
+![The Gatherplot stimulus and the task; this is a relative comparison task (**T4**).](figures/study1.png){#fig-study1 fig-alt="Screenshot of a survey question with a gatherplot visualizing the Titanic passenger dataset on top and a question at the bottom. The gatherplot shows Class (First, Second, Third, Crew) on the X axis and Sex (Female, Male) on the Y axis. This yields a grid with two rows and four columns. Marks are colored based on whether they survived or not; cyan for yes, and blue for no. Marks are freely sized to fill the available size in each grid cell. The question at the bottom says 'Among the four groups, the number of female survivors are the highest in first class.' The options are Agree, Disagree, or Don't Know/Can't Determine. In particular, in the First Class Female grid cell, there is an absolutely majority of cyan cells with only very few blue cells. The proportion of cyan cells is much lower for the Male First Class passengenrs, indicating that the statement is true.."}
+
+![The confidence question as a 7-point Likert scale.](figures/study2.png){#fig-study2 fig-alt="Screenshot of a multiple-choice question with seven choices as a radio button, representing a Likert-scale question. The question reads 'Please select how much you agree or disagree with the following statement: I am confident of my estimation.' The options are Strongly Disagree, Disagree, Somewhat Disagree, Neither Agree/Disagree, Somewhat Agree, Agree, Strongly Agree."}
+
+**Example study screenshot.**
+The study consisted of a total of 10 questions, each asked on a screen like this.
+A full example survey is shown in the supplemental material on OSF.
+
+:::
+
 ### Dataset
  
 We used a dataset on the survivors of the sinking of the *Titanic* in 1912.
-Each of the 2,201 survivors had four dimensions, which were all categorical variables: `class` (4 levels), `sex` (2 levels), `port of entry` (4 levels), `survival status` (2 levels).
+Each of the 2,201 survivors had four dimensions, which were all categorical variables: `class` (4 levels), `sex` (2 levels), `port of entry` (4 levels), and `survival status` (2 levels).
 The five tasks above were asked for two views with different dimensions.
 One view visualized class on X-axis, sex on Y-axis, and survival using color.
 The second view visualized survived on the X-axis, class on the Y-axis, and port of entry using color.
+
+@fig-study shows an example study stimulus screen for the *Titanic* dataset using a normalized (space-filling) gatherplot for task **T4**.
+The [OSF](https://osf.io/bk9cx/) repository contains a file `qualtrics-study.pdf` showing a full run of an experiment (10 questions).
 
 ### Hypotheses
 
@@ -696,6 +711,7 @@ Therefore, our hypotheses are as follows:
 
 The results were analyzed with respect to the accuracy (correct or incorrect), time spent, and confidence of estimation.
 Based on our hypotheses, we analyzed the different modes of layout for each type of question: retrieve value, absolute value task, and relative value task.
+The [OSF](https://osf.io/bk9cx/) repository contains code and data for replicating our data analysis.
 
 ::: {#fig-results layout-ncol=3}
 
@@ -811,7 +827,7 @@ Lens geometry gives us additional options for layout of the stacked groups in th
 
 ::: {#fig-gatherlens}
 
-![](figures/gatherlens.png){fig.alt="Three examples of a GatherLens in a scatterplot of airline performance data containing 3,000 points. The gatherplot uses the actual elapsed time of a flight on the Y axis and the arrival time on the X axis. Marks are colored using a categorical color scale representing days of the week. There are three GatherLenses in the plot. Each lens is a 2D shape containing marks sorted by color and arranged in a grid. The pie lens organizes the marks in circle sectors similar to a pie chart. The histogram lens organizes marks into vertical bars arranged side by side. The standard lens uses the whole available area to lay out marks in an ordered grid."}
+![](figures/gatherlens.png){fig-alt="Three examples of a GatherLens in a scatterplot of airline performance data containing 3,000 points. The scatterplot uses the actual elapsed time of a flight on the Y axis and the arrival time on the X axis. Marks are colored using a categorical color scale representing days of the week. There are three GatherLenses in the plot. Each lens is a 2D shape containing marks sorted by color and arranged in a grid. The pie lens organizes the marks in circle sectors similar to a pie chart. The histogram lens organizes marks into vertical bars arranged side by side. The standard lens uses the whole available area to lay out marks in an ordered grid."}
 
 **Three examples of a GatherLens.**
 The lenses are deployed in a scatterplot of airline performance data containing 3,000 points.
