@@ -41,8 +41,8 @@ body:
     - label: Contrast of all text and elements is sufficient. Geometries and large text must have >3:1 contrast against background. Regular text must have >4.5:1.
     - label: Content has non-visual alternatives. All figures have alt text and videos have transcripts. Equations are screen reader accessible.
     - label: Font sizes for all texts are sufficiently large. Text must not be smaller than 9pt/12px in size. Ideally only minor text is rendered at 9pt (e.g., axis labels) while all other text is larger.
-    - label: The article works even if I could not perceive colors. Color should never be used alone to communicate meaning.
-    - label: The article can be navigated comfortably with a screen reader. There are no unnecessary accessibility elements (e.g., axis ticks and labels) that clutter the screen reader experience. 
+    - label: Where possible within reason, the article works even if I could not perceive colors. Colors should be augmented with patterns, textures, other visual cues, or tooltips if possible.
+    - label: The article can be navigated comfortably with a screen reader. There are no unnecessary accessibility elements (e.g., axis ticks and labels) that clutter the screen reader experience.
 - type: checkboxes
   attributes:
     label: Screen reader
@@ -84,9 +84,9 @@ body:
       Learn more about these checks in [the Chartability section about operable](https://chartability.github.io/POUR-CAF/#operable).
     options:
     - label: If there are interactive elements in the article, they can be operated with a keyboard.
-    - label: If there are interactive elements in the article, there are textual instructions for how to use them.
+    - label: If there are interactive elements in the article, there are textual instructions for how to use them or it's reasonable to assume that it's clear how to use them.
     - label: When navigating over the article with a keyboard, the focus indicator is always visible.
-    - label: Interactions that work with a mouse also work on a touch screen.
+    - label: Interactions that work with a mouse also work on a touch screen (unless explicitly called out).
 - type: textarea
   attributes:
     label: Comments on Operable
