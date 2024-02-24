@@ -173,24 +173,6 @@ We close with conclusions and our future plans.
 
 Scatterplots are classic statistical data graphics with many design variations to address challenges of scale, complexity, and specific tasks [@DBLP:journals/tvcg/SarikayaG18].
 Our goal with gatherplots is to generalize scatterplots to a representation that maintains its simplicity and familiarity while eliminating overplotting.
-With this in mind, below we review prior art on mitigating overplotting using appearance or distortion.
-We also discuss visualization techniques specifically designed for categorical variables.
-
-### Characterizing Overplotting
-
-While there are many ways to categorize visualization, Fekete and Plaisant [-@Fekete2002] introduced a classification particularly useful for our purposes that splits techniques into two types:
-
-* **Overlapping visualizations**: No layout restrictions on visual marks is enforced, leading to overplotting.
-Examples: Scatterplots, node-link diagrams, parallel coordinate plots, etc.
-
-* **Space-filling visualizations**: Layouts designed to optimally fill the available space to avoid overlap.
-Examples: Treemaps, matrices, geographic maps.
-
-Fekete and Plaisant [-@Fekete2002] investigated the overplotting phenomenon for a 2D scatterplot, and found that it has a significant impact as datasets grow.
-The problem stems from the fact that even with two continuous variables that do not share any coordinate pairs, the size ratio between the visual marks and the display remains mostly constant.
-Furthermore, most datasets are not uniformly distributed.
-This all means that overplotting is inevitable for realistic datasets.
-
 Partial or complete overplotting generally leads to visual clutter.
 Ellis and Dix [@Ellis2007] survey the literature and derive a general approach to reduce clutter.
 According to their treatment, there are three ways to reduce clutter in a visualization: by changing the visual appearance, by distorting visual space, or by presenting data over time.
@@ -267,7 +249,8 @@ Drawing on an older experimental tool called Pivot from Microsoft Live Labs, San
 
 Keim et al. [-@DBLP:journals/ivs/KeimHDJB10] propose *generalized scatterplots* that use a data-aware combination of overlapping and distortion to avoid overplotting in a scatterplot display.
 By balancing the overlapping and distortion, the user can achieve a display that conforms to their prior familiarity with scatterplots while retaining minimal occlusion and appropriate distortion of data points.
-However, in contrast, our gatherplot approach requires no such balancing; of course, as a result, it is also less visually scalable.
+However, in contrast, our gatherplot approach instead balances legibility and visual accuracy (the deviation from the true mapped position of a point).
+While gatherplots thus yield better legibility, they are also less visually scalable as well as accurate.
 
 Finally, hieraxes [@Shneiderman1996], SandDance [@Sanddance], and gatherplots (that we present in this paper) are all examples of a recently recognized family of visualizations called *unit visualizations* [@Park2018] where the relation between data items and their mark is explicitly maintained. 
 This identity property between data and display is exemplified in visualizations such as unit charts, dotplots, and scatterplots.
@@ -305,6 +288,10 @@ This yields a richer visual language that allows for sorting marks based on colo
 Another practical method for visualizing categorical data is for making inferences based on statistical and probabilistic data.
 Cosmides and Toody [-@Cosmides1996] used frequency grids as discrete countable objects, and Micallef et al. [-@Micallef2012] extend this with six different area-proportional representations of categorical data organized into different classes.
 Huron et al. [-@Huron2013] suggested using sedimentation as metaphor where individual objects coming from a data stream gradually transform into aggregated areas, or strata.
+
+Finally, Kinetica [@DBLP:conf/chi/RzeszotarskiK14], beyond presenting a novel touch- and physics-based interaction for 2D scatterplots, provides a clustering algorithm where visual marks clump together with collision detection (and thus no overlap) based on their data ranges.
+The clusters are similar to the partioned clusters in gatherplots, but are organically shaped, not arranged in orderly grid lines, and thus harder to compare.
+The attraction approach used in Kinetica is reminiscent of the gravity model used for marks in dust & magnet [@DBLP:journals/ivs/YiMSJ05].
 
 ::: {#fig-aspect-ratio layout-ncol=3}
 ![Absolute mode.](figures/aspect-ratio-1.svg){#fig-aspect1 fig-alt="Gatherplot for a Titanic survivors dataset with Sex on the Y axis and Class on the X axis. Color encodes whether a person survived or not: dark red for Yes, and pink for No. In the grids formed by the categorical axes, gathered marks arranged in a regular grid show the data distribution. The grids have the same aspect ratio as the overall chart. All the marks are small and of equal size."}
