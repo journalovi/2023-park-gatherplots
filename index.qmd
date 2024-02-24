@@ -252,12 +252,13 @@ By balancing the overlapping and distortion, the user can achieve a display that
 However, in contrast, our gatherplot approach instead balances legibility and visual accuracy (the deviation from the true mapped position of a point).
 While gatherplots thus yield better legibility, they are also less visually scalable as well as accurate.
 
-Finally, hieraxes [@Shneiderman1996], SandDance [@Sanddance], and gatherplots (that we present in this paper) are all examples of a recently recognized family of visualizations called *unit visualizations* [@Park2018] where the relation between data items and their mark is explicitly maintained. 
+Hieraxes [@Shneiderman1996], SandDance [@Sanddance], and gatherplots (that we present in this paper) are all examples of a recently recognized family of visualizations called *unit visualizations* [@Park2018] where the relation between data items and their mark is explicitly maintained. 
 This identity property between data and display is exemplified in visualizations such as unit charts, dotplots, and scatterplots.
 It can be contrasted with *aggregated visualizations* that combine multiple data items intop a single visual mark, such as barcharts, piecharts, and histograms.
 Our gatherplots technique shows how a unit visualization can be designed, evaluated, and even deployed from the ground up based on unit visualization principles.
 
-It is worth comparing gatherplots to ur own prior work on the Atom [@Park2018] grammar for unit visualization. 
+It is worth comparing gatherplots to ur own prior work on the Atom [@Park2018] grammar for unit visualization.^[Interestingly, gatherplots actually preceded the Atom grammar; in fact, our gatherplots design eventually led to the formulation of the more general ideas in Atom.
+However, as these things go, the grammar itself turned out to be a larger and more actionable idea.]
 Atom is a general-purpose visualization grammar with gathering (packing with no overlap) as one of the visual layout options. 
 In other words, the gatherplots technique can be more or less replicated using Atom. 
 However, our focus in this paper is on specialized design aspects of gatherplots, including the interval marks, streamgraph layout, and layout modes.
