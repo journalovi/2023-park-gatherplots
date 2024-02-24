@@ -54,7 +54,7 @@ Gatherplots are a form of *unit visualization*, which avoid aggregation and main
 In gatherplots, every visual mark that maps to the same position coalesces to form a packed entity, thereby making it easier to see the overview of data groupings.
 The size and aspect ratio of marks can also be changed dynamically to make it easier to compare the composition of different groups.
 In the case of a categorical variable vs. a categorical variable, we propose a heuristic to decide bin sizes for optimal space usage.
-Results from a crowdsourced user study show that gatherplots enable people to assess data distribution more quickly and more correctly than when using jittered scatterplots.
+Results from a crowdsourced user study show that gatherplots enable people to assess data distribution more correctly than when using jittered scatterplots.
 
 ###### Materials
 
@@ -265,7 +265,7 @@ This work inspired gatherplots, which refines the layout and design of hieraxes 
 Microsoft's SandDance [@Sanddance] use atomic visual marks as the building block of a highly interactive and visual interface built on smooth transitions between different spatial mappings.
 Drawing on an older experimental tool called Pivot from Microsoft Live Labs, SandDance now exists as a custom visual in the [Microsoft Power BI tool](https://www.microsoft.com/en-us/garage/profiles/sanddance/).
 
-Finally, Keim et al. [-@DBLP:journals/ivs/KeimHDJB10] propose *generalized scatterplots* that use a data-aware combination of overlapping and distortion to avoid overplotting in a scatterplot display.
+Keim et al. [-@DBLP:journals/ivs/KeimHDJB10] propose *generalized scatterplots* that use a data-aware combination of overlapping and distortion to avoid overplotting in a scatterplot display.
 By balancing the overlapping and distortion, the user can achieve a display that conforms to their prior familiarity with scatterplots while retaining minimal occlusion and appropriate distortion of data points.
 However, in contrast, our gatherplot approach requires no such balancing; of course, as a result, it is also less visually scalable.
 
@@ -355,13 +355,8 @@ Similarly, a visual representation of the segmented graphical axis should extern
  
 ### Using the Gather Transformation
 
-To give an example in one-dimensional space, parallel coordinate plots [@Inselberg1985] use multiple graphical axes, one per dimension, and organize them in parallel while rendering data points as polylines connecting data values on one axis to adjacent ones.
-However, traditional parallel coordinate plots merely use a scatter transformation on each graphical axis, which makes the technique prone to overplotting.
-Multiple authors have studied ways of mitigating this problem, for example by reorganizing the position of nominal
-values [@Rosario2004], using transparency, applying jitter, or by clustering the data [@Fua1999].
-
-However, an alternative approach is to use the gather representation for each graphical axis to minimize overplotting.
-This will cause each axis to be segmented into intervals, and we can then resize segments according to the number of items falling into each segment so that segments with many data points become proportionally larger than those with fewer points.
+Gatherplots minimize overplotting by segmenting each axis into intervals.
+This allows us to resize segments according to the number of items falling into each segment so that segments with many data points become proportionally larger than those with fewer points.
 Finally, if the data dimensions represent nominal data, it may make sense to use a global segment ordering function so that there is a minimum of lateral movement for the majority of points as they connect to adjacent axes.
 This will also minimize line crossings between the parallel axes.
 This particular visualization technique---a parallel coordinate plot with the gather transformation applied to each graphical axis---is essentially equivalent to *parallel sets* [@Kosara2006].
@@ -463,20 +458,24 @@ However, we do expose a setting to manually toggle between these modes as well.
 ### Managing Continuous Variables
 
 To use gatherplots for continuous variables, we apply binning to partition the variable into discrete intervals.
-The resulting visualization resembles dots plots by Wilkinson [-@Wilkinson1999], where bin size is equal to dot
-size.
-The size of individual bins is important for binning because it determines the spatial accuracy and legibility of the visualization.  
+The resulting visualization resembles dots plots by Wilkinson [-@Wilkinson1999], where bin size is equal to dot size.
+The size of individual bins is important for binning because it determines the spatial accuracy and legibility of the visualization.
+We define *spatial accuracy* as the degree to which a mark in a gatherplot is mapped to the actual position it would have been mapped if the mapping had been continuous (like for a regular scatterplot).
+*Legibility*, on the other hand, is the ability for a user to perceive individual marks in a unit visualization.
 
-Wilkinson proposed $.25n^{-1/2}$ as the optimal dot size for dot plots.
+Wilkinson proposed $.25n^{-1/2}$ as the optimal dot size for dot plots (although he also noted that an implementation should reduce size for overflow situations).
 This creates reasonable dot plots for fixed aspect ratio of 5 to 1, which is common in statistical charts assuming normal distribution of nodes.   
-However, gatherplot requires two different assumptions: First, the aspect ratio varies according to the space given to the categorical variables.
+However, gatherplot requires two different assumptions:
+First, the aspect ratio varies according to the space given to the categorical variables.
 Second, the dot size or bin size is determined by the global maximum in the dataset, which may not be in the same cluster.
 Furthermore, because bin size is the same as dot size, selecting bin size can be thought of as a trade-off between accuracy and legibility.
 Using very small bin size and dot size increases the spatial accuracy, but results in poor legibility, and vice versa.
+
 Balancing accuracy vs. legibility is common in visualization for large datasets; for example, splatterplots limit the information shown to users based on the available visual space [@Mayorga2013].
 Similarly, gatherplots choose bin size based on spatial accuracy and legibility.
 When the visual space is small, we use a comparably large bin size to increase dot size, thus resulting in poor spatial accuracy and high legibility; for larger space allocations, the bins can be made smaller to increase accuracy without loss of legibility.
-This is shown in @fig-optimal-bin. 
+Our implementation iteratively finds a bin size as a trade-off between mark size and the most crowded bin; this is shown in @fig-optimal-bin. 
+Overall, this is an inherent weakness of unit visualizations: the need to make individual marks distinct means that the visual representation may become distorted, and the scalability of the visualization suffers overall.
 
 ::: {#fig-optimal-bin layout-ncol=2}
 ![Large display space.](figures/cont-size-1.svg){#fig-optimal-bin1 fig-alt="Gatherplot for a car dataset with MPG on the Y axis and unassigned X axis. Color is used to show three different origins: US (blue), Europe (orange), and Asia (green). The result is a streamgraph arrangement with each position on the Y axis showing a single gathered row of cars with the corresponding gas mileage."}
@@ -706,15 +705,16 @@ Therefore, our hypotheses are as follows:
 
 The results were analyzed with respect to the accuracy (correct or incorrect), time spent, and confidence of estimation.
 Based on our hypotheses, we analyzed the different modes of layout for each type of question: retrieve value, absolute value task, and relative value task.
+In total, we recruited 42 participants for jitter, 56 participants for absolute, 56 participants for normalized, and 57 participants for interactive mode.
 The [OSF](https://osf.io/bk9cx/) repository contains code and data for replicating our data analysis.
 
 ::: {#fig-results layout-ncol=3}
 
-![](plots/vis-accuracy.svg){fig-alt="Accuracy dotplot showing jitter with an accuracy around 0.45; the rest (absolute, normalized, both) are around 0.6."}
+![Accuracy.](plots/vis-accuracy.svg){#fig-vis-accuracy fig-alt="Accuracy dotplot showing jitter with an accuracy around 0.45; the rest (absolute, normalized, both) are around 0.6."}
 
-![](plots/vis-time.svg){fig-alt="Completion time dotplot showing jitter with a time around 32 seconds, absolute and normalized around 36 seconds, and both around 48 seconds."}
+![Completion time.](plots/vis-time.svg){#fig-vis-time fig-alt="Completion time dotplot showing jitter with a time around 32 seconds, absolute and normalized around 36 seconds, and both around 48 seconds."}
 
-![](plots/vis-confidence.svg){fig-alt="Perceived confidence dotplot showing jitter and normalized with a confidence around 5 and absolute and both around 5.5 (1--7 Likert scale)."}
+![Perceived confidence.](plots/vis-confidence.svg){#fig-vis-confidence fig-alt="Perceived confidence dotplot showing jitter and normalized with a confidence around 5 and absolute and both around 5.5 (1--7 Likert scale)."}
 
 **Performance results.**
 Effect of visualization on accuracy, completion time, and perceived confidence.
@@ -723,11 +723,11 @@ Error bars show 95\% confidence intervals calculated using bootstrapping ($N=1,0
 
 ::: {#fig-results-detail layout-ncol=3}
 
-![](plots/taskxvis-accuracy.svg){fig-alt="Accuracy dotplot showing jitter, absolute, normalized, and both for tasks T1--T5."}
+![Accuracy.](plots/taskxvis-accuracy.svg){#fig-taskxvis-accuracy fig-alt="Accuracy dotplot showing jitter, absolute, normalized, and both for tasks T1--T5."}
 
-![](plots/taskxvis-time.svg){fig-alt="Completion time dotplot showing jitter, absolute, normalized, and both for tasks T1--T5."}
+![Completion time.](plots/taskxvis-time.svg){#fig-taskxvis-time fig-alt="Completion time dotplot showing jitter, absolute, normalized, and both for tasks T1--T5."}
 
-![](plots/taskxvis-confidence.svg){fig-alt="Perceived confidence dotplot showing jitter, absolute, normalized, and both for tasks T1--T5."}
+![Perceived confidence.](plots/taskxvis-confidence.svg){#fig-taskxvis-confidence fig-alt="Perceived confidence dotplot showing jitter, absolute, normalized, and both for tasks T1--T5."}
 
 **Detailed performance results.**
 Effect of visualization and task (T1--T5) on accuracy, completion time, and perceived confidence.
@@ -736,51 +736,48 @@ Error bars show 95\% confidence intervals calculated using bootstrapping ($N=1,0
 
 #### Accuracy
 
-Performance results are summarized in @fig-results, with detailed results by visualization type and task in @fig-results-detail.
+Accuracy performance results are summarized in @fig-vis-accuracy, with detailed accuracy results by visualization type and task in @fig-taskxvis-accuracy.
 The number and percentage of participants who answered correct and incorrect answers are shown in @fig-correctness.
-In total, we recruited 42 participants for jitter, 56 participants for absolute, 56 participants for normalized, and 57 participants for interactive mode.
+
+Based on the effect sizes and 95% confidence intervals, we see evidence that jittering yielded lower accuracy than other conditions, which were more or less equivalent in accuracy.
+This trend seems to mostly persist across all five tasks.
 
 ::: {#fig-correctness layout-ncol=5}
 
-![](plots/task-performance-1.svg){#fig-correctness1 fig-alt="Correctness results from our crowdsourced user study."}
+![Task T1.](plots/task-performance-1.svg){#fig-correctness1 fig-alt="Correctness results from our crowdsourced user study."}
 
-![](plots/task-performance-2.svg){#fig-correctness2 fig-alt="Correctness results from our crowdsourced user study."}
+![Task T2.](plots/task-performance-2.svg){#fig-correctness2 fig-alt="Correctness results from our crowdsourced user study."}
 
-![](plots/task-performance-3.svg){#fig-correctness3 fig-alt="Correctness results from our crowdsourced user study."}
+![Task T3.](plots/task-performance-3.svg){#fig-correctness3 fig-alt="Correctness results from our crowdsourced user study."}
 
-![](plots/task-performance-4.svg){#fig-correctness4 fig-alt="Correctness results from our crowdsourced user study."}
+![Task T4.](plots/task-performance-4.svg){#fig-correctness4 fig-alt="Correctness results from our crowdsourced user study."}
 
-![](plots/task-performance-5.svg){#fig-correctness5 fig-alt="Correctness results from our crowdsourced user study."}
+![Task T5.](plots/task-performance-5.svg){#fig-correctness5 fig-alt="Correctness results from our crowdsourced user study."}
 
 **Correctness results from our crowdsourced user study.**
-[-@fig-correctness1] Correctness for retrieving value.
-[-@fig-correctness2] Correctness for absolute comparison.
-[-@fig-correctness3] Corrnectness for absolute ranking.
-[-@fig-correctness4] Correctness for relative/normalized comparison.
-[-@fig-correctness5] Correctness for relative/normalized ranking.
+[-@fig-correctness1] Correctness for retrieving value (T1).
+[-@fig-correctness2] Correctness for absolute comparison (T2).
+[-@fig-correctness3] Corrnectness for absolute ranking (T3).
+[-@fig-correctness4] Correctness for relative/normalized comparison (T4).
+[-@fig-correctness5] Correctness for relative/normalized ranking (T5).
 :::
-
-As the measure for each question was either correct or incorrect, we employed logistic regression to analyze the data.
-For the retrieving-value task (T1), both the absolute mode and normalized mode had significant main effects (Wald Chi-Square = $18.58$, $p < 0.01$, Wald Chi-Square = 21.05, $p < 0.01$, respectively) with a significant interaction effect (Wald Chi-Square = 19.53, $p = 0.03$) (H1 confirmed).
-For absolute-value tasks (T2 and T3), both the absolute mode and normalized mode had significant main effects (Wald Chi-Square = 10.35, $p < 0.01$, Wald Chi-Square = 10.35, $p < 0.01$, respectively) with a significant interaction effect (Wald Chi-Square = 4.31, $p = 0.03$) (H2 confirmed).
-For relative-value tasks (T4 and T5), only the normalized mode had a significant effect (Wald Chi-Square= 5.10, $p = 0.02$) (H3 confirmed).
 
 #### Completion Time
 
-We compared the completion time (in seconds) for each task using a mixed-model ANOVA with repeated measures.
-For the retrieve-value task, on average, the completion time (sec) for each interface was for jitter 44.26, absolute 56.84, normalized 52.45, and both 56.57.
-There was no significant difference between interfaces ($p > 0.05$).
+Completion time performance results are summarized in @fig-vis-time, with detailed accuracy results by visualization type and task in @fig-taskxvis-time.
+For the retrieve-value task (T1), on average, the completion time (sec) for each interface was for jitter 31.79, absolute 36.83, normalized 36.55, and both 49.21.
+For the absolute-value task (T2 and T3), on average, the completion time (sec) for each interface was for jitter 29.45, absolute 37.98, normalized 34.84, and both 50.73.
+For relative-value task (T4 and T5), on average, the completion time for each interface was for jitter 31.77, absolute 32.27, normalized 34.95, and both 46.60.
 
-For the absolute-value task (T2 and T3), on average, the completion time (sec) for each interface was for jitter 30.74, absolute 32.3, normalized 33.6, and both 47.91.
-The interface had a significant main effect ($F(3, 207) = 11.5, p < 0.01$).
-
-For relative-value task (T4 and T5), on average, the completion time for each interface was for jitter 26.6, absolute 31.12, normalized 31.38, and both 46.78.
-The interface had a significant main effect ($F(3, 207) = 10.12, p < 0.01$).
-However, when we conducted pairwise comparisons with adjusted $p$-values using simulation, the only significant difference in time spent was when using the both interface, which took longer ($p < 0.01$ for all comparisons).
+Based on the results, we see evidence that the both condition (absolute and normalized accessed using a toggle) yielded longer completion times than the other conditions, although this is not consistent across tasks.
+There is also some evidence that jitter on average yielded a shorter completion time, but again not consistently across all five tasks.
 
 #### Confidence
 
 The participants self-reported level of confidence was reported using a 7-point Likert-scale rating.
+Confidence performance results are summarized in @fig-vis-confidence, with detailed accuracy results by visualization type and task in @fig-taskxvis-confidence.
+This data shows some evidence that jittering and normalized mode instilled lower confidence than absolute and both modes.
+
 For the value-retrieving task (T1), a Kruskal-Wallis non-parametric test revealed that the type of interface had significant impact on the confidence level ($\chi^2(3) = 74.57 p < 0.01$).
 The mean rating for each interface was for jitter 4.8, absolute 6.3, normalized 6.0, and both 6.25.
 A post-hoc Pairwise Wilcoxon Rank Sum test was employed with Bonferroni correction to adjust for multiple comparisons.
@@ -807,6 +804,7 @@ The post-hoc Pairwise Wilcoxon Rank Sum test was employed with Bonferroni correc
 ## Discussion
 
 Our results show that the gatherplots technique enable people to assess data distribution more quickly and more correctly than when using jittered scatterplots.
+It is plausible that the ordered grid layout used for marks in the gatherplots technique better supports quickly estimating (or even counting) the marks compared to merely randomly jittering the points.
 However, there are several limitations to this work that may affect its generalizability and overall utility.
 
 By virtue of being a unit visualization [@Park2018], where each data point is assigned a unique visual mark, the gatherplots technique is not primarily designed for large scale datasets. 
@@ -817,6 +815,11 @@ We suspect that many of these findings will not bear out for datasets only an or
 Analogously, gatherplots are not suitable for conveying datasets with a large number of data dimensions. 
 The technique is currently only designed with a single categorical dimension per geometric axis, plus one assigned to mark color.
 The axes could presumably be subdivided into multiple categories, similar to the Dataopsy technique [@DBLP:journals/tvcg/HoqueE24], but that is beyond the scope of this paper.
+
+We chose to include an interactive setting---``both''---in our experiment where participants were allowed to toggle between absolutel and normalized mode.
+However, the results show that this condition yielded significantly longer completion times with little to no improvement in accuracy or confidence.
+The increased completion time may not be a surprise because of the toggle interaction.
+Furthermore, the fact that both absolute and normalized mode had no specific benefit in their own right also explains why their combination was also not superior.
 
 Finally, the gatherplots technique includes carefully designed interval marks to convey the fact that a gatherplot axis is partitioned rather than continuous.
 Nevertheless, we have not evaluated the efficacy of this visual language.
