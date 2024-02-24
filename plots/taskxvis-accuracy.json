@@ -1,0 +1,83 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "data": {
+    "values":[
+      {"tech":"jitter","factor":"jitter - T1","lower":0.6428571428571429,"average":0.7374047619047683,"upper":0.8333333333333334},
+      {"tech":"abs","factor":"abs - T1","lower":0.8392857142857143,"average":0.9016071428571556,"upper":0.9553571428571429},
+      {"tech":"norm","factor":"norm - T1","lower":0.875,"average":0.9288660714285644,"upper":0.9732142857142857},
+      {"tech":"both","factor":"both - T1","lower":0.7894736842105263,"average":0.8524122807017551,"upper":0.9122807017543859},
+      {"tech":"jitter","factor":"jitter - T2","lower":0.44047619047619047,"average":0.5582380952380847,"upper":0.6666666666666666},
+      {"tech":"abs","factor":"abs - T2","lower":0.5089285714285714,"average":0.6005178571428583,"upper":0.6875},
+      {"tech":"norm","factor":"norm - T2","lower":0.42857142857142855,"average":0.518616071428571,"upper":0.6071428571428571},
+      {"tech":"both","factor":"both - T2","lower":0.5,"average":0.5897280701754348,"upper":0.6754385964912281},
+      {"tech":"jitter","factor":"jitter - T3","lower":0.25,"average":0.34563095238095737,"upper":0.4523809523809524},
+      {"tech":"abs","factor":"abs - T3","lower":0.49107142857142855,"average":0.5813303571428566,"upper":0.6696428571428571},
+      {"tech":"norm","factor":"norm - T3","lower":0.5178571428571429,"average":0.622892857142856,"upper":0.7142857142857143},
+      {"tech":"both","factor":"both - T3","lower":0.5175438596491229,"average":0.6049999999999959,"upper":0.6929824561403509},
+      {"tech":"jitter","factor":"jitter - T4","lower":0.3333333333333333,"average":0.43705952380952423,"upper":0.5357142857142857},
+      {"tech":"abs","factor":"abs - T4","lower":0.6160714285714286,"average":0.7028035714285721,"upper":0.7857142857142857},
+      {"tech":"norm","factor":"norm - T4","lower":0.6607142857142857,"average":0.7398571428571399,"upper":0.8214285714285714},
+      {"tech":"both","factor":"both - T4","lower":0.6578947368421053,"average":0.7358859649122836,"upper":0.8157894736842105},
+      {"tech":"jitter","factor":"jitter - T5","lower":0.11904761904761904,"average":0.1890357142857141,"upper":0.27380952380952384},
+      {"tech":"abs","factor":"abs - T5","lower":0.22321428571428573,"average":0.3199821428571442,"upper":0.4107142857142857},
+      {"tech":"norm","factor":"norm - T5","lower":0.25892857142857145,"average":0.3478839285714276,"upper":0.4375},
+      {"tech":"both","factor":"both - T5","lower":0.23684210526315788,"average":0.323535087719299,"upper":0.41228070175438597}]},
+  "layer": [
+    {
+      "mark": {
+        "type": "point",
+        "filled": true
+      },
+      "encoding": {
+        "x": {
+          "field": "average",
+          "type": "quantitative",
+          "scale": {
+            "zero": true
+          },
+          "axis": {
+            "title": "Accuracy"
+          }
+        },
+        "y": {
+          "field": "factor",
+          "sort": null,  
+          "type": "ordinal",
+          "axis": {
+            "title": "Task | Visualization"
+          }
+        },
+        "color": {
+          "field": "tech", "type": "nominal", "legend": null
+        }
+      }
+    },
+    {
+      "mark": "rule",
+      "encoding": {
+        "x": {
+          "field": "lower",
+          "type": "quantitative",
+          "scale": {
+            "zero": true
+          }
+        },
+        "x2": {
+          "field": "upper",
+          "type": "quantitative",
+          "scale": {
+            "zero": true
+          }
+        },
+        "y": {
+          "field": "factor",
+          "sort": null,  
+          "type": "ordinal"
+        },
+        "color": {
+          "field": "tech", "type": "nominal"
+        }
+      }
+    }
+  ]
+}

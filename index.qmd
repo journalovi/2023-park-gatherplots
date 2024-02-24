@@ -42,6 +42,7 @@ This paper is under review on the experimental track of the [Journal of Visualiz
 ## Abstract {.unnumbered}
 
 ###### Introduction
+
 Scatterplots are a common tool for exploring multidimensional datasets, especially in the form of scatterplot matrices (SPLOMs).
 However, scatterplots suffer from overplotting when categorical variables are mapped to one or two axes, or the same continuous variable is used for both axes.
 Previous methods such as histograms or violin plots use aggregation, which makes brushing and linking difficult.
@@ -76,7 +77,7 @@ Gatherplots outperform jittering for accuracy as well as for the subjective conf
 
 ###### Implementation
 
-We implemented a web-based demonstration of Gatherplots using [D3](https://d3js.org/) and [Firebase](https://firebase.google.com/), as well as using [Observable JS](https://observablehq.com/) in this article.
+We implemented a web-based demonstration of Gatherplots using [D3](https://d3js.org/) as well as using [Observable JS](https://observablehq.com/) in this article.
 
 ###### Demonstration
 
@@ -105,17 +106,17 @@ All these cases would have caused overplotting for a scatterplot, resulting in d
 <!-- ========================================================================== -->
 ## Introduction {#intro}
 
-Scatterplots---one of the most common types of statistical graphics \[@Cleveland1988; @Elmqvist2008; @Utts1996\]---are often used to visualize two continuous variables using visual marks mapped to a two-dimensional Cartesian space, where the color, size, and shape of the marks can represent additional dimensions.
+Scatterplots---one of the most common types of statistical graphics [@Cleveland1988; @Elmqvist2008; @Utts1996]---are often used to visualize two continuous variables using visual marks mapped to a two-dimensional Cartesian space, where the color, size, and shape of the marks can represent additional dimensions.
 It can also be used for exploring multidimensional datasets in the form of scatterplot matrices (SPLOM), where all the possible
 combinations of axes are presented in table form.
-However, scatterplots are so-called *overlapping visualizations* \[@Fekete2002\] in that the visual marks representing individual data points may begin to overlap each other in screen space in situations when the marks are large, when there is insufficient screen space to fit all the data at the desired resolution, or simply when several data points share the same value.
+However, scatterplots are so-called *overlapping visualizations* [@Fekete2002] in that the visual marks representing individual data points may begin to overlap each other in screen space in situations when the marks are large, when there is insufficient screen space to fit all the data at the desired resolution, or simply when several data points share the same value.
 In fact, realistic multidimensional datasets often contain categorical variables, such as nominal variables or discrete data dimensions with a small domain, which lead to many data points being mapped to the exact same screen position.
-This kind of overlap is known as \textit{overplotting} (or \textit{overdrawing}) in visualization, and is problematic because it may lead to data points being entirely hidden by other points, which in turn may lead to the viewer making incorrect assessments of the data.
+This kind of overlap is known as *overplotting* (or *overdrawing*) in visualization, and is problematic because it may lead to data points being entirely hidden by other points, which in turn may lead to the viewer making incorrect assessments of the data.
 As can be seen in @fig-scatter-problems, there are three situations for mapping variables to axes in scatterplots when overplotting is inevitable:
 
-* Plotting \textbf{categorical vs.\ continuous variables} gives rise to line patterns (@fig-scatter-problems(a));
-* Plotting \textbf{categorical vs.\ categorical variables} gives rise to single dot patterns (@fig-scatter-problems(b)); and
-* Plotting the \textbf{same continuous variable on both axes} gives rise to diagonal line patterns (@fig-scatter-problems(c)).
+* Plotting **categorical vs.\ continuous variables** gives rise to line patterns (@fig-scatter-problems(a));
+* Plotting **categorical vs.\ categorical variables** gives rise to single dot patterns (@fig-scatter-problems(b)); and
+* Plotting the **same continuous variable on both axes** gives rise to diagonal line patterns (@fig-scatter-problems(c)).
 
 ::: {#fig-scatter-problems}
 ```{ojs}
@@ -145,22 +146,21 @@ Plot.plot({
 Interactive scatterplot visualizing a car dataset with one continuous variable `MPG` and one categorical variable `Cylinders` showing limitations of scatterplots when plotting categorical variables on one or both axes.
 :::
 
-Several approaches have been proposed to address this problem \[@Ellis2007\], the most prominent being transparency, jittering, and clustering techniques.
+Several approaches have been proposed to address this problem [@Ellis2007], the most prominent being transparency, jittering, and clustering techniques.
 The first, changing transparency, does not so much address the problem as sidestep it by making the visual marks semi-transparent so that an accumulation of overlapping points are still visible. 
 However, this does not scale for large datasets, and also causes blending issues if color is used to encode additional variables.
-Jittering perturbs visual marks using a random displacement \[@Trutschl2003\] so that no mark falls on the exact same screen location as any other mark, but this approach is still prone to overplotting for large data.
+Jittering perturbs visual marks using a random displacement [@Trutschl2003] so that no mark falls on the exact same screen location as any other mark, but this approach is still prone to overplotting for large data.
 It also introduces uncertainty that is not aptly communicated by the scatterplot since marks will no longer be placed at their true location on the Cartesian space.
-Other approaches still attempt to organize overlapping marks into visual groups that summarize their distribution, such as histograms, violin plots, and kernel density estimation (KDE) plots \[@Fua1999; @Mayorga2013; @Im2013\].
-However, this comes at the cost of losing the identity of individual points, which can be problematic when filtering or searching; e.g, brushing data points is difficult in histograms \[@Im2013\].
+Other approaches still attempt to organize overlapping marks into visual groups that summarize their distribution, such as histograms, violin plots, and kernel density estimation (KDE) plots [@Fua1999; @Mayorga2013; @Im2013].
+However, this comes at the cost of losing the identity of individual points, which can be problematic when filtering or searching; e.g, brushing data points is difficult in histograms [@Im2013].
 
 In this paper, we propose the concept of *gathering* as an alternative to scattering and jittering, and then show how we can use this visual transformation to define a novel visualization technique called a *gatherplot*.
-The gatherplot is an instance of a recently recognized family of visualization techniques called *unit visualizations* \[@Park2018\] that maintain a strict mapping between every data item and its unique visual mark, improving the understandability over aggregated representations as well as enabling more natural interactions.
+The gatherplot is an instance of a recently recognized family of visualization techniques called *unit visualizations* [@Park2018] that maintain a strict mapping between every data item and its unique visual mark, improving the understandability over aggregated representations as well as enabling more natural interactions.
 Gathering is a generalization of the linear mapping used by scatterplots, and works by first partitioning the graphical axis into segments based on the data dimension and then organizing points into *packed groups* for each segment to avoid overplotting.
 This means that the gather operation relaxes the continuous spatial mapping commonly used for a graphical axis; instead, each discrete segment occupies a certain interval of screen space that maps to the same data value.
 This is communicated using graphical brackets on the axis that shows the value or interval for each segment (@fig-teaser(b)).
-Beyond the gatherplot technique, we also show how the gather transformation can be embedded into a Magic Lens \[@Bier1993\] for use in a normal scatterplot; we call this technique a "GatherLens."
 
-The contributions of our paper are the following: (1) the concept of the gather visual transformation as a generalization of linear visual mappings; (2) the gatherplot technique, an application of the gather operation to scatterplots to mitigate overplotting; (3) the GatherLens interaction technique where gathering is applied on a local level; and (4) results from a crowdsourced graphical perception study on the effectiveness of gatherplots.
+The contributions of our paper are the following: (1) the gatherplot technique that applies the gather operation to scatterplots to mitigate overplotting; and (2) results from a crowdsourced graphical perception study on the effectiveness of gatherplots.
 
 Next in this paper, we review the literature on statistical graphics and overplotting.
 We then present the gather operation and use it to define gatherplots.
@@ -171,13 +171,14 @@ We close with conclusions and our future plans.
 <!-- ========================================================================== -->
 ## Background
 
+Scatterplots are classic statistical data graphics with many design variations to address challenges of scale, complexity, and specific tasks [@DBLP:journals/tvcg/SarikayaG18].
 Our goal with gatherplots is to generalize scatterplots to a representation that maintains its simplicity and familiarity while eliminating overplotting.
 With this in mind, below we review prior art on mitigating overplotting using appearance or distortion.
 We also discuss visualization techniques specifically designed for categorical variables.
 
 ### Characterizing Overplotting
 
-While there are many ways to categorize visualization, Fekete and Plaisant \[@Fekete2002\] introduced a classification particularly useful for our purposes that splits techniques into two types:
+While there are many ways to categorize visualization, Fekete and Plaisant [-@Fekete2002] introduced a classification particularly useful for our purposes that splits techniques into two types:
 
 * **Overlapping visualizations**: No layout restrictions on visual marks is enforced, leading to overplotting.
 Examples: Scatterplots, node-link diagrams, parallel coordinate plots, etc.
@@ -185,13 +186,13 @@ Examples: Scatterplots, node-link diagrams, parallel coordinate plots, etc.
 * **Space-filling visualizations**: Layouts designed to optimally fill the available space to avoid overlap.
 Examples: Treemaps, matrices, geographic maps.
 
-Fekete and Plaisant \[@Fekete2002\] investigated the overplotting phenomenon for a 2D scatterplot, and found that it has a significant impact as datasets grow.
+Fekete and Plaisant [-@Fekete2002] investigated the overplotting phenomenon for a 2D scatterplot, and found that it has a significant impact as datasets grow.
 The problem stems from the fact that even with two continuous variables that do not share any coordinate pairs, the size ratio between the visual marks and the display remains mostly constant.
 Furthermore, most datasets are not uniformly distributed.
 This all means that overplotting is inevitable for realistic datasets.
 
 Partial or complete overplotting generally leads to visual clutter.
-Ellis and Dix \[@Ellis2007\] survey the literature and derive a general approach to reduce clutter.
+Ellis and Dix [@Ellis2007] survey the literature and derive a general approach to reduce clutter.
 According to their treatment, there are three ways to reduce clutter in a visualization: by changing the visual appearance, by distorting visual space, or by presenting data over time.
 Some trivial but impractical mechanisms they list include decreasing mark size, increasing display space, or animating the data.
 Below we review more practical approaches based on appearance and distortion.
@@ -199,18 +200,18 @@ Below we review more practical approaches based on appearance and distortion.
 ### Appearance-based Methods
 
 Practical appearance-based approaches to mitigate overplotting include transparency, sampling, kernel density estimation (KDE), and aggregation.
-Transparency changes the opacity of the visual marks, and has been shown to convey overlap for up to five occurrences \[@Zhai1996\].
+Transparency changes the opacity of the visual marks, and has been shown to convey overlap for up to five occurrences [@Zhai1996].
 However, there is still an upper limit for how much overlap is perceptible to the user, and the blending caused by overlapping marks of different colors makes identifying colors difficult.
 
-*Sampling* uses stochastic methods to statistically reduce the data size to visualize \[@Dix2002\].
+*Sampling* uses stochastic methods to statistically reduce the data size to visualize [@Dix2002].
 This may reduce the amount of overplotting, but since the sampling is random, it cannot be reliably eliminated.
 Furthermore, one of the core strengths of a scatterplot is its ability to show outliers effectively, whereas sampling will likely eliminate all outliers (due to the intrinsic nature of an outlier).
 
 Aggregation methods can also mitigate overplotting.
-KDE \[@Silverman1986\] and other binned aggregations \[@Elmqvist2010; @Fua1999; @Mayorga2013; @Im2013\] replace a cluster of marks with a single entity that has a distinct visual representation. 
-Similarly, splatterplots \[@Mayorga2013\] combine individual marks with aggregated entities, using marks to show outliers and aggregated entities to show the general trends.
+KDE [@Silverman1986] and other binned aggregations [@Elmqvist2010; @Fua1999; @Mayorga2013; @Im2013] replace a cluster of marks with a single entity that has a distinct visual representation. 
+Similarly, splatterplots [@Mayorga2013] combine individual marks with aggregated entities, using marks to show outliers and aggregated entities to show the general trends.
 While aggregation techniques are effective against overplotting for continuous variables, they fare poorly for categorical ones.
-Therefore, the generalized plot matrices (GPLOMs) \[@Im2013\] were proposed to solve this particular problem by adopting non-homogeneous plots into a matrix.
+Therefore, the generalized plot matrices (GPLOMs) [@Im2013] were proposed to solve this particular problem by adopting non-homogeneous plots into a matrix.
 The technique uses a histogram for categorical vs. continuous variables, and a treemap for categorical vs. categorical variables.
 While effective in providing overview, aggregated techniques sacrifice some compatibility with scatterplots since they no longer maintain object identity, meaning that each visual mark no longer represents a single data point.  
 
@@ -242,52 +243,68 @@ This has the effect of spreading data points apart so that they are easier to di
 However, naïve jittering mechanisms apply the displacement indiscriminately to all data points, regardless of whether they are overlapping or not.
 This has the drawback of distorting points away from their true location on the visual canvas, and still does not completely eliminate overplotting.
 
-Bezerianos et al. \[@Bezerianos2010\] use a more structured approach to displacement, where overlapping marks are organized onto the perimeter of a circle.
+Bezerianos et al. [-@Bezerianos2010] use a more structured approach to displacement, where overlapping marks are organized onto the perimeter of a circle.
 The circle is grown to a radius so that all marks fit, which means that its size is also an indication of the number of grouped points.
 However, this mechanism still introduces uncertainty in the spatial mapping, and it is also not clear how well it scales for very dense data, as this can lead to a circle of arbitrarily large size.
 Nevertheless, the approach is a good example of how deterministic displacement can be used to great effect for eliminating overplotting.
 
-Trutschl et al. \[@Trutschl2003\] propose a deterministic displacement ("smart jittering") that adds meaning to the jittered position based on clustering results.
+Trutschl et al. [-@Trutschl2003] propose a deterministic displacement ("smart jittering") that adds meaning to the jittered position based on clustering results.
 This makes it easier to understand the resulting spatial display.
 
 ### Data-aware Methods
 
 The most advanced and effective overplotting mitigations are data-aware, in that they determine instances of overplotting in a chart.
-As a case in point, very recent work by Chen et al. \[@Chen2018\] use animation to cycle the depth value of overlapping points in a scatterplot over time to ensure that every point is shown on top at some point in the rotation.
-This means that overplotting is alleviated by the notion of "guaranteed visibility over time" \[@Munzner2003\] presented by Munzner et al.
+As a case in point, recent work by Chen et al. [-@Chen2018] use animation to cycle the depth value of overlapping points in a scatterplot over time to ensure that every point is shown on top at some point in the rotation.
+This means that overplotting is alleviated by the notion of "guaranteed visibility over time" [@Munzner2003] presented by Munzner et al.
+However, a common criticism for techniques designed to mitigate overplotting is that often do not scale to large dataset scales.
 
-Shneiderman et al.\[@Shneiderman2000\] propose a data-aware structured displacement approach called *hieraxes*, which combines hierarchical browsing with two-dimensional scatterplots.
+Shneiderman et al.[-@Shneiderman2000] propose a data-aware structured displacement approach called *hieraxes*, which combines hierarchical browsing with two-dimensional scatterplots.
 In hieraxes, a two-dimensional visual space is subdivided into rectangular segments for different categories in the data, and points are then coalesced into stacked groups inside the different segments.
 This work inspired gatherplots, which refines the layout and design of hieraxes further.
 
-Microsoft's SandDance \[@Sanddance\] use atomic visual marks as the building block of a highly interactive and visual interface built on smooth transitions between different spatial mappings.
+Microsoft's SandDance [@Sanddance] use atomic visual marks as the building block of a highly interactive and visual interface built on smooth transitions between different spatial mappings.
 Drawing on an older experimental tool called Pivot from Microsoft Live Labs, SandDance now exists as a custom visual in the [Microsoft Power BI tool](https://www.microsoft.com/en-us/garage/profiles/sanddance/).
 
-Finally, Keim et al. \[@DBLP:journals/ivs/KeimHDJB10\] propose *generalized scatterplots* that use a data-aware combination of overlapping and distortion to avoid overplotting in a scatterplot display.
+Finally, Keim et al. [-@DBLP:journals/ivs/KeimHDJB10] propose *generalized scatterplots* that use a data-aware combination of overlapping and distortion to avoid overplotting in a scatterplot display.
 By balancing the overlapping and distortion, the user can achieve a display that conforms to their prior familiarity with scatterplots while retaining minimal occlusion and appropriate distortion of data points.
 However, in contrast, our gatherplot approach requires no such balancing; of course, as a result, it is also less visually scalable.
 
-Finally, hieraxes \[@Shneiderman1996\], SandDance \[@Sanddance\], and gatherplots (that we present in this paper) are all examples of a recently recognized family of visualizations called *unit visualizations* \[@Park2018\] where the relation between data items and their mark is explicitly maintained. 
+Finally, hieraxes [@Shneiderman1996], SandDance [@Sanddance], and gatherplots (that we present in this paper) are all examples of a recently recognized family of visualizations called *unit visualizations* [@Park2018] where the relation between data items and their mark is explicitly maintained. 
 This identity property between data and display is exemplified in visualizations such as unit charts, dotplots, and scatterplots.
 It can be contrasted with *aggregated visualizations* that combine multiple data items intop a single visual mark, such as barcharts, piecharts, and histograms.
-Our gatherplots technique shows how a unit visualization can be designed, evaluated, and even deployed in an interactive technique (GatherLens) from the ground up based on unit visualization principles.
+Our gatherplots technique shows how a unit visualization can be designed, evaluated, and even deployed from the ground up based on unit visualization principles.
+
+It is worth comparing gatherplots to ur own prior work on the Atom [@Park2018] grammar for unit visualization. 
+Atom is a general-purpose visualization grammar with gathering (packing with no overlap) as one of the visual layout options. 
+In other words, the gatherplots technique can be more or less replicated using Atom. 
+However, our focus in this paper is on specialized design aspects of gatherplots, including the interval marks, streamgraph layout, and layout modes.
+Also, where Atom is merely a grammar, this paper contributes a detailed user study involving the gatherplots technique in comparison to jittering.
 
 ### Visualizing Categorical Variables
 
-While we have already ascertained that scatterplots are not optimal for categorical variables, there exists a multitude of visualization techniques that have been specifically designed for such data \[@Bederson2002; @Hofmann2000; @Kosara2006\].
-Simplest among them are histograms, which visualize the item count for each categorical value \[@Stevens1946\].
-Boxplots and violin plots show the distribution of continuous variables over categorical variables \[@Wickham2011\].
+While we have already ascertained that scatterplots are not optimal for categorical variables, there exists a multitude of visualization techniques that have been specifically designed for such data [@Bederson2002; @Hofmann2000; @Kosara2006].
+Simplest among them are histograms, which visualize the item count for each categorical value [@Stevens1946].
+Boxplots and violin plots show the distribution of continuous variables over categorical variables [@Wickham2011].
 While hieraxes, histograms, and treemaps are effective in dealing with categorical variables, it is difficult to extend these to continuous vs. categorical variables.
 One way is to apply binning to continuous variables to create groups of values.
 However, the optimal number of bins depends on statistical characteristics of the data and the required task.
-Dot plots by Wilkinson \[@Wilkinson1999\] renders continuous univariate variables without overplotting by stacking nodes within dot
+Dot plots by Wilkinson [-@Wilkinson1999] renders continuous univariate variables without overplotting by stacking nodes within dot
 size.
-Dang et al. \[@Dang2010\] extended this to scatterplots by stacking nodes whose values are similar in 3D visual space.
+Dang et al. [-@Dang2010] extended this to scatterplots by stacking nodes whose values are similar in 3D visual space.
 These pioneering works provide the theoretical background for the determination of optimal bin size for gatherplots.    
 
-Another method for visualizing categorical data that is of practical interest is for making inferences based on statistical and probabilistic data.
-Cosmides and Toody \[@Cosmides1996\] used frequency grids as discrete countable objects, and Micallef et al. \[@Micallef2012\] extend this with six different area-proportional representations of categorical data organized into different classes.
-Huron et al. \[@Huron2013\] suggested using sedimentation as metaphor where individual objects coming from a data stream gradually transform into aggregated areas, or strata.
+Specialized versions of dot plots [@Wilkinson1999] have been imbued with their own monikers.
+The R graphics package presents a version called a stripchart, which allows for both jittering and stacking categorical data in a one-dimensional scatterplot.
+Beeswarm plots [@beeswarm] improves on stripcharts by allowing for closely packed, non-overlapping points.
+The seaborn [@Waskom2021] statistical data visualization library for Python extends these chart types to two-dimensional space.
+Stripplots (the name is somewhat unfortunate as it clashes with the strip plots technique for rendering univariate data as strips, yielding a plot reminiscent of a barcode) are 1D or 2D versions of stripcharts with random jittering where at least one axis is expected to be categorical.
+Swarmplots are 2D versions of beeswarm plots that place points to avoid overlap.
+In comparison, gatherplots partition the available space into stacked groups and then organize the marks inside each group into ordered grids.
+This yields a richer visual language that allows for sorting marks based on color and even resize marks to fill the visual space.
+
+Another practical method for visualizing categorical data is for making inferences based on statistical and probabilistic data.
+Cosmides and Toody [-@Cosmides1996] used frequency grids as discrete countable objects, and Micallef et al. [-@Micallef2012] extend this with six different area-proportional representations of categorical data organized into different classes.
+Huron et al. [-@Huron2013] suggested using sedimentation as metaphor where individual objects coming from a data stream gradually transform into aggregated areas, or strata.
 
 ::: {#fig-aspect-ratio layout-ncol=3}
 ![Absolute mode.](figures/aspect-ratio-1.svg){#fig-aspect1 fig-alt="Gatherplot for a Titanic survivors dataset with Sex on the Y axis and Class on the X axis. Color encodes whether a person survived or not: dark red for Yes, and pink for No. In the grids formed by the categorical axes, gathered marks arranged in a regular grid show the data distribution. The grids have the same aspect ratio as the overall chart. All the marks are small and of equal size."}
@@ -305,71 +322,49 @@ The rate of male survivors in each passenger class is not easy to compare.
 <!-- ========================================================================== -->
 ## The Gather Transformation {#gather}
 
-Position along a common scale is the most salient of all visual variables \[@Bertin1983; @Cleveland1985\], and so mapping a data dimension to positions on a graphical axis is a standard operation in data visualization.
+Position along a common scale is the most salient of all visual variables [@Bertin1983; @Cleveland1985], and so mapping a data dimension to positions on a graphical axis is a standard operation in data visualization.
 We call this mapping a *visual transformation*.
-However, most statistical treatments of data, such as Stevens' classical theory on the scale of measurements \[@Stevens1946\], do not take the physical properties of display space into account.
+However, most statistical treatments of data, such as Stevens' classical theory on the scale of measurements [@Stevens1946], do not take the physical properties of display space into account.
 This is our purpose in the following section.
-
-### Problem Definition
-
-Let $V = <f, s>$ be a visual transformation that consists of a transformation function $f$ and a mark size $s$ (pixels). 
-Furthermore, assume that $f$ transforms a data point $p_d \in D$ from a data dimension $D$ to a coordinate on a graphical axis $p_c \in C$ by $f(p_d) = p_c$.
-Given a dataset $D_i \subseteq D$, we say that a particular visual transformation $V_j$ exhibits \textit{overlap} if
-
-$$
-\exists p_x, p_y \in D_i \wedge x \neq y : |f_j(p_x) - f_j(p_y)| < s_j.
-$$
-
-In other words, overlap occurs for a particular dataset and visual transformation if there exists at least one case where the visual marks of two separate data points in the dataset fall within the same interval on the graphical axis.
-The *overlap index* of a dataset and visual transformation is defined as the number of unique pairs of points that overlap.
-For a one-dimensional visualization, only a single transformation is used and the visualization and dataset is said to exhibit *overplotting* iff it exhibits overlap.
-For a two-dimensional visualization, however, the visualization and dataset will only exhibit overplotting iff there is overlap in **both** visual transformations and data dimensions.
-Analogously, the *overplotting index* is the unique number of overplotting incidences for that particular visual transformation and dataset.
-
-This has two practical implications: (1) even a dataset that consists only of nominal variables may **not** exhibit overplotting if there is only at most one instance of each nominal value, and (2) a dataset consisting of continuous values may **still** exhibit overplotting if any two points in the dataset are close enough that they get mapped to within the size of the visual marks on the screen. 
-The corollary is basically that overplotting is a function of **both** visualization technique and dataset.
 
 ### Definition: The Gather Transformation
 
-We build on the previous idea of structured displacement \[@Bezerianos2010; @Shneiderman2000\] by proposing a novel visual transformation function called a *gather* transformation $f_{gather}$ that non-linearly segments the graphical axis $C$ and organizes data points in each segment to eliminate overplotting.
+We build on the previous idea of structured displacement [@Bezerianos2010; @Shneiderman2000] by proposing a novel visual transformation function called a *gather* transformation that non-linearly segments a graphical axis and organizes data points in each segment to eliminate overplotting.
+More specifically, the graphical axis is subdivided into contiguous segments, one for each value in the categorical axis.
+Data points as visual marks are then packed into the available display space without overlap (i.e., using a regular spacing).
 
-The gather transformation $V_{gather} = <f_{gather}, s_{gather}>$ consists of a transformation function $f_{gather}$ that maps data points $p_d \in D$ to coordinates $p_c \in C$, and a visual mark sizing function (instead of a scalar) $s_{gather}$ that yields a visual mark size given the same data point.
-The gather transformation function is special in that it eliminates overplotting by subdividing the graphical axis $C$ into $n$ contiguous segments $C = \{ C_1, C_2, \ldots, C_n \}$, where $n$ is the size of the domain of the gather transformation function, i.e., the number of unique elements in the data dimension $D$.
-When mapping a data point $p_d$ to the graphical axis, $f_{gather}$ will return an arbitrary graphical coordinate $p_c \in C_i$ for whatever coordinate segment $C_i$ that $p_d$ belongs to.
-
-Practically speaking, coordinates $p_c \in C_i$ will be chosen to efficiently pack visual marks into the available display space without causing overplotting (i.e., using a regular spacing of size $s_{gather}$).
-Several different methods exist for adapting the gather transformation to the dataset $D$.
-One approach is to keep the segments $C_1, \ldots, C_n$ of equal size and find a constant visual mark size $s_{gather}(p_d) = s_{max}$ that ensures that all points fit within the most dense segment.
+Several different methods exist for adapting the gather transformation to a dataset.
+One approach is to keep the segments of equal size and find a constant visual mark size that ensures that all points fit within the most dense segment.
 The constant mark size makes visual comparison straightforward.
 Another approach is to adapt segment size to the density of the data while still keeping the mark size constant.
 This will minimize empty space in the visual transformation and allows for maximizing mark size.
 A third approach is to vary mark size proportionally to the number of points in a segment.
 This will make comparison of the absolute number of points in each segment difficult, but may facilitate relative comparisons if marks are distinguished in some other way (e.g., using color).
 
-For data dimensions $D$ that have a very large number of unique values, it often makes sense to first quantize the data using a function $p_q = Q(p_d)$ so that the number of elements $n$ is kept manageable (on the order of 10 or less for most visualizations).
-For example, a data dimension representing a person's age might heuristically be quantized into ranges of 10 years: 0-9 years, 10-19 years, 20-29 years, and so on.
+For data dimensions that have a very large number of unique values, it often makes sense to first quantize ("bin") the data so that the number of elements is kept manageable (on the order of 10 or less for most visualizations).
+For example, a data dimension representing a person's age might heuristically be binned into ranges of 10 years: 0-9 years, 10-19 years, 20-29 years, and so on.
 
 In a gather transformation, the coordinate axis has been partitioned into segments, where the order of segments on the axis depends on the data.
 For nominal data, the segments can be reordered freely, both by the algorithm and by the user.
 For ordinal or quantized data, the order is given by the data relation.
-Furthermore, it often makes sense to be able to order points inside each segment $C_i$ using the gathering transformation function $f_{gather}$, for example using a second data dimension (possibly visualized using color) to group related items together.
+Furthermore, it often makes sense to be able to order points inside each segment using the gathering transformation function, for example using a second data dimension (possibly visualized using color) to group related items together.
 
 Appropriate visual representations of data where the gather transformation has been applied are also important.
-The *stacked entities* of gathered points---one per coordinate segment $C_i$---should typically maintain object identity, so that each constituent point and their size is discernible as a discrete visual mark.
+The *stacked entities* of gathered points should maintain object identity, so that each constituent point and their size is discernible as a discrete visual mark.
 Similarly, a visual representation of the segmented graphical axis should externalize the segments as labeled intervals instead of labeled major and minor ticks; this will also communicate the discontinuous nature of the axis itself to the viewer.
  
 ### Using the Gather Transformation
 
-To give an example in one-dimensional space, parallel coordinate plots \[@Inselberg1985\] use multiple graphical axes, one per dimension $D_i$, and organize them in parallel while rendering data points as polylines connecting data values on one axis to adjacent ones.
+To give an example in one-dimensional space, parallel coordinate plots [@Inselberg1985] use multiple graphical axes, one per dimension, and organize them in parallel while rendering data points as polylines connecting data values on one axis to adjacent ones.
 However, traditional parallel coordinate plots merely use a scatter transformation on each graphical axis, which makes the technique prone to overplotting.
 Multiple authors have studied ways of mitigating this problem, for example by reorganizing the position of nominal
-values \[@Rosario2004\], using transparency, applying jitter, or by clustering the data \[@Fua1999\].
+values [@Rosario2004], using transparency, applying jitter, or by clustering the data [@Fua1999].
 
 However, an alternative approach is to use the gather representation for each graphical axis to minimize overplotting.
 This will cause each axis to be segmented into intervals, and we can then resize segments according to the number of items falling into each segment so that segments with many data points become proportionally larger than those with fewer points.
 Finally, if the data dimensions represent nominal data, it may make sense to use a global segment ordering function so that there is a minimum of lateral movement for the majority of points as they connect to adjacent axes.
 This will also minimize line crossings between the parallel axes.
-This particular visualization technique---a parallel coordinate plot with the gather transformation applied to each graphical axis---is essentially equivalent to *parallel sets* \[@Kosara2006\].
+This particular visualization technique---a parallel coordinate plot with the gather transformation applied to each graphical axis---is essentially equivalent to *parallel sets* [@Kosara2006].
 
 In fact, by applying our generalized gather transformation to the axis, we are actually proposing a new type of stacked visualization where each entity is still represented by lines.
 In a sense, this technique combines parallel coordinates and parallel sets because the grouped lines maintain the illusion of a single entity for an axis with nominal categorical values (similar to parallel sets), yet integrates directly with a parallel coordinate axis with continuous values.
@@ -427,15 +422,15 @@ Gatherplot of the cars dataset with controls for the horizontal and vertical axe
 Applying gathering to two perpendicular axes defining a Cartesian space results in a *gatherplot*: a 2D distortion-based extension of scatterplots that gathers data points into *stacked groups*, thereby eliminating overplotting without losing the identity of individual data points.
 @fig-gatherplot provides an interactive gatherplot.
 Compared to jittering, which relies on random permutation, gathering organizes visual marks according to visual features, so that the resulting group of objects forms a meta-object.
-According to Haroz and Whitney \[@Haroz2012\], grouping marks by feature helps in performing perceptual tasks such as finding outliers, counting items, and seeing trends.
+According to Haroz and Whitney [-@Haroz2012], grouping marks by feature helps in performing perceptual tasks such as finding outliers, counting items, and seeing trends.
 The technique is particularly designed for visualizing categorical variables.
 Below we discuss the open design parameters for the technique, including layout, aspect ratio, and item shapes.
 
 ### Layout
  
 Gatherplots eliminate overplotting by gathering marks with similar visual properties into *stacked groups*.
-This is inspired by previous works such as hieraxes \[@Shneiderman2000\] or frequency grids \[@Micallef2012; @Cosmides1996\].
-However, there are many design possibilities for organizing the visual representation depending on the context, especially on the size distribution of each groups, the aspect ratio of assigned space, and the task at hand.  
+This is inspired by previous works such as hieraxes [@Shneiderman2000] or frequency grids [@Micallef2012; @Cosmides1996].
+However, there are many design possibilities for organizing the visual representation depending on the context, especially on the size distribution of each groups, the aspect ratio of assigned space, and the task at hand.
 As a result, we derive the following three layout modes (see @fig-aspect-ratio):
  
 * **Absolute mode**: Here stacked groups are sized to follow the aspect-ratio of the assigned region.
@@ -444,12 +439,12 @@ As a result, we derive the following three layout modes (see @fig-aspect-ratio):
 
 * **Normalized mode**: In this mode, the mark size and aspect ratio is adapted so that every stacked group has equal dimensions.
   This makes it easier to investigate ratios when the user is interested in the relative distributions of subgroups rather than the absolute number of members.
-  Items also change their shape from a circle (absolute mode) to a rounded rectangle (@fig-aspect-ratio(b)).  
+  <!-- Items also change their shape from a circle (absolute mode) to a rounded rectangle (@fig-aspect-ratio(b)).   -->
   
   Normalized mode is useful for two specific tasks:
 
   * *Finding the ratio of the subgroups in a group* (@fig-aspect-ratio).
-    Because groups of different size are normalized to the same geometric area, any comparison results in a relative comparison, which can aid statistical Bayesian reasoning \[@Micallef2012\].
+    Because groups of different size are normalized to the same geometric area, any comparison results in a relative comparison, which can aid statistical Bayesian reasoning [@Micallef2012].
   
   * *Finding the distribution of outliers*.
     When there are many items on the screen for absolute mode, all marks must be reduced in size.
@@ -459,7 +454,7 @@ As a result, we derive the following three layout modes (see @fig-aspect-ratio):
 * **Streamgraph mode**: Here stacked groups are reorganized so that they maintain the same number of elements in their shorter edge.
   This mode is used for regions where the ratio of width and height are drastically different (in our prototype implementation, we use a heuristic threshold aspect ratio value of 3 for activating this mode).
   This means there are usually many times more groups in the axis in parallel with shorter edges.
-  A good example is for visualizing the population distribution with regards to gender and age; the resulting gatherplot approaches ThemeRiver \[@Havre2000\] as the number of entities increases (@fig-aspect-ratio(c)).
+  A good example is for visualizing the population distribution with regards to gender and age; the resulting gatherplot approaches ThemeRiver [@Havre2000] as the number of entities increases (@fig-aspect-ratio(c)).
  
 The choice between absolute and streamgraph mode happens automatically based on the aspect ratio of assigned space and without the need for user intervention.
 Therefore, only a simple interaction is required to toggle between absolute and normalized mode.
@@ -468,7 +463,7 @@ However, we do expose a setting to manually toggle between these modes as well.
 ### Managing Continuous Variables
 
 To use gatherplots for continuous variables, we apply binning to partition the variable into discrete intervals.
-The resulting visualization resembles dots plots by Wilkinson \[@Wilkinson1999\], where bin size is equal to dot
+The resulting visualization resembles dots plots by Wilkinson [-@Wilkinson1999], where bin size is equal to dot
 size.
 The size of individual bins is important for binning because it determines the spatial accuracy and legibility of the visualization.  
 
@@ -478,7 +473,7 @@ However, gatherplot requires two different assumptions: First, the aspect ratio 
 Second, the dot size or bin size is determined by the global maximum in the dataset, which may not be in the same cluster.
 Furthermore, because bin size is the same as dot size, selecting bin size can be thought of as a trade-off between accuracy and legibility.
 Using very small bin size and dot size increases the spatial accuracy, but results in poor legibility, and vice versa.
-Balancing accuracy vs. legibility is common in visualization for large datasets; for example, splatterplots limit the information shown to users based on the available visual space \[@Mayorga2013\].
+Balancing accuracy vs. legibility is common in visualization for large datasets; for example, splatterplots limit the information shown to users based on the available visual space [@Mayorga2013].
 Similarly, gatherplots choose bin size based on spatial accuracy and legibility.
 When the visual space is small, we use a comparably large bin size to increase dot size, thus resulting in poor spatial accuracy and high legibility; for larger space allocations, the bins can be made smaller to increase accuracy without loss of legibility.
 This is shown in @fig-optimal-bin. 
@@ -552,26 +547,25 @@ However, some aspects are different; below we discuss our design choices for vis
 
 #### Visual Marks
 
-Scatterplots typically use a small circle or dot as a visual representation for items, but many variations exist that use glyph shapes to convey multidimensional variables \[@McDonnel2009; @Tufte1983; @Cleveland1988; @Chernoff1973\].
-However, in normalized mode, sometimes the aspect ratio of visual marks changes according to the aspect ratio of the space assigned to that value.
+Scatterplots typically use a small circle or dot as a visual representation for items, but many variations exist that use glyph shapes to convey multidimensional variables [@McDonnel2009; @Tufte1983; @Cleveland1988; @Chernoff1973].
+This is also potentially useful for gatherplots; the layouts generated by gathering can contain any visual mark, even aggregated ones like pie charts or bar charts.
+
+In this paper we focus on unit visual marks, i.e. with one mark per data item.
+In normalized mode, sometimes the aspect ratio of visual marks changes according to the aspect ratio of the space assigned to that value.
 Also, as gathering changes the size of marks to fit in one cluster, sometimes the marks size becomes too small or too large compared to other marks.
 This results in several unique design considerations for item shapes.
 
-Based on our experience with several alternate designs, we recommend using a rectangle with constant rounded edge without using stroke lines.
+Based on our experience testing several alternate designs, we recommend using a rectangle with constant rounded edge.
 Using constant rounded edge allows the nodes to be circular when the mark is small, as in @fig-aspect-ratio(b), and a rectangle to show the degree of stretching, as shown in @fig-aspect-ratio(b).
 As a disadvantage, it does yield less differentiable individual elements.
-As for avoiding stroke lines, such lines become dominant when nodes shrink below a certain size.
-Eliminating them entirely curtails this problem.
- 
+Stroke lines can be useful in some situations, but easily become dominant when nodes shrink below a certain size.
+
 #### Interval Tick Marks
  
 Because we are representing ranges rather than single points, the single line type tick marks for scatterplots are not appropriate for gatherplots; instead, ticks should communicate the partitioned segments on the axes.
 Without this visual representation, when the user is confronted with a number, it can be confusing to determine whether adjacent nodes with different offset has same value or not.
-
-After considering a few visual design alternatives, we recommend a bracket type marker for this purpose.
 @fig-tick-mark shows design alternatives of tick mark for representing ranges.
-The bracket is optimal in that it uses minimal ink and creates less
-density with adjacent ticks.
+Our implementations use bracket type markers to reduce density from adjacent ticks.
 
 ::: {#fig-tick-mark layout-ncol=3}
 
@@ -615,8 +609,8 @@ Maximization simply folds all other values except the value of the interest to a
 ![](figures/axis-folding.svg){fig-alt="Gatherplot showing the passengers  of the *Titanic*. Class (First, Second, Third, Crew) has been mapped to the X axis and Age (Child, Adult) to the Y axis. Color is used for the boarding Port; Cherbourg, Belfast, Southhampton, and Queenstown. Child, Second Class, and Crew has been minized to not show details. First and Third Class Adults are showing as large blocks of marks organized in an orderly grid. For the first class, the Ports are mostly evenly distributed. For Third Class, most of them boarded in Southhampton."}
 
 **Survivors of the *Titanic* using gatherplots.**
-The X axis is class of passengers, where second class passengers and crew are minimized. 
-The Y axis is age, where the adult value is maximized.
+The X axis is class of passengers, where second class passengers and crew are minimized (indicated by the single tick marks). 
+The Y axis is age, where the adult value is maximized (the child value has a single tick mark, indicating it is minimized).
 This view makes it easy to compare first class adults and third class adults. 
 Note that even in the minimized state, we can get an overview about the second class and crew by the color line, which communicates the underlying distribution.
 This is due to sorting over the color dimension.
@@ -632,7 +626,7 @@ The visualization can be compared to scatterplots and jittered scatterplots with
 ## Evaluation {#sec-eval}
 
 This study was designed to demonstrate the effectiveness of gatherplots, in particular its different layout modes with categorical vs. categorical variables.
-Crowdsourcing platforms have been widely used and have shown to be reliable platforms for evaluation studies \[@Paolacci2010; @Willett2013\].
+Crowdsourcing platforms have been widely used and have shown to be reliable platforms for evaluation studies [@Paolacci2010; @Willett2013].
 Therefore, we conducted our experiment on [Amazon Mechanical Turk](https://www.mturk.com).
 This also gave us the opportunity to study the utility of the technique for the general population, who do not have specific statistical training.
 Research materials associated with the study can be found on OSF at [https://osf.io/bk9cx/](https://osf.io/bk9cx/).
@@ -647,6 +641,7 @@ We adopted a between-subjects design to eliminate learning effects from experien
 ### Participants
 
 A total of 240 participants (103 female) completed our survey.
+Participants were compensated for their time and labor with compensation consistent with the U.S. federal minimum wage ($7.25/hour at the time of research).
 Because some questions asked about concepts of absolute numbers and probability, we limited participants to the United States to reduce the influence of language.
 To ensure the quality of the workers, the qualification of workers were the approval rate of more than 0.95 with number of hits approved to be more than 1,000.
 Only three of 240 participants reported not using English as their first language.
@@ -656,8 +651,8 @@ This yielded a total of 211 participants.
 
 ### Task
 
-As scatterplots can support many types of tasks, it is difficult to come up with a single representative task.
-In the end, we selected retrieving a value as a low-level task, and comparing and ranking as a high-level task.
+Scatterplots can support many types of tasks [@DBLP:journals/tvcg/SarikayaG18].
+Based on Sarikaya and Gleicher's analysis [-@DBLP:journals/tvcg/SarikayaG18], we selected retrieving a value as a low-level task, and comparing and ranking as a high-level task.
 For the comparing and ranking task, two different types of questions were asked: the tasks to consider absolute values such as frequency and tasks that consider relative values such as percentage.
 Therefore, for one visualization, 5 different questions were generated.
 For gatherplots, our interest is in the difference between task considering absolute values and relative values.
@@ -728,11 +723,11 @@ Error bars show 95\% confidence intervals calculated using bootstrapping ($N=1,0
 
 ::: {#fig-results-detail layout-ncol=3}
 
-![](plots/visxtask-accuracy.svg){fig-alt="Accuracy dotplot showing jitter, absolute, normalized, and both for tasks T1--T5."}
+![](plots/taskxvis-accuracy.svg){fig-alt="Accuracy dotplot showing jitter, absolute, normalized, and both for tasks T1--T5."}
 
-![](plots/visxtask-time.svg){fig-alt="Completion time dotplot showing jitter, absolute, normalized, and both for tasks T1--T5."}
+![](plots/taskxvis-time.svg){fig-alt="Completion time dotplot showing jitter, absolute, normalized, and both for tasks T1--T5."}
 
-![](plots/visxtask-confidence.svg){fig-alt="Perceived confidence dotplot showing jitter, absolute, normalized, and both for tasks T1--T5."}
+![](plots/taskxvis-confidence.svg){fig-alt="Perceived confidence dotplot showing jitter, absolute, normalized, and both for tasks T1--T5."}
 
 **Detailed performance results.**
 Effect of visualization and task (T1--T5) on accuracy, completion time, and perceived confidence.
@@ -809,31 +804,23 @@ The mean rating for retrieving value 5.9, absolute 5.5, and normalized 4.8.
 The post-hoc Pairwise Wilcoxon Rank Sum test was employed with Bonferroni correction to adjust for multiple comparisons, and showed that all three task types were significantly different ($p < 0.01$ for all cases).
 
 <!-- ========================================================================== -->
-## GatherLens: A Gathering Magic Lens
+## Discussion
 
-Scatterplots have a familiar layout and an intuitive continuous scaling in the Cartesian space defined by the graphical axes, whereas gatherplots introduce discontinuities that may make them more difficult to understand.
-However, gathering does not necessarily have to be applied globally.
-Instead, we here propose a local application of gathering in a Magic Lens technique \[@Bier1993\] that we call *GatherLens* (@fig-gatherlens).
+Our results show that the gatherplots technique enable people to assess data distribution more quickly and more correctly than when using jittered scatterplots.
+However, there are several limitations to this work that may affect its generalizability and overall utility.
 
-A Magic Lens is a user-controlled interaction tool that changes the visual representation of the underlying graphical object it overlays  \[@Bier1993\].
-The GatherLens is accordingly a Magic Lens that applies local gathering in a scatterplot to the data points that it overlaps.
-This gives the user the ability to selectively manage overplotting in specific areas in a scatterplot without changing its overall visual representation.
+By virtue of being a unit visualization [@Park2018], where each data point is assigned a unique visual mark, the gatherplots technique is not primarily designed for large scale datasets. 
+For situations with several thousands or more data points, the corresponding visual marks will become so small that they are not easily distinguishable as individual units.
+Accordingly, the user study presented in this paper was limited to the Titanic dataset with only some 2,200 data points. 
+We suspect that many of these findings will not bear out for datasets only an order of magnitude larger.
 
-Lens geometry gives us additional options for layout of the stacked groups in the lens (each is visible in @fig-gatherlens):
+Analogously, gatherplots are not suitable for conveying datasets with a large number of data dimensions. 
+The technique is currently only designed with a single categorical dimension per geometric axis, plus one assigned to mark color.
+The axes could presumably be subdivided into multiple categories, similar to the Dataopsy technique [@DBLP:journals/tvcg/HoqueE24], but that is beyond the scope of this paper.
 
-* **Standard lens**: A rectangular lens that applies standard gathering to the contained points.
-* **Histogram lens**: Here, the stacked groups are arranged and aligned so that they resemble a histogram.
-* **Pie lens**: Similarly, the group layout here is radial and centered, yielding a pie or donut layout.
-
-::: {#fig-gatherlens}
-
-![](figures/gatherlens.png){fig-alt="Three examples of a GatherLens in a scatterplot of airline performance data containing 3,000 points. The scatterplot uses the actual elapsed time of a flight on the Y axis and the arrival time on the X axis. Marks are colored using a categorical color scale representing days of the week. There are three GatherLenses in the plot. Each lens is a 2D shape containing marks sorted by color and arranged in a grid. The pie lens organizes the marks in circle sectors similar to a pie chart. The histogram lens organizes marks into vertical bars arranged side by side. The standard lens uses the whole available area to lay out marks in an ordered grid."}
-
-**Three examples of a GatherLens.**
-The lenses are deployed in a scatterplot of airline performance data containing 3,000 points.
-From left: pie lens, histogram lens, and standard lens.
-Data point colors shows day of the week.
-:::
+Finally, the gatherplots technique includes carefully designed interval marks to convey the fact that a gatherplot axis is partitioned rather than continuous.
+Nevertheless, we have not evaluated the efficacy of this visual language.
+Since regular scatterplots use continuous axes, it is not clear how well a novice user will grasp the partitioned nature of a gatherplot.
 
 <!-- ========================================================================== -->
 ## Conclusion and Future Work

@@ -1,5 +1,5 @@
 {
-  "$schema": "https://vega.github.io/schema/vega-lite/v2.json",
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "data": {
     "values":[
       {"factor":"jitter","lower":29.802121964285714,"average":31.788817599999987,"upper":33.81432994047616},
@@ -34,7 +34,7 @@
           }
         },
         "color": {
-          "value": "black"
+          "field": "factor", "type": "nominal", "legend": null
         }
       }
     },
@@ -59,6 +59,9 @@
           "field": "factor",
           "sort": null,  
           "type": "ordinal"
+        },
+        "color": {
+          "field": "factor", "type": "nominal"
         }
       }
     }
