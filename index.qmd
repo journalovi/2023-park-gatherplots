@@ -31,6 +31,10 @@ format:
     keep-hidden: true
     code-tools: true
     fig-responsive: true
+    citations-hover: false
+    footnotes-hover: false
+    crossrefs-hover: false
+    theme: accessible.scss
 ---
 
 ::: {.callout-important appearance="simple"}
@@ -86,13 +90,13 @@ Beyond the embedded demonstration in this article, you can also find a live demo
 :::
 
 <!-- Teaser -->
-::: {#fig-teaser layout-ncol=3}
+::: {#fig-teaser layout-ncol=1}
 
-![Cylinders vs. MPG.](figures/teaser-1.svg){#fig-teaser1 fig-alt="Gatherplot showing MPG on the Y axis and Cylinders on the X axis for a car dataset of some 400 datapoints. Color is used to show three different origins: US (blue), Europe (orange), and Asia (green). The data is gathered in regular grids for each of the cylinder values clearly showing the distribution: four-cylinder cars have fairly uniform gas mileage, whereas six and eight-cylinder cars have lower gas mileage."}
+![Cylinders vs. MPG.](figures/teaser-1.svg){#fig-teaser1 fig-alt="Gatherplot showing MPG on the Y axis and Cylinders on the X axis for a car dataset of some 400 datapoints. Color is used to show three different origins: US (blue), Europe (orange), and Asia (green). The data is gathered in regular grids for each of the cylinder values clearly showing the distribution: four-cylinder cars have fairly uniform gas mileage, whereas six and eight-cylinder cars have lower gas mileage." .accessible-fig}
 
-![Cylinders vs. Origin.](figures/teaser-2.svg){#fig-teaser2 fig-alt="Gatherplot showing Origin on the Y axis and Cylinders on the X axis for a car dataset of some 400 datapoints. A blue-white color scale is used to show gas mileage. The data is gathered in regular grids for each of the three origins and four cylinder values (4, 5, 6, 8). The grid cells show the data distrbution: all eight cylinder cars are from the U.S., and high cylinder count seems to lead to lower gas mileage."}
+![Cylinders vs. Origin.](figures/teaser-2.svg){#fig-teaser2 fig-alt="Gatherplot showing Origin on the Y axis and Cylinders on the X axis for a car dataset of some 400 datapoints. A blue-white color scale is used to show gas mileage. The data is gathered in regular grids for each of the three origins and four cylinder values (4, 5, 6, 8). The grid cells show the data distrbution: all eight cylinder cars are from the U.S., and high cylinder count seems to lead to lower gas mileage." .accessible-fig}
 
-![MPG vs. MPG.](figures/teaser-3.svg){#fig-teaser3 fig-alt="Gatherplot showing MPG on both the Y and X axis for a car dataset of some 400 datapoints. olor is used to show three different origins: US (blue), Europe (orange), and Asia (green). Because both X and Y axes use the same categorical mapping, the data is gathered together without overplotting to show that there are many cars with low gas mileage, and most of the low-mileage cars are from the United States."}
+![MPG vs. MPG.](figures/teaser-3.svg){#fig-teaser3 fig-alt="Gatherplot showing MPG on both the Y and X axis for a car dataset of some 400 datapoints. olor is used to show three different origins: US (blue), Europe (orange), and Asia (green). Because both X and Y axes use the same categorical mapping, the data is gathered together without overplotting to show that there are many cars with low gas mileage, and most of the low-mileage cars are from the United States." .accessible-fig}
 
 **Cars dataset.**
 Gatherplots showing a dataset related to cars, yielding overplotting in normal scatterplots.
@@ -294,12 +298,12 @@ Finally, Kinetica [@DBLP:conf/chi/RzeszotarskiK14], beyond presenting a novel to
 The clusters are similar to the partioned clusters in gatherplots, but are organically shaped, not arranged in orderly grid lines, and thus harder to compare.
 The attraction approach used in Kinetica is reminiscent of the gravity model used for marks in dust & magnet [@DBLP:journals/ivs/YiMSJ05].
 
-::: {#fig-aspect-ratio layout-ncol=3}
-![Absolute mode.](figures/aspect-ratio-1.svg){#fig-aspect1 fig-alt="Gatherplot for a Titanic survivors dataset with Sex on the Y axis and Class on the X axis. Color encodes whether a person survived or not: dark red for Yes, and pink for No. In the grids formed by the categorical axes, gathered marks arranged in a regular grid show the data distribution. The grids have the same aspect ratio as the overall chart. All the marks are small and of equal size."}
+::: {#fig-aspect-ratio layout-ncol=1}
+![Absolute mode.](figures/aspect-ratio-1.svg){#fig-aspect1 fig-alt="Gatherplot for a Titanic survivors dataset with Sex on the Y axis and Class on the X axis. Color encodes whether a person survived or not: dark red for Yes, and pink for No. In the grids formed by the categorical axes, gathered marks arranged in a regular grid show the data distribution. The grids have the same aspect ratio as the overall chart. All the marks are small and of equal size." .accessible-fig}
 
-![Normalized mode.](figures/aspect-ratio-2.svg){#fig-aspect2 fig-alt="Gatherplot for a Titanic survivors dataset with Sex on the Y axis and Class on the X axis. Color encodes whether a person survived or not: dark red for Yes, and pink for No. In the grids formed by the categorical axes, gathered marks arranged in a regular grid show the data distribution. The grid cells are all uniform sized and the marks are sized to fill the available space."}
+![Normalized mode.](figures/aspect-ratio-2.svg){#fig-aspect2 fig-alt="Gatherplot for a Titanic survivors dataset with Sex on the Y axis and Class on the X axis. Color encodes whether a person survived or not: dark red for Yes, and pink for No. In the grids formed by the categorical axes, gathered marks arranged in a regular grid show the data distribution. The grid cells are all uniform sized and the marks are sized to fill the available space." .accessible-fig}
 
-![Streamgraph mode.](figures/aspect-ratio-3.svg){#fig-aspect3 fig-alt="Gatherplot for a Titanic survivors dataset with Age on the Y axis and Sex on the X axis. Color encodes the port of boarding for each passenger. The gender values on the X axis results in the chart being split horizontally into two streamgraphs."}
+![Streamgraph mode.](figures/aspect-ratio-3.svg){#fig-aspect3 fig-alt="Gatherplot for a Titanic survivors dataset with Age on the Y axis and Sex on the X axis. Color encodes the port of boarding for each passenger. The gender values on the X axis results in the chart being split horizontally into two streamgraphs." .accessible-fig}
 
 **Main layout modes for gatherplots.**
 [-@fig-aspect1] absolute mode with constant aspect ratio, which maintains the aspect ratio; [-@fig-aspect2] normalized mode of [-@fig-aspect1].
@@ -465,10 +469,10 @@ When the visual space is small, we use a comparably large bin size to increase d
 Our implementation iteratively finds a bin size as a trade-off between mark size and the most crowded bin; this is shown in @fig-optimal-bin. 
 Overall, this is an inherent weakness of unit visualizations: the need to make individual marks distinct means that the visual representation may become distorted, and the scalability of the visualization suffers overall.
 
-::: {#fig-optimal-bin layout-ncol=2}
-![Large display space.](figures/cont-size-1.svg){#fig-optimal-bin1 fig-alt="Gatherplot for a car dataset with MPG on the Y axis and unassigned X axis. Color is used to show three different origins: US (blue), Europe (orange), and Asia (green). The result is a streamgraph arrangement with each position on the Y axis showing a single gathered row of cars with the corresponding gas mileage."}
+::: {#fig-optimal-bin layout-ncol=1}
+![Large display space.](figures/cont-size-1.svg){#fig-optimal-bin1 fig-alt="Gatherplot for a car dataset with MPG on the Y axis and unassigned X axis. Color is used to show three different origins: US (blue), Europe (orange), and Asia (green). The result is a streamgraph arrangement with each position on the Y axis showing a single gathered row of cars with the corresponding gas mileage." .accessible-fig}
 
-![Small display space.](figures/cont-size-2.svg){#fig-optimal-bin2 fig-alt="Gatherplot for a car dataset with MPG on the Y axis and unassigned X axis. Color is used to show three different origins: US (blue), Europe (orange), and Asia (green). The result is a streamgraph arrangement with each position on the Y axis showing a single gathered row of cars with the corresponding gas mileage. This chart is shorter than the previous one, yielding larger mileage bins."}
+![Small display space.](figures/cont-size-2.svg){#fig-optimal-bin2 fig-alt="Gatherplot for a car dataset with MPG on the Y axis and unassigned X axis. Color is used to show three different origins: US (blue), Europe (orange), and Asia (green). The result is a streamgraph arrangement with each position on the Y axis showing a single gathered row of cars with the corresponding gas mileage. This chart is shorter than the previous one, yielding larger mileage bins." .accessible-fig}
 
 **Choosing optimal bin size based on available display space.**
 In [-@fig-optimal-bin1], there is enough space so that the dot size can be maximized, improving spatial accuracy.
@@ -485,12 +489,12 @@ Here, the gatherplot is rotated to maintain integrity with scatterplots (@fig-te
 One limitation of gatherplots is that the technique requires binning to manage a continuous variable, yet binning creates arbitrary boundaries that can be misleading.
 However, using both gatherplots and scatterplots in different views makes this problem less severe because the analyst can simply choose the visual representation most suited for a particular task.
 
-::: {#fig-cont-cont layout-ncol=3}
-![Scatterplot.](figures/cont-cont-1.svg){#fig-cont-cont1 fig-alt="Scatterplot with 5,000 random data points and severe overplotting. The data is uniformly distributed along the Y axis and appears normally distributed on the X axis. The graph shows three separate colors: blue, cyan, and moss green."}
+::: {#fig-cont-cont layout-ncol=1}
+![Scatterplot.](figures/cont-cont-1.svg){#fig-cont-cont1 fig-alt="Scatterplot with 5,000 random data points and severe overplotting. The data is uniformly distributed along the Y axis and appears normally distributed on the X axis. The graph shows three separate colors: blue, cyan, and moss green." .accessible-fig}
 
-![Absolute gatherplot.](figures/cont-cont-2.svg){#fig-cont-cont2 fig-alt="Gatherplot with absolute mode for the random 5,000-point dataset. Both the X and Y axes have been automatically binned by the algorithm. The cells resulting from this binning show ordered marks; the horizontal center area shows the most data points."}
+![Absolute gatherplot.](figures/cont-cont-2.svg){#fig-cont-cont2 fig-alt="Gatherplot with absolute mode for the random 5,000-point dataset. Both the X and Y axes have been automatically binned by the algorithm. The cells resulting from this binning show ordered marks; the horizontal center area shows the most data points." .accessible-fig}
 
-![Normalized gatherplot.](figures/cont-cont-3.svg){#fig-cont-cont3 fig-alt="Gatherplot with normalized mode for the random 5,000-point dataset. Both the X and Y axes have been automatically binned by the algorithm. Because of the normalization, marks in grid cells with few data points have been resized to fill the available space, making it easier to see outliers in the left and right side of the plot."}
+![Normalized gatherplot.](figures/cont-cont-3.svg){#fig-cont-cont3 fig-alt="Gatherplot with normalized mode for the random 5,000-point dataset. Both the X and Y axes have been automatically binned by the algorithm. Because of the normalization, marks in grid cells with few data points have been resized to fill the available space, making it easier to see outliers in the left and right side of the plot." .accessible-fig}
 
 **Using gatherplots to manage overplotting.**
 [-@fig-cont-cont1] shows a scatterplot with 5,000 random numbers with severe overplotting in the center area.
@@ -507,15 +511,15 @@ However, for a multidimensional exploration, one subtle difficulty is when the u
 In gatherplots, the logical extension of an undefined axis is the aggregation of all nodes in a single group along that axis.
 @fig-matrix shows an example of this using a dataset on survivors of the Titanic.
 
-::: {#fig-matrix layout-ncol=2}
+::: {#fig-matrix layout-ncol=1}
 
-![All passengers.](figures/undefined-1.svg){#fig-matrix1 fig-alt="Gatherplot showing all passengers of the Titanic with no mapping to the X and Y axes. Each passenger is represented by a single red mark organized into a rectangular grid."}
+![All passengers.](figures/undefined-1.svg){#fig-matrix1 fig-alt="Gatherplot showing all passengers of the Titanic with no mapping to the X and Y axes. Each passenger is represented by a single red mark organized into a rectangular grid." .accessible-fig}
 
-![All passengers colored by survival (pink = survived, gray = died).](figures/undefined-2.svg){#fig-matrix2 fig-alt="Gatherplot showing all passengers of the Titanic with no mapping to the X and Y axes. Each passenger is represented by a single mark organized into a rectangular grid. Marks are colored to show whether they survived (pink) or died (gray); approximately a quarter of the first dots in the grid to the left of the plot are colored pink."}
+![All passengers colored by survival (pink = survived, gray = died).](figures/undefined-2.svg){#fig-matrix2 fig-alt="Gatherplot showing all passengers of the Titanic with no mapping to the X and Y axes. Each passenger is represented by a single mark organized into a rectangular grid. Marks are colored to show whether they survived (pink) or died (gray); approximately a quarter of the first dots in the grid to the left of the plot are colored pink." .accessible-fig}
 
-![Passengers gathered by Class (pink = survived, gray = died).](figures/undefined-3.svg){#fig-matrix3 fig-alt="Gatherplot showing all passengers of the Titanic with the Class mapped to the X axis and no mapping to the Y axis. Class splits the horizontal space into four areas: First, Second, and Third class, and Crew. Marks are colored to show whether they survived (pink) or died (gray). First class has the highest survival rate; almost 75% of its dots are colored pink. A third of Second class is colored pink; less than a quarter of Third class and Crew are pink."}
+![Passengers gathered by Class (pink = survived, gray = died).](figures/undefined-3.svg){#fig-matrix3 fig-alt="Gatherplot showing all passengers of the Titanic with the Class mapped to the X axis and no mapping to the Y axis. Class splits the horizontal space into four areas: First, Second, and Third class, and Crew. Marks are colored to show whether they survived (pink) or died (gray). First class has the highest survival rate; almost 75% of its dots are colored pink. A third of Second class is colored pink; less than a quarter of Third class and Crew are pink." .accessible-fig}
 
-![Passengers gathered by Sex (pink = survived, gray = died).](figures/undefined-4.svg){#fig-matrix4 fig-alt="Gatherplot showing all passengers of the Titanic with the no mapping to the X axis and Sex mapped to the Y axis. Sex splits the vertical space into two areas: Female and Male. There are four times as many Male than Female marks on the plot. Marks are colored to show whether they survived (pink) or died (gray). Approximately 75% of the marks representing Female passengers are colored pink. Approximately 20% of the marks representing Male passengers are pink."}
+![Passengers gathered by Sex (pink = survived, gray = died).](figures/undefined-4.svg){#fig-matrix4 fig-alt="Gatherplot showing all passengers of the Titanic with the no mapping to the X axis and Sex mapped to the Y axis. Sex splits the vertical space into two areas: Female and Male. There are four times as many Male than Female marks on the plot. Marks are colored to show whether they survived (pink) or died (gray). Approximately 75% of the marks representing Female passengers are colored pink. Approximately 20% of the marks representing Male passengers are pink." .accessible-fig}
 
 **Gatherplot showing survivors of the *Titanic*.**
 [-@fig-matrix1] All people on board.
@@ -655,11 +659,11 @@ To reduce the chance of one chart being optimal by luck for a specific task, two
 This yielded a total of 10 questions for each participant.
 Each question was followed by the question asking confidence of estimation with a 7-point Likert scale, and the time spent for each question was measured.
 
-::: {#fig-study layout-ncol=2}
+::: {#fig-study layout-ncol=1}
 
-![The Gatherplot stimulus and the task; this is a relative comparison task (**T4**).](figures/study1.png){#fig-study1 fig-alt="Screenshot of a survey question with a gatherplot visualizing the Titanic passenger dataset on top and a question at the bottom. The gatherplot shows Class (First, Second, Third, Crew) on the X axis and Sex (Female, Male) on the Y axis. This yields a grid with two rows and four columns. Marks are colored based on whether they survived or not; cyan for yes, and blue for no. Marks are freely sized to fill the available size in each grid cell. The question at the bottom says 'Among the four groups, the number of female survivors are the highest in first class.' The options are Agree, Disagree, or Don't Know/Can't Determine. In particular, in the First Class Female grid cell, there is an absolutely majority of cyan cells with only very few blue cells. The proportion of cyan cells is much lower for the Male First Class passengenrs, indicating that the statement is true.."}
+![The Gatherplot stimulus and the task; this is a relative comparison task (**T4**).](figures/study1.png){#fig-study1 fig-alt="Screenshot of a survey question with a gatherplot visualizing the Titanic passenger dataset on top and a question at the bottom. The gatherplot shows Class (First, Second, Third, Crew) on the X axis and Sex (Female, Male) on the Y axis. This yields a grid with two rows and four columns. Marks are colored based on whether they survived or not; cyan for yes, and blue for no. Marks are freely sized to fill the available size in each grid cell. The question at the bottom says 'Among the four groups, the number of female survivors are the highest in first class.' The options are Agree, Disagree, or Don't Know/Can't Determine. In particular, in the First Class Female grid cell, there is an absolutely majority of cyan cells with only very few blue cells. The proportion of cyan cells is much lower for the Male First Class passengenrs, indicating that the statement is true." .accessible-fig}
 
-![The confidence question as a 7-point Likert scale.](figures/study2.png){#fig-study2 fig-alt="Screenshot of a multiple-choice question with seven choices as a radio button, representing a Likert-scale question. The question reads 'Please select how much you agree or disagree with the following statement: I am confident of my estimation.' The options are Strongly Disagree, Disagree, Somewhat Disagree, Neither Agree/Disagree, Somewhat Agree, Agree, Strongly Agree."}
+![The confidence question as a 7-point Likert scale.](figures/study2.png){#fig-study2 fig-alt="Screenshot of a multiple-choice question with seven choices as a radio button, representing a Likert-scale question. The question reads 'Please select how much you agree or disagree with the following statement: I am confident of my estimation.' The options are Strongly Disagree, Disagree, Somewhat Disagree, Neither Agree/Disagree, Somewhat Agree, Agree, Strongly Agree." .accessible-fig}
 
 **Example study screenshot.**
 The study consisted of a total of 10 questions, each asked on a screen like this.
@@ -730,7 +734,7 @@ The number and percentage of participants who answered correct and incorrect ans
 Based on the effect sizes and 95% confidence intervals, we see evidence that jittering yielded lower accuracy than other conditions, which were more or less equivalent in accuracy.
 This trend seems to mostly persist across all five tasks.
 
-::: {#fig-correctness layout-ncol=5}
+::: {#fig-correctness layout-ncol=2}
 
 ![Task T1.](plots/task-performance-1.svg){#fig-correctness1 fig-alt="Correctness results from our crowdsourced user study."}
 
