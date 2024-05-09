@@ -261,7 +261,7 @@ This identity property between data and display is exemplified in visualizations
 It can be contrasted with *aggregated visualizations* that combine multiple data items intop a single visual mark, such as barcharts, piecharts, and histograms.
 Our gatherplots technique shows how a unit visualization can be designed, evaluated, and even deployed from the ground up based on unit visualization principles.
 
-It is worth comparing gatherplots to ur own prior work on the Atom [@Park2018] grammar for unit visualization.^[Interestingly, gatherplots actually preceded the Atom grammar; in fact, our gatherplots design eventually led to the formulation of the more general ideas in Atom.
+It is worth comparing gatherplots to our own prior work on the Atom [@Park2018] grammar for unit visualization.^[Interestingly, gatherplots actually preceded the Atom grammar; in fact, our gatherplots design eventually led to the formulation of the more general ideas in Atom.
 However, as these things go, the grammar itself turned out to be a larger and more actionable idea.]
 Atom is a general-purpose visualization grammar with gathering (packing with no overlap) as one of the visual layout options. 
 In other words, the gatherplots technique can be more or less replicated using Atom. 
@@ -554,9 +554,9 @@ Stroke lines can be useful in some situations, but easily become dominant when n
 #### Interval Tick Marks
  
 Because we are representing ranges rather than single points, the single line type tick marks for scatterplots are not appropriate for gatherplots; instead, ticks should communicate the partitioned segments on the axes.
-Without this visual representation, when the user is confronted with a number, it can be confusing to determine whether adjacent nodes with different offset has same value or not.
-@fig-tick-mark shows design alternatives of tick mark for representing ranges.
-Our implementations use bracket type markers to reduce density from adjacent ticks.
+Without this visual representation, it can be confusing to determine whether adjacent nodes with different offset has same value or not when the user is confronted with a number.
+@fig-tick-mark shows a non-exhaustive list of design alternatives of tick marks for representing ranges inspired by existing engineering and mathematics notations for graphically showing ranges; additional visual designs are also possible.
+Our current implementations use bracket type markers; eliminating one of the delimiting lines can further reduce clutter.
 
 ::: {#fig-tick-mark layout-ncol=3}
 
@@ -572,14 +572,14 @@ Our implementations use bracket type markers to reduce density from adjacent tic
 
 ![](figures/tick-marks-6.svg){#fig-tick-mark6 fig-alt="Curly brackets."}
 
-**Various tick mark types.**
-The blue dotted region represents the area between adjacent tick
-marks.
-[-@fig-tick-mark1] is a typical line type tick mark for scatterplots.
-[-@fig-tick-mark2] lacks guidelines, which will make anchoring easier.
-[-@fig-tick-mark3] creates a packed region between adjacent marks. 
-[-@fig-tick-mark4] uses less clutter, but [-@fig-tick-mark5] is the least cluttered.
-[-@fig-tick-mark6] is the final recommendation, with the data label in the orange region.
+**Tick mark types.**
+The blue dotted region represents the area between adjacent tick marks.
+[-@fig-tick-mark1] line type tick mark.
+[-@fig-tick-mark2] double-ended arrows showing the extent of each interval.
+[-@fig-tick-mark3] double-ended arrows with delimiter lines. 
+[-@fig-tick-mark4] square brackets.
+[-@fig-tick-mark5] angled brackets.
+[-@fig-tick-mark6] curly braces.
 :::
 
 ### Interaction
@@ -624,8 +624,15 @@ Research materials associated with the study can be found on OSF at [https://osf
 
 ### Experimental Design
 
-We selected jittered scatterplots as the baseline condition, as this technique is a widely accepted standard technique maintaining consistency with scatterplots.
-We also wanted to measure the efficiency of different modes of gatherplots.
+We selected jittered scatterplots as the baseline condition for comparison. 
+We motivate this choice as follows: 
+
+ * Jittering is a canonical technique that can be easily integrated within scatterplots.
+ * Advanced jittering techniques, such as smart jittering [@Trutschl2003], are only necessary for large datasets with high overplotting.
+ * Aggregation methods, such as KDE [@Silverman1986] or spatterplots [@Mayorga2013], would lead to violating the unit viusalization principle.
+ * While there are several data-aware techniques that lay out marks in visual space to minimize overplotting, we think of gatherplots as representative for this entire class of techniques.
+ 
+Furthemore, we also wanted to measure the efficiency of different modes of gatherplots.
 Therefore, we designed the experiment to have four conditions: scatterplots with jittering (jitter), gatherplots with absolute mode (absolute), gatherplots with normalized mode (normalized), and gatherplots with a toggle to switch between absolute and normalized mode (both).
 We adopted a between-subjects design to eliminate learning effects from experiencing other modes.
 
@@ -710,7 +717,7 @@ The [OSF](https://osf.io/bk9cx/) repository contains code and data for replicati
 
 **Performance results.**
 Effect of visualization on accuracy, completion time, and perceived confidence.
-Error bars show 95\% confidence intervals calculated using bootstrapping ($N=1,000$ repetitions).}
+Error bars show 95\% confidence intervals calculated using bootstrapping ($N=1,000$ repetitions).
 :::
 
 ::: {#fig-results-detail layout-ncol=3}
@@ -757,9 +764,9 @@ This trend seems to mostly persist across all five tasks.
 #### Completion Time
 
 Completion time performance results are summarized in @fig-vis-time, with detailed accuracy results by visualization type and task in @fig-taskxvis-time.
-For the retrieve-value task (T1), on average, the completion time (sec) for each interface was for jitter 31.79, absolute 36.83, normalized 36.55, and both 49.21.
-For the absolute-value task (T2 and T3), on average, the completion time (sec) for each interface was for jitter 29.45, absolute 37.98, normalized 34.84, and both 50.73.
-For relative-value task (T4 and T5), on average, the completion time for each interface was for jitter 31.77, absolute 32.27, normalized 34.95, and both 46.60.
+For the retrieve-value task (T1), on average, the completion time (sec) for each interface was for jitter 36.5, absolute 43.3, normalized 42.6, and both 51.7.
+For the absolute-value task (T2 and T3), on average, the completion time (sec) for each interface was for jitter 29.4, absolute 38.0, normalized 34.9, and both 50.6.
+For relative-value task (T4 and T5), on average, the completion time for each interface was for jitter 31.8, absolute 32.2, normalized 35.0, and both 46.5.
 
 Based on the results, we see evidence that the both condition (absolute and normalized accessed using a toggle) yielded longer completion times than the other conditions, although this is not consistent across tasks.
 There is also some evidence that jitter on average yielded a shorter completion time, but again not consistently across all five tasks.
@@ -770,32 +777,31 @@ The participants self-reported level of confidence was reported using a 7-point 
 Confidence performance results are summarized in @fig-vis-confidence, with detailed accuracy results by visualization type and task in @fig-taskxvis-confidence.
 This data shows some evidence that jittering and normalized mode instilled lower confidence than absolute and both modes.
 
-For the value-retrieving task (T1), a Kruskal-Wallis non-parametric test revealed that the type of interface had significant impact on the confidence level ($\chi^2(3) = 74.57 p < 0.01$).
-The mean rating for each interface was for jitter 4.8, absolute 6.3, normalized 6.0, and both 6.25.
+For the value-retrieving task (T1), a Kruskal-Wallis non-parametric test revealed that the type of interface had significant impact on the confidence level ($\chi^2(3) = 24.89 p < 0.01$).
+The mean rating for each interface was for jitter 5.8, absolute 6.5, normalized 6.4, and both 6.3.
 A post-hoc Pairwise Wilcoxon Rank Sum test was employed with Bonferroni correction to adjust for multiple comparisons.
 The jitter interface was significantly lower than the other three modes ($ p < 0.01$ for all cases).
 There was no difference between absolute, normalized, and both interfaces.
 
-For absolute-value tasks (T2 and T3), a Kruskal-Wallis non-parametric test revealed that the type of interface had significant impact on the confidence level ($\chi^2(3) = 18.32, p < 0.01$).
-The mean rating for each interface was jitter 5.4, absolute 5.7, normalized 5.0, and both 5.8.
+For absolute-value tasks (T2 and T3), a Kruskal-Wallis non-parametric test revealed that the type of interface did not have significant impact on the confidence level ($\chi^2(3) = 4.2485, p = 0.24$).
+The mean rating for each interface was jitter 5.2, absolute 5.4, normalized 5.3, and both 5.5.
+
+For relative-value tasks (T4 and T5), a Kruskal-Wallis non-parametric test revealed that the type of interface had significant impact on the confidence level ($\chi^2(3) = 57.74, p < 0.01$).
+The mean rating was jitter 4.6, absolute 5.1, normalized 4.2, and both 5.3.
 A post-hoc Pairwise Wilcoxon Rank Sum test was employed with Bonferroni correction to adjust for multiple comparisons.
-The interface with both modes was significantly higher than normalized and jitter mode ($p < 0.01$ for both); however, there was no difference with the absolute mode.
-The interface with absolute mode was significantly higher than normalized and jitter mode ($p < 0.01$).
+Confidence for the jitter interface was significantly lower than both and absolute, and normalized was significantly lower than absolute and both ($p < 0.01$ for all cases); all other pairwise differences were not significant.
 
-For relative-value tasks (T4 and T5), a Kruskal-Wallis non-parametric test revealed that the type of interface did not have significant impact on the relative tasks ($\chi^2(3) = 4.1, p = 0.2$).
-The mean rating was jitter 4.7, absolute 4.9, relative 4.9, and both 4.8.
-
-One possibility for explaining this result is that the relative task is more difficult than the other tasks.
-The low correct percentage of questions are also shown in @fig-correctness.
-To see that, we tested the confidence level between task types.
-A Kruskal-Wallis non-parametric test revealed that the type of task had significant impact on the confidence level ($\chi^2(2) = 148.1, p < 0.01$).
-The mean rating for retrieving value 5.9, absolute 5.5, and normalized 4.8.
+One possibility for explaining this result is that relative-value tasks (T4 and T5) is more difficult than the other tasks.
+This is reflected in the low correctness for T4 and---especially---T5 shown in @fig-correctness.
+To investigate this idea, we tested the confidence level between task types using a Kruskal-Wallis non-parametric test.
+This revealed that the type of task indeed had significant impact on the confidence level ($\chi^2(2) = 232.1, p < 0.01$).
+The mean confidence rating for retrieving value taks was 6.3, absolute-value tasks 5.4, and relative-value tasks 4.8.
 The post-hoc Pairwise Wilcoxon Rank Sum test was employed with Bonferroni correction to adjust for multiple comparisons, and showed that all three task types were significantly different ($p < 0.01$ for all cases).
 
 <!-- ========================================================================== -->
 ## Discussion
 
-Our results show that the gatherplots technique enable people to assess data distribution more quickly and more correctly than when using jittered scatterplots.
+Our results show that the gatherplots technique enables people to assess data distribution more correctly than when using jittered scatterplots.
 It is plausible that the ordered grid layout used for marks in the gatherplots technique better supports quickly estimating (or even counting) the marks compared to merely randomly jittering the points.
 However, there are several limitations to this work that may affect its generalizability and overall utility.
 
@@ -808,7 +814,7 @@ Analogously, gatherplots are not suitable for conveying datasets with a large nu
 The technique is currently only designed with a single categorical dimension per geometric axis, plus one assigned to mark color.
 The axes could presumably be subdivided into multiple categories, similar to the Dataopsy technique [@DBLP:journals/tvcg/HoqueE24], but that is beyond the scope of this paper.
 
-We chose to include an interactive setting---``both''---in our experiment where participants were allowed to toggle between absolutel and normalized mode.
+We chose to include an interactive setting---"both"---in our experiment where participants were allowed to toggle between absolutel and normalized mode.
 However, the results show that this condition yielded significantly longer completion times with little to no improvement in accuracy or confidence.
 The increased completion time may not be a surprise because of the toggle interaction.
 Furthermore, the fact that both absolute and normalized mode had no specific benefit in their own right also explains why their combination was also not superior.
