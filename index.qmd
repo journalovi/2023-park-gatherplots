@@ -251,7 +251,7 @@ While gatherplots thus yield better discriminability, they are also less visuall
 
 Hieraxes [@Shneiderman1996], SandDance [@Sanddance], and gatherplots (that we present in this paper) are all examples of a recently recognized family of visualizations called *unit visualizations* [@Park2018] where the relation between data items and their mark is explicitly maintained. 
 This identity property between data and display is exemplified in visualizations such as unit charts, dotplots, and scatterplots.
-It can be contrasted with *aggregated visualizations* that combine multiple data items intop a single visual mark, such as barcharts, piecharts, and histograms.
+It can be contrasted with *aggregated visualizations* that combine multiple data items intop a single visual mark, such as bar charts, pie charts, and histograms.
 Our gatherplots technique shows how a unit visualization can be designed, evaluated, and even deployed from the ground up based on unit visualization principles.
 
 It is worth comparing gatherplots to our own prior work on the Atom [@Park2018] grammar for unit visualization.^[Interestingly, gatherplots actually preceded the Atom grammar; in fact, our gatherplots design eventually led to the formulation of the more general ideas in Atom.
@@ -264,7 +264,7 @@ Also, where Atom is merely a grammar, this paper contributes a detailed user stu
 ### Visualizing Categorical Variables
 
 While we have already ascertained that scatterplots are not optimal for categorical variables, there exists a multitude of visualization techniques that have been specifically designed for such data [@Bederson2002; @Hofmann2000; @Kosara2006].
-Simplest among them are histograms, which visualize the item count for each categorical value [@Stevens1946].
+Simplest among them are bar chart histograms, which visualize the item count for each categorical value [@Stevens1946].
 Boxplots and violin plots show the distribution of continuous variables over categorical variables [@Wickham2011].
 While hieraxes, histograms, and treemaps are effective in dealing with categorical variables, it is difficult to extend these to continuous vs. categorical variables.
 One way is to apply binning to continuous variables to create groups of values.
@@ -338,9 +338,9 @@ Similarly, a visual representation of the segmented graphical axis should extern
 //| panel: input
 //| fig-alt: "Interactive demonstration of a gatherplot implemented in JavaScript and Observable JS. The visualization shows a cars dataset of some 400 entries. The control panel allows a user to select which dimension to map to the two graphical axes and color."
 //| fig-cap: "Interactive gatherplot"
-viewof xAxis = Inputs.select(cars.columns, {label: "X Axis", value: cars.columns[0]});
-viewof yAxis = Inputs.select(cars.columns, {label: "Y Axis", value: cars.columns[1]});
-viewof color = Inputs.select(colors, {format: x => x.name, value: colors.find(t => t.name === "Cylinders"), label: "Color"});
+viewof xAxis = Inputs.select(cars.columns.slice(1, 8), {label: "X Axis", value: cars.columns[1]});
+viewof yAxis = Inputs.select(cars.columns.slice(1, 8), {label: "Y Axis", value: cars.columns[2]});
+viewof color = Inputs.select(colors, {format: x => x.name, value: colors.find(t => t.name === "Origin"), label: "Color"});
 viewof sorting = Inputs.checkbox(["color"], {label: "Sorting"});
 ```
 
@@ -353,7 +353,6 @@ color.categorical ?
 
 ```{ojs}
 colors = [
-  {name: 'Name', categorical: true}, 
   {name: 'MPG', categorical: false}, 
   {name: 'Cylinders', categorical: true}, 
   {name: 'Displacement', categorical: false}, 
@@ -422,17 +421,31 @@ The choice between absolute and streamgraph mode happens automatically based on 
 Therefore, only a simple interaction is required to toggle between absolute and normalized mode.
 However, we do expose a setting to manually toggle between these modes as well.
 
+### Visibility, Discriminability, and Spatial Accuracy
+
+Unit visualizations maintain an invariant one-to-one mapping between data points and visual marks [@Park2018].
+This mapping ensures a straightforward connection between the underlying data and the visual representation; nothing is hidden.
+However, it also implies that unit visualizations such as gatherplots maintain a *visibility guarantee*; not only is there a one-to-one mapping between data points and visual marks, but *all* visual marks are also guaranteed to always be visible.
+This has implications on the overall visual and data scalability of the gatherplot (as well as any unit visualization); see @sec-scalability.
+
+To maintain guaranteed visibility of all marks, gatherplots will (a) resize marks as well as (b) relocate them into stacked groups.
+However, resizing marks may affect the viewer's ability to distinguish the marks and discriminate between them (similar to how jittering introduces distortion).
+Furthermore, moving a mark from its original position in a regular scatterplot introduces distortion.
+We summarize these gatherplot metrics as follows:
+
+ * *Spatial accuracy* is the degree to which a mark in a gatherplot is mapped to the actual position it would have been mapped if the mapping had been continuous (like for a regular scatterplot).
+ * *Discriminability* is the ability for a user to perceive individual marks in a unit visualization (such as a gatherplot).
+
+While these metrics are particularly important for unit visualizations, discriminability is also generally applicable to any visualization and has been discussed in prior work [@DBLP:journals/tvcg/LuLWYZDH22; @DBLP:journals/tvcg/VerasC20].
+
 ### Managing Continuous Variables
 
 To use gatherplots for continuous variables, we apply binning to partition the variable into discrete intervals.
 The resulting visualization resembles dots plots by Wilkinson [-@Wilkinson1999], where bin size is equal to dot size.
 The size of individual bins is important for binning because it determines the spatial accuracy and discriminability of the visualization.
-We define *spatial accuracy* as the degree to which a mark in a gatherplot is mapped to the actual position it would have been mapped if the mapping had been continuous (like for a regular scatterplot).
-*Discriminability*, on the other hand, is the ability for a user to perceive individual marks in a unit visualization.
-Both of these metrics are particular relevant to unit visualizations, although discriminability has been proposed in prior work [@DBLP:journals/tvcg/LuLWYZDH22; @DBLP:journals/tvcg/VerasC20].
 
-Wilkinson proposed $.25n^{-1/2}$ as the optimal dot size for dot plots (although he also noted that an implementation should reduce size for overflow situations).
-This creates reasonable dot plots for fixed aspect ratio of 5 to 1, which is common in statistical charts assuming normal distribution of nodes.   
+Wilkinson proposed $.25n^{-1/2}$ [-@Wilkinson1999] (where $n$ is the number of data points) as the optimal dot size for dot plots (although he also noted that an implementation should reduce size for overflow situations).
+This creates reasonable dot plots for fixed aspect ratio of 5 to 1, which is common in statistical charts assuming normal distribution of nodes.
 However, gatherplots require two different assumptions:
 First, the aspect ratio varies according to the space given to the categorical variables.
 Second, the dot size or bin size is determined by the global maximum in the dataset, which may not be in the same cluster.
@@ -459,9 +472,11 @@ This results in two different overviews even though the two plots have identical
 @fig-cont-cont shows how gatherplots handle the situation when continuous variables are assigned to **both** axes, causing both to be binned.
 The plot is using normalized mode with two random variables.
 The normalized mode makes it easier to identify the outliers and the distribution of outliers.
-Furthermore, the case of scatterplots with the same continuous variables on both axes can be treated as a special case of continuous vs. categorical variables.
-Here, the gatherplot is rotated to maintain integrity with scatterplots (@fig-teaser(c)). 
 Note that an alternate solution may be to facet the scatterplot by interaction, or even by animating the facets [@Chen2018].
+
+Assigning the same continuous variables to both axes can be treated as a special case of continuous vs. categorical variables.
+This yields an essentially 1D representation somewhat akin to the work by Correll et al. on defensive rain cloud plots [@DBLP:journals/tvcg/CorrellLKS19; @DBLP:journals/cgf/Correll23].
+@fig-teaser(c) shows how the gatherplot can even rotated to maintain visual integrity with scatterplots.
 
 One limitation of gatherplots is that the technique requires binning to manage a continuous variable, yet binning creates arbitrary boundaries that can be misleading.
 However, using both gatherplots and scatterplots in different views makes this problem less severe because the analyst can simply choose the visual representation most suited for a particular task.
@@ -508,9 +523,9 @@ Here the Y axis is undefined.
 Here the X axis is undefined.
 :::
 
-### Visual and Data Scalability
+### Visual and Data Scalability {#sec-scalability}
 
-There is a clear upper bound to how many data points can be guaranteed to be visible in a gatherplot.
+The visibility guarantee for a unit visualization---such as gatherplots---means that there is an upper bound to how many data points can be visualized in a gatherplot.
 A naïve calculation of this bound assumes that the minimum size for a unit visual mark in a gatherplot is 2 $\times$ 2 pixels---one pixel of fill and one pixel of delimiting border between this and the next mark---yielding an area of $m = 4$ pixels per mark.
 This means that given an assigned area of $D$ pixels, we can at most fit $N = D / m$ marks in the plot. 
 If a typical plot is $400 \times 400$ pixels (which is the approximate size in this article on most devices), we can theoretically fit up to 40,000 visual marks inside that plot.
@@ -527,7 +542,7 @@ Obviously, a scatterplot with the same mark size will not have the same scalabil
 ### Visual Design
 
 Gatherplots build on the same visual language as scatterplots.
-However, some aspects are different; below we discuss our design choices for visual mark shape as well as tick marks.
+However, some aspects are different; below we discuss our design choices for visual mark shape, stacked group layout, grid lines, as well as tick marks.
 
 #### Visual Marks
 
@@ -539,9 +554,36 @@ In normalized mode, sometimes the aspect ratio of visual marks changes according
 Also, as gathering changes the size of marks to fit in one cluster, sometimes the marks size becomes too small or too large compared to other marks.
 This results in several unique design considerations for item shapes.
 
+#### Stacked Group Layout
+
+Rather than directly placing marks in the position governed by their spatial X and Y mapping, gatherplots arrange them into stacked groups.
+The spatial layout of these groups is a free design parameter.
+Our implementation uses a regular grid so that the available display space---which sometimes may have an awkward (i.e., non-square and possibly elongated) aspect ratio---is optimally used.
+However, the visual marks inside each group could conceivably be organized into glyph-like shapes, such as a bar chart or a pie chart, based on a third discriminating variable.
+The challenge for such arrangements is that the stacked group's aspect ratio may not be optimal for a specific layout, yielding significant wasted space.
+Figure @fig-group-layout gives an overview of some of these layouts.
+
+::: {#fig-group-layout layout-ncol=4}
+![Stacked group.](figures/group-layout-1.svg){#fig-group-layout1 fig-alt="Standard group layout. The visual marks appear in random order in a regular grid. There are 20 purple marks, 12 green, and 48 yellow marks."}
+
+![Ordered stacked group.](figures/group-layout-2.svg){#fig-group-layout2 fig-alt="Ordered group layout. The visual marks appear ordered by color in a regular grid. There are 20 purple marks, 12 green, and 48 yellow marks."}
+
+![Bar chart glyph.](figures/group-layout-3.svg){#fig-group-layout3 fig-alt="Bar chart group layout. The visual marks in this stacked group have been organized into a bar chart glyph, where each bar is made up of purple, green, and yellow marks, respectively. The purple bar consists of 20 marks, the green of 12, and the yellow of 48 marks."}
+
+![Pie chart glyph.](figures/group-layout-4.svg){#fig-group-layout4 fig-alt="Pie chart group layout. The visual marks in this stacked group have been organized into a pie chart glyph, where each bar is made up of purple, green, and yellow marks, respectively. The purple pie consists of 20 marks, the green of 12, and the yellow of 48 marks."}
+
+**Stacked group layouts.**
+Four design alternatives for spatial layouts of marks in a stacked group.
+:::
+
+#### Grid Lines
+
+Grid lines inside the plot area of a gatherplot cannot be used in the same way as for a regular scatterplot since this area is not a continuous visual substrate.
+However, while our implementations currently do not support this to minimize visual clutter, it is conceivable to use grid lines as delimiters for the different intervals to make identifying stacked groups and their values easier.
+
 #### Interval Tick Marks
  
-Because we are representing ranges rather than single points, the single line type tick marks for scatterplots are not appropriate for gatherplots; instead, ticks should communicate the partitioned segments on the axes.
+As with grid lines, because we are representing ranges rather than single points, the single line type tick marks for scatterplots are not appropriate for gatherplots; instead, ticks should communicate the partitioned segments on the axes.
 Without this visual representation, it can be confusing to determine whether adjacent nodes with different offset has same value or not when the user is confronted with a number.
 @fig-tick-mark shows a non-exhaustive list of design alternatives of tick marks for representing ranges inspired by existing engineering and mathematics notations for graphically showing ranges; additional visual designs are also possible.
 Our current implementations use bracket type markers; eliminating one of the delimiting lines can further reduce clutter.
