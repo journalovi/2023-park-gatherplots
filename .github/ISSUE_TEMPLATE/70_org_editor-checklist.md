@@ -22,7 +22,7 @@ assignees: ''
 
 ### Check that the live version of the article contains at least the following information:
 - [ ] Author information (This section might be at the end of the article. This section might be blank if the authors asked to anonymize themselves during the reviewing process.)
-- [ ] Abstract exists and meets the [structured abstract requirement](https://www.journalovi.org/author-guide.html#abstract)
+- [ ] Abstract exists. ([Structured abstract](https://www.journalovi.org/author-guide.html#abstract is encouraged, but not required.)
 - [ ] Structure that gives readers an overview and facilitates navigation, such as:
     * Table of contents (if the article is text-intensive)
     * Link or buttons to different parts of the paper or switching between paper-mode vs. interactive mode
