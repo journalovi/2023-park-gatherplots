@@ -30,6 +30,7 @@ format:
     echo: false
     embed-resources: true
     self-contained-math: true
+    html-math-method: katex
     keep-hidden: true
     code-tools: true
     fig-responsive: true
