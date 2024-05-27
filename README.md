@@ -1,5 +1,11 @@
 ```diff
 ! This paper is under review on the experimental track of the Journal of Visualization and Interaction.
+Authors: @nickelm
+OC: @mjskay
+AE: @codementum
+R1: @joviewer-xyz
+R2: @facet-fan
+R3: @jov-anonymous-reviewer-AAAA (later @jov-anonymous-reviewer-AAAA-proxy)
 ```
 
 # gatherplots
