@@ -15,6 +15,8 @@ assignees: ''
 ## a commit or pull request at https://github.com/journalovi/jovi-workflows
 -->
 
+*Delete any checkboxes that do not apply to this paper*
+
 - [ ] Set up Github pages
    - [ ] If the paper is static HTML and does not require compilation:
       - [ ] ensure the paper contents are in `index.html` in the root folder of the repository
@@ -40,26 +42,36 @@ assignees: ''
    ```
    ::: {.callout-important appearance="simple"}
    ## Under Review {.unnumbered}
-   This paper is [under review](https://www.journalovi.org/under-review.html) on the experimental track of the [Journal of Visualization and Interaction](https://www.journalovi.org/). See the [reviewing process](https://github.com/journalovi/20xx-repo-name/issues).
+   This paper is [under review](https://www.journalovi.org/under-review.html) on the experimental track of the [Journal of Visualization and Interaction](https://www.journalovi.org/). See the [reviews and issues for this paper](https://github.com/journalovi/20xx-repo-name/issues).
    :::
    ```
 
    In HTML this could be:
 
    ```
-   <p><strong>Under Review:</strong> This paper is <a href="https://www.journalovi.org/under-review.html">under review</a> on the experimental track of the <a href="https://www.journalovi.org/">Journal of Visualization and Interaction</a>. See the <a href="https://github.com/journalovi/20xx-repo-name/issues">reviewing process</a>.</p>
+   <p><strong>Under Review:</strong> This paper is <a href="https://www.journalovi.org/under-review.html">under review</a> on the experimental track of the <a href="https://www.journalovi.org/">Journal of Visualization and Interaction</a>. See the <a href="https://github.com/journalovi/20xx-repo-name/issues">reviews and issues for this paper</a>.</p>
    ```
    - [ ] In the info box, ensure “20xx-repo-name” is replaced with the name of the repository so that the link points to the Issues page on Github.
    - [ ] Check that the live version of the paper now has the infobox in it with the correct links. You may need to go to the Actions page to check that the build process has completed, then go back to the live paper URL. You might need to reload the article without cache (In Chrome: Cmd + Shift + R (Mac) or Ctrl+ Shift + R (Windows)).
 - [ ] Compare the paper with the authors’ compiled version that the authors submitted. Sample the figures and interactive elements to see if they are present and work in the same way.
 - [ ] Check that the article works locally without an internet connection:
    - [ ] Check out the repo and switch to whatever branch serves the site (e.g. `main` or `master` for sites without compilation, `gh-pages` for sites with compilation).
-   - [ ] With the internet off (e.g. in airplane mode), ensure the page loads in a browser. Sample the figures and interactive elements to see if they are present and work in the same way. You may need to use a local server from the repo directory:
+   - [ ] Compare the page with internet on and internet off (e.g. in airplane mode), ensuring the page is the same. You may need to use a local server from the repo directory:
          
       ```sh
       python -m http.server
       ```
-- [ ] From the main repo page (https://github.com/journalovi/20xx-repo-name), click the settings gear icon next to "About" on the right. (If you cannot see the “About” section, make your web browser window wider.)
+
+      When loading, keep the dev console open and note any resources that are unable to load. Sample the figures and interactive elements to see if they are present and work in the same way. If any are missing, either attempt to fix or prepare a list for the authors of resources they will need to ensure are included in their repository rather than loaded over the network. In quarto, it may be helpful to add (if it is not there already):
+
+      ```yaml
+      format:
+        html:
+          embed-resources: true
+          self-contained-math: true
+          html-math-method: katex
+      ```
+- [ ] From the [main repo page](../), click the settings gear icon next to "About" on the right. (If you cannot see the “About” section, make your web browser window wider.)
    - [ ] Under "Description" enter "UNDER REVIEW"
    - [ ] Under "Website" tick "Use Your Github Pages Website".
    - [ ] Click “Save changes”
