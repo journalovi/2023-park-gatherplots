@@ -42,7 +42,10 @@ format:
 
 ::: {.callout-important appearance="simple"}
 ## Under Review {.unnumbered}
-This paper is [under review](https://www.journalovi.org/under-review.html) on the experimental track of the [Journal of Visualization and Interaction](https://www.journalovi.org/). See the [reviews and issues for this paper](https://github.com/journalovi/2023-park-gatherplots/issues).
+This paper is [under review](https://www.journalovi.org/under-review.html) on the experimental
+track of the [Journal of Visualization and Interaction](https://www.journalovi.org/).
+See the [reviews](https://github.com/journalovi/2023-park-gatherplots/issues?q=is%3Areview) and
+[issues](https://github.com/journalovi/2023-park-gatherplots/issues) for this paper.
 :::
 
 ::: {.callout-note appearance="simple" icon=false collapse=false}
