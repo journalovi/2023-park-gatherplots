@@ -28,6 +28,8 @@ format:
   html:
     toc: true
     echo: false
+    embed-resources: true
+    self-contained-math: true
     keep-hidden: true
     code-tools: true
     fig-responsive: true
