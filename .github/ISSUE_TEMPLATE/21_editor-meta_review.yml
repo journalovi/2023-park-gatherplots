@@ -8,7 +8,7 @@
 name: "[Editor] Meta-Review"
 description: Provide a meta-review for this paper
 title: "[DECISION] <title>"
-labels: [meta-review]
+labels: [meta-review, review]
 body:
 - type: markdown
   attributes:
