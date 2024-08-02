@@ -52,10 +52,12 @@ assignees: ''
    In HTML this could be:
 
    ```
-   <p><strong>Under Review:</strong> This paper is <a href="https://www.journalovi.org/under-review.html">under review</a>
+   <p style="border-left: 5px solid #ff4136; border-right: 1px solid #dee2e6; border-top: 1px solid #dee2e6; border-bottom: 1px solid #dee2e6; border-radius: 6px; padding: 0.75em 1em;">
+   <strong>Under Review:</strong> This paper is <a href="https://www.journalovi.org/under-review.html">under review</a>
    on the experimental track of the <a href="https://www.journalovi.org/">Journal of Visualization and Interaction</a>.
    See the <a href="https://github.com/journalovi/20xx-repo-name/issues?q=label%3Areview">reviews</a> and
-   <a href="https://github.com/journalovi/20xx-repo-name/issues">issues</a> for this paper.</p>
+   <a href="https://github.com/journalovi/20xx-repo-name/issues">issues</a> for this paper.
+   </p>
    ```
    - [ ] In the info box, ensure “20xx-repo-name” is replaced with the name of the repository so that the links point to the appropriate pages on Github.
    - [ ] Check that the live version of the paper now has the infobox in it with the correct links. You may need to go to the Actions page to check that the build process has completed, then go back to the live paper URL. You might need to reload the article without cache (In Chrome: Cmd + Shift + R (Mac) or Ctrl+ Shift + R (Windows)).
