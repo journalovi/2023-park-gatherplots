@@ -17,6 +17,7 @@ assignees: ''
 
 *Delete any checkboxes that do not apply to this paper*
 
+- [ ] Add submission to the internal JoVI submissions spreadsheet
 - [ ] Set up Github pages
    - [ ] If the paper is static HTML and does not require compilation:
       - [ ] ensure the paper contents are in `index.html` in the root folder of the repository
