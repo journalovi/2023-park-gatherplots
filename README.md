@@ -1,15 +1,6 @@
-```diff
-! This paper is under review on the experimental track of the Journal of Visualization and Interaction.
-Authors: @nickelm
-OC: @mjskay
-AE: @codementum
-R1: @joviewer-xyz
-R2: @facet-fan
-R3: @jov-anonymous-reviewer-AAAA (later @jov-anonymous-reviewer-AAAA-proxy)
-```
+# Gatherplot - A Non-Overlapping Scatterplot
 
-# gatherplots
-Gatherplots interactive article
+An interactive article in the [Journal of Visualization and Interaction (JoVI)](https://journalovi.org/).
 
 ## Abstract
 
@@ -57,3 +48,12 @@ Beyond the embedded demonstration in this article, you can also find a live demo
 ## License
 
 This work is licensed under a [Creative Commons Attribution 4.0 International License](https://creativecommons.org/licenses/by/4.0/).
+
+```
+Authors: @nickelm
+OC: @mjskay
+AE: @codementum
+R1: @joviewer-xyz
+R2: @facet-fan
+R3: @jov-anonymous-reviewer-AAAA (later @jov-anonymous-reviewer-AAAA-proxy)
+```
