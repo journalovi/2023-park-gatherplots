@@ -23,24 +23,27 @@ assignees: ''
 
 ### Recruit reviewers:
 - [ ] Reviewer 1 recruited.
+  - [ ] In the header at the top of `README.md` in this repository, replace the `TBD` under `R1:` with the Github ID of the reviewer.
   - [ ] Give the reviewer **Read** access on this repository:
     - Under *Settings* -> *Collaborators and Teams*, add the Reviewer's Github ID.
     - Ensure their *Role* is **Read**
-  - [ ] In the header at the top of `README.md` in this repository, replace the `TBD` under `R1:` with the Github ID of the reviewer.
+  - [ ] Wait for reviewer to accept the Github invitation
   - [ ] Create a [Review Request Issue](new?assignees=&labels=pre-review&projects=&template=20_editor_reviewer-write_review.md&title=%5BPRE-REVIEW%5D+Review+Request) and [assign](https://docs.github.com/en/issues/tracking-your-work-with-issues/assigning-issues-and-pull-requests-to-other-github-users#assigning-an-individual-issue-or-pull-request) the reviewer to it.
   - [ ] Organizer notified on Slack (or mentioned in a reply here).
 - [ ] Reviewer 2 recruited.
+  - [ ] In the header at the top of `README.md` in this repository, replace the `TBD` under `R1:` with the Github ID of the reviewer.
   - [ ] Give the reviewer **Read** access on this repository:
     - Under *Settings* -> *Collaborators and Teams*, add the Reviewer's Github ID.
     - Ensure their *Role* is **Read**
-  - [ ] In the header at the top of `README.md` in this repository, replace the `TBD` under `R2:` with the Github ID of the reviewer.
+  - [ ] Wait for reviewer to accept the Github invitation
   - [ ] Create a [Review Request Issue](new?assignees=&labels=pre-review&projects=&template=20_editor_reviewer-write_review.md&title=%5BPRE-REVIEW%5D+Review+Request) and [assign](https://docs.github.com/en/issues/tracking-your-work-with-issues/assigning-issues-and-pull-requests-to-other-github-users#assigning-an-individual-issue-or-pull-request) the reviewer to it.
   - [ ] Organizer notified on Slack (or mentioned in a reply here).
 - [ ] Reviewer 3 recruited.
+  - [ ] In the header at the top of `README.md` in this repository, replace the `TBD` under `R1:` with the Github ID of the reviewer.
   - [ ] Give the reviewer **Read** access on this repository:
     - Under *Settings* -> *Collaborators and Teams*, add the Reviewer's Github ID.
     - Ensure their *Role* is **Read**
-  - [ ] In the header at the top of `README.md` in this repository, replace the `TBD` under `R3:` with the Github ID of the reviewer.
+  - [ ] Wait for reviewer to accept the Github invitation
   - [ ] Create a [Review Request Issue](new?assignees=&labels=pre-review&projects=&template=20_editor_reviewer-write_review.md&title=%5BPRE-REVIEW%5D+Review+Request) and [assign](https://docs.github.com/en/issues/tracking-your-work-with-issues/assigning-issues-and-pull-requests-to-other-github-users#assigning-an-individual-issue-or-pull-request) the reviewer to it.
   - [ ] Organizer notified on Slack (or mentioned in a reply here).
 
