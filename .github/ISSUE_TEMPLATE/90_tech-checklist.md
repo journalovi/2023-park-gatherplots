@@ -66,7 +66,7 @@ assignees: ''
 - [ ] Check that the article works locally without an internet connection:
    - [ ] Check out the repo and switch to whatever branch serves the site (e.g. `main` or `master` for sites without compilation, `gh-pages` for sites with compilation).
    - [ ] Compare the page with internet on and internet off (e.g. in airplane mode), ensuring the page is the same. You may need to use a local server from the repo directory:
-         
+
       ```sh
       python -m http.server
       ```
@@ -106,7 +106,9 @@ assignees: ''
 - [ ] Ensure that the authors have write access to the repo:
    - [ ] Under Settings -> Collaborators and Teams, click "Add people"
    - [ ] Enter the Github usernames for each author as provided by the authors. Give each one "Write" access.
-- [ ] Re-render [under-review.qmd](https://github.com/journalovi/journalovi.github.io/blob/main/under-review.qmd) on the JoVI website (See instructions in the source code). Ensure that the added paper is listed on the [Under Review](https://www.journalovi.org/under-review.html) page in the correct location.
+- [ ] Re-render [under-review.qmd](https://github.com/journalovi/journalovi.github.io/blob/main/under-review.qmd) on the JoVI website (See instructions in the source code: you must delete the corresponding cached data in `_freeze` to re-render the page).
+   - [ ] Ensure that the added paper is listed on the [Under Review](https://www.journalovi.org/under-review.html) page in the correct location.
+   - [ ] Ensure that the title for the paper matches the actual title of the live article. If it does not, make sure that the rendered paper sets the `<title>` HTML tag, then re-render `under-review.qmd`.
 - [ ] When this checklist is complete, create the following issues and tag the relevant people (Github IDs are listed on [People page](https://www.journalovi.org/people.html)), then close this issue:
    - [ ] [Recruit Associate Editor](new?assignees=&labels=pre-review&projects=&template=91_tech_org-recruit_editor.md&title=%5BPRE-REVIEW%5D+Recruit+Associate+Editor) (assign to the OC of this paper) (**NOTE:** this part of the process may change as we evolve the Editor-Wrangler role)
    - [ ] [Open Materials Review](new?assignees=&labels=review&projects=&template=92_tech_open-review.md&title=%5BREVIEW%5D+Open+Materials+Review) (assign to the Open Practices Chair)
