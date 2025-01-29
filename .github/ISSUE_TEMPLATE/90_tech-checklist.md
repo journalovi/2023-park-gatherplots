@@ -111,5 +111,5 @@ assignees: ''
    - [ ] Ensure that the title for the paper matches the actual title of the live article. If it does not, make sure that the rendered paper sets the `<title>` HTML tag, then re-render `under-review.qmd`.
 - [ ] When this checklist is complete, create the following issues and tag the relevant people (Github IDs are listed on [People page](https://www.journalovi.org/people.html)), then close this issue:
    - [ ] [Recruit Associate Editor](new?assignees=&labels=pre-review&projects=&template=91_tech_org-recruit_editor.md&title=%5BPRE-REVIEW%5D+Recruit+Associate+Editor) (assign to the OC of this paper) (**NOTE:** this part of the process may change as we evolve the Editor-Wrangler role)
-   - [ ] [Open Materials Review](new?assignees=&labels=review&projects=&template=92_tech_open-review.md&title=%5BREVIEW%5D+Open+Materials+Review) (assign to the Open Practices Chair)
+   - [ ] [Open Materials Review](new?assignees=&labels=review&projects=&template=92_tech_open-review.md&title=%5BREVIEW%5D+Open+Materials+Review) (assign to the Open Practices Chair with the role "Triage" on the repo)
    - [ ] [Accessibility Review Request](new?assignees=&labels=pre-review&projects=&template=93_tech_acc-review_request.md&title=%5BPRE-REVIEW%5D+Accessibility+Review+Request) (assign to the Accessibility Chair)
