@@ -99,7 +99,7 @@ assignees: ''
 - [ ] Replace `[insert Github IDs]` in `README.md` with the authors' Github IDs.
 - [ ] When an OC has been assigned to this paper, replace the `TBD` under `OC:` in `README.md` with the Github ID of the OC.
 - [ ] Enable branch protection on the repository:
-   - [ ] Under Settings -> Branches, click "Add branch protection rule"
+   - [ ] Under Settings -> Branches, click "Add classic branch protection rule"
    - [ ] Under "Branch name pattern", enter "main" or "master" (whichever applies to this repo)
    - [ ] Click "Create"
    - [ ] Check that the newly-created rule says "Currently applies to 1 branch" next to it.
